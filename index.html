@@ -3,36 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maritime Pro | اختبار الملاحة الاحترافي</title>
+    <title>Maritime Pro | منصة الاختبارات البحرية</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap');
         
         :root {
             --bg-color: #000000;
-            --card-bg: rgba(20, 20, 25, 0.7);
+            --card-bg: rgba(20, 20, 25, 0.75);
             --text-main: #f5f5f7;
             --text-secondary: #a1a1a6;
             --accent-blue: #0A84FF;
-            --accent-hover: #0070E0;
+            --accent-orange: #FF9F0A;
+            --accent-purple: #BF5AF2;
             --success: #32d74b;
             --danger: #ff453a;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --glass-blur: blur(25px);
+            --border-color: rgba(255, 255, 255, 0.12);
+            --glass-blur: blur(28px);
         }
 
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)), 
                         url('https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=2070&auto=format&fit=crop') center/cover fixed;
             color: var(--text-main);
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 20px 20px 0 20px;
             overflow-x: hidden;
-            position: relative;
+            box-sizing: border-box;
         }
 
         .glass-card {
@@ -41,124 +41,192 @@
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--border-color);
             border-radius: 32px;
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-            width: 800px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+            width: 850px;
             max-width: 100%;
             overflow: hidden;
             position: relative;
             display: none;
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            margin-bottom: 60px; /* لترك مساحة للحقوق أسفل الشاشة */
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            margin: auto;
         }
+        .glass-card.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
 
-        .glass-card.active {
-            display: block;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .landing-header { text-align: center; padding: 40px 20px 20px; }
+        .landing-header { text-align: center; padding: 40px 25px 20px; }
         .landing-header h1 { font-size: 2.2rem; margin: 0 0 10px; background: linear-gradient(90deg, #fff, #a1a1a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .landing-header p { color: var(--text-secondary); font-size: 1.1rem; }
-        .setup-section { padding: 20px 40px 40px; }
-        .section-title { font-size: 1.1rem; margin-bottom: 15px; color: #fff; font-weight: 600; }
+        .landing-header p { color: var(--text-secondary); font-size: 1.1rem; margin: 0; }
 
-        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 30px; }
-        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 15px; border-radius: 16px; font-family: inherit; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .cat-btn:hover { background: rgba(255,255,255,0.1); }
-        .cat-btn.selected { background: var(--accent-blue); border-color: var(--accent-blue); box-shadow: 0 4px 15px rgba(10, 132, 255, 0.4); }
-        .cat-btn.full-quiz { grid-column: 1 / -1; background: linear-gradient(135deg, #0A84FF, #32d74b); border: none; font-size: 1.1rem; }
+        .setup-section { padding: 20px 35px 40px; }
 
-        .time-input-wrapper { display: flex; align-items: center; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 16px; padding: 5px 15px; margin-bottom: 30px; }
-        .time-input-wrapper input { background: transparent; border: none; color: #fff; font-size: 1.2rem; font-family: inherit; padding: 10px; width: 100%; outline: none; }
-        .time-input-wrapper span { color: var(--text-secondary); white-space: nowrap; }
-
-        .start-btn { background: var(--text-main); color: #000; border: none; border-radius: 980px; width: 100%; font-size: 1.3rem; font-weight: 800; padding: 18px; cursor: pointer; transition: all 0.3s; }
-        .start-btn:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(255,255,255,0.2); }
-
-        .progress-line-container { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; }
-        .progress-correct { height: 100%; background: var(--success); width: 0%; transition: width 0.6s; }
-        .progress-wrong { height: 100%; background: var(--danger); width: 0%; transition: width 0.6s; }
-
-        .stats-header { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px 10px; font-size: 0.95rem; color: var(--text-secondary); font-weight: 600; }
-        .timer-badge { background: rgba(255,69,58,0.1); color: var(--danger); border: 1px solid var(--danger); padding: 6px 15px; border-radius: 20px; font-family: monospace; font-size: 1.1rem; letter-spacing: 1px; box-shadow: 0 0 10px rgba(255,69,58,0.2); }
-
-        .quiz-body { padding: 10px 32px 32px; }
-        h2 { text-align: center; font-size: 1.4rem; font-weight: 800; line-height: 1.5; margin-bottom: 2rem; }
-        
-        ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-        ul li { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 16px 20px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; }
-        input[type="radio"] { display: none; }
-        ul li:not(.disabled):hover { background: rgba(255, 255, 255, 0.08); transform: scale(1.01); border-color: rgba(255, 255, 255, 0.2); }
-
-        .correct-answer { background: rgba(50,215,75,0.1) !important; border-color: var(--success) !important; color: var(--success) !important; }
-        .wrong-answer { background: rgba(255,69,58,0.1) !important; border-color: var(--danger) !important; color: var(--danger) !important; }
-        .disabled { pointer-events: none; opacity: 0.6; }
-        .correct-answer.disabled, .wrong-answer.disabled { opacity: 1; }
-
-        .action-btn { margin-top: 30px; background: var(--accent-blue); color: #ffffff; border: none; border-radius: 980px; width: 100%; font-size: 1.2rem; font-weight: 800; padding: 16px; cursor: pointer; transition: all 0.3s; }
-        .action-btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
-
-        .result-body { text-align: center; padding: 4rem 2rem; }
-        .result-body h1 { font-size: 3rem; margin-bottom: 10px; }
-        .score-box { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; margin: 20px auto; max-width: 300px; border: 1px solid var(--border-color); }
-        .score-box div { font-size: 1.2rem; margin: 10px 0; }
-
-        /* تنسيق قسم الحقوق (Footer) */
-        .site-footer {
-            position: absolute;
-            bottom: 15px;
-            left: 0;
-            width: 100%;
+        /* بطاقات الأقسام الثلاثة الرئيسية */
+        .main-subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 10px;
+        }
+        .subject-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 28px 20px;
             text-align: center;
-            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .subject-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .subject-card.law-card:hover { border-color: var(--accent-blue); box-shadow: 0 12px 30px rgba(10, 132, 255, 0.25); }
+        .subject-card.watch-card:hover { border-color: var(--accent-orange); box-shadow: 0 12px 30px rgba(255, 159, 10, 0.25); }
+        .subject-card.cargo-card:hover { border-color: var(--accent-purple); box-shadow: 0 12px 30px rgba(191, 90, 242, 0.25); }
+
+        .subject-icon { font-size: 2.8rem; margin-bottom: 12px; display: block; }
+        .subject-card h3 { margin: 0 0 8px; font-size: 1.3rem; color: #fff; font-weight: 800; }
+        .subject-card span { font-size: 0.9rem; color: var(--text-secondary); display: block; }
+
+        /* شاشة الأفرع الداخلية */
+        .back-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 18px;
+            border-radius: 980px;
+            font-family: inherit;
             font-size: 0.95rem;
             font-weight: 600;
-            letter-spacing: 0.5px;
-            z-index: 10;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 20px;
         }
-        .site-footer span.creator-name {
-            color: var(--accent-blue);
+        .back-nav:hover { background: rgba(255,255,255,0.15); }
+
+        .branch-header-title {
+            font-size: 1.5rem;
             font-weight: 800;
-            text-shadow: 0 0 10px rgba(10, 132, 255, 0.4);
+            margin: 0 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
         }
+
+        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 25px; }
+        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 14px 12px; border-radius: 16px; font-family: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .cat-btn:hover { background: rgba(255,255,255,0.1); }
+        .cat-btn.selected { background: var(--accent-blue); border-color: var(--accent-blue); box-shadow: 0 4px 15px rgba(10, 132, 255, 0.4); color: #fff; }
+        .cat-btn.full-sub-quiz { grid-column: 1 / -1; font-size: 1.05rem; font-weight: 800; padding: 16px; }
+
+        .time-input-wrapper { display: flex; align-items: center; background: rgba(0,0,0,0.35); border: 1px solid var(--border-color); border-radius: 16px; padding: 5px 15px; margin-bottom: 25px; }
+        .time-input-wrapper input { background: transparent; border: none; color: #fff; font-size: 1.15rem; font-family: inherit; padding: 10px; width: 100%; outline: none; }
+        .time-input-wrapper span { color: var(--text-secondary); white-space: nowrap; }
+
+        .start-btn { background: var(--text-main); color: #000; border: none; border-radius: 980px; width: 100%; font-size: 1.25rem; font-weight: 800; font-family: inherit; padding: 16px; cursor: pointer; transition: all 0.3s ease; }
+        .start-btn:hover { transform: scale(1.015); box-shadow: 0 8px 25px rgba(255,255,255,0.25); }
+
+        /* واجهة الاختبار */
+        .progress-line-container { position: absolute; top: 0; left: 0; right: 0; height: 5px; background: rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; }
+        .progress-correct { height: 100%; background: var(--success); width: 0%; transition: width 0.5s; box-shadow: 0 0 8px var(--success); }
+        .progress-wrong { height: 100%; background: var(--danger); width: 0%; transition: width 0.5s; box-shadow: 0 0 8px var(--danger); }
+
+        .stats-header { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px 10px; font-size: 0.95rem; color: var(--text-secondary); font-weight: 600; flex-wrap: wrap; gap: 10px; }
+        .timer-badge { background: rgba(255,69,58,0.1); color: var(--danger); border: 1px solid var(--danger); padding: 5px 14px; border-radius: 20px; font-family: monospace; font-size: 1.1rem; }
+
+        .quiz-body { padding: 10px 32px 32px; }
+        h2#question { text-align: center; font-size: 1.3rem; font-weight: 800; line-height: 1.6; margin-bottom: 1.8rem; color: #fff; }
         
+        ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+        ul li { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 15px 20px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; line-height: 1.5; }
+        input[type="radio"] { display: none; }
+        ul li:not(.disabled):hover { background: rgba(255, 255, 255, 0.09); transform: scale(1.01); border-color: rgba(255, 255, 255, 0.25); }
+
+        .correct-answer { background: rgba(50,215,75,0.15) !important; border-color: var(--success) !important; color: var(--success) !important; }
+        .wrong-answer { background: rgba(255,69,58,0.15) !important; border-color: var(--danger) !important; color: var(--danger) !important; }
+        .disabled { pointer-events: none; opacity: 0.55; }
+        .correct-answer.disabled, .wrong-answer.disabled { opacity: 1; }
+
+        .live-accuracy { text-align: center; margin-top: 18px; font-size: 1rem; font-weight: 700; display: none; }
+
+        .action-btn { margin-top: 22px; background: var(--accent-blue); color: #ffffff; border: none; border-radius: 980px; width: 100%; font-size: 1.2rem; font-weight: 800; font-family: inherit; padding: 16px; cursor: pointer; transition: all 0.3s; }
+        .action-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+        .result-body { text-align: center; padding: 3.5rem 2rem; }
+        .result-body h1 { font-size: 2.6rem; margin-bottom: 10px; }
+        .score-box { background: rgba(0,0,0,0.35); border-radius: 20px; padding: 20px; margin: 20px auto; max-width: 320px; border: 1px solid var(--border-color); }
+        .score-box div { font-size: 1.15rem; margin: 10px 0; }
+
+        .site-footer { 
+            position: relative; 
+            width: 100%; 
+            text-align: center; 
+            color: rgba(255, 255, 255, 0.55); 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            padding: 20px 0;
+            margin-top: 20px;
+            flex-shrink: 0;
+        }
+        .site-footer span.creator-name { color: var(--accent-blue); font-weight: 800; text-shadow: 0 0 10px rgba(10, 132, 255, 0.4); }
     </style>
 </head>
 <body>
 
-    <!-- 1. واجهة الدخول -->
-    <div id="landing-screen" class="glass-card active">
+    <!-- 1. الشاشة الأولى: اختيار المادة الرئيسية (3 أقسام) -->
+    <div id="home-screen" class="glass-card active">
         <div class="landing-header">
             <h1>Maritime Pro Assessment ⚓</h1>
-            <p>منصة التقييم الاحترافية للضباط والقباطنة</p>
+            <p>اختر المادة الدراسية لعرض الأفرع والاختبارات</p>
         </div>
         <div class="setup-section">
-            <div class="section-title">اختر قسم الاختبار:</div>
-            <div class="category-grid" id="category-grid">
-                <button class="cat-btn full-quiz selected" data-cat="all">شامل (جميع الأقسام - 70 سؤال)</button>
-                <button class="cat-btn" data-cat="law">القانون البحري</button>
-                <button class="cat-btn" data-cat="isps">مدونة ISPS</button>
-                <button class="cat-btn" data-cat="stcw">اتفاقية STCW</button>
-                <button class="cat-btn" data-cat="mlc">اتفاقية MLC</button>
-                <button class="cat-btn" data-cat="marpol">اتفاقية MARPOL</button>
-                <button class="cat-btn" data-cat="ism">نظام ISM</button>
-            </div>
+            <div class="main-subjects-grid">
+                <div class="subject-card law-card" onclick="openSubject('law')">
+                    <span class="subject-icon">⚖️</span>
+                    <h3>قانون بحري</h3>
+                    <span>70 سؤالاً • 6 أفرع</span>
+                </div>
 
-            <div class="section-title">إعداد المؤقت الزمني:</div>
-            <div class="time-input-wrapper">
-                <input type="number" id="time-input" min="0" placeholder="مثال: 30 (اتركه فارغاً لإلغاء المؤقت)">
-                <span>دقيقة</span>
-            </div>
+                <div class="subject-card watch-card" onclick="openSubject('watch')">
+                    <span class="subject-icon">🧭</span>
+                    <h3>تأمين نوبة</h3>
+                    <span>66 سؤالاً • 6 أفرع</span>
+                </div>
 
-            <button class="start-btn" onclick="startAssessment()">بدء التقييم الآن</button>
+                <div class="subject-card cargo-card" onclick="openSubject('cargo')">
+                    <span class="subject-icon">📦</span>
+                    <h3>تداول بضائع</h3>
+                    <span>60 سؤالاً • 5 أفرع</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- 2. واجهة الاختبار -->
+    <!-- 2. الشاشة الثانية: أفرع المادة المحددة وإعداد الوقت -->
+    <div id="branches-screen" class="glass-card">
+        <div class="setup-section" style="padding-top: 30px;">
+            <button class="back-nav" onclick="switchScreen('home')">➔ العودة للمواد الرئيسية</button>
+            
+            <div id="branch-title" class="branch-header-title">أفرع المادة</div>
+            
+            <div id="branches-container" class="category-grid">
+                <!-- يتم توليد أزرار الأفرع هنا تلقائياً حسب المادة -->
+            </div>
+
+            <div style="font-size: 1rem; margin-bottom: 10px; color: var(--text-secondary); font-weight: 600;">المؤقت الزمني (اختياري):</div>
+            <div class="time-input-wrapper">
+                <input type="number" id="time-input" min="0" placeholder="اكتب الوقت بالدقائق (أو اتركه فارغاً لوقت مفتوح)">
+                <span>دقيقة</span>
+            </div>
+
+            <button class="start-btn" id="start-btn-main" onclick="startAssessment()">بدء الاختبار الآن 🚀</button>
+        </div>
+    </div>
+
+    <!-- 3. شاشة الاختبار -->
     <div id="quiz-screen" class="glass-card">
         <div class="progress-line-container">
             <div class="progress-correct" id="bar-correct"></div>
@@ -166,38 +234,41 @@
         </div>
 
         <div class="stats-header">
-            <div id="progress-text">السؤال 1 / 70</div>
+            <span style="color: var(--success);">✅ صح: <b id="correct-count">0</b></span>
+            <span id="progress-text" style="color: #fff;">السؤال 1 / --</span>
+            <span style="color: var(--danger);">❌ خطأ: <b id="wrong-count">0</b></span>
             <div id="timer-display" class="timer-badge" style="display: none;">00:00</div>
         </div>
         
         <div class="quiz-body">
-            <h2 id="question">جاري تحميل السؤال...</h2>
+            <h2 id="question">جاري التحميل...</h2>
             <ul id="options-list">
-                <li id="li_A" onclick="selectOption('A')">
-                    <input type="radio" name="answer" id="A" class="answer">
-                    <label for="A" id="a_text">الخيار الأول</label>
+                <li id="li_1" onclick="selectOption('1')">
+                    <input type="radio" name="answer" id="1" class="answer">
+                    <label for="1" id="text_1">الخيار 1</label>
                 </li>
-                <li id="li_B" onclick="selectOption('B')">
-                    <input type="radio" name="answer" id="B" class="answer">
-                    <label for="B" id="b_text">الخيار الثاني</label>
+                <li id="li_2" onclick="selectOption('2')">
+                    <input type="radio" name="answer" id="2" class="answer">
+                    <label for="2" id="text_2">الخيار 2</label>
                 </li>
-                <li id="li_C" onclick="selectOption('C')">
-                    <input type="radio" name="answer" id="C" class="answer">
-                    <label for="C" id="c_text">الخيار الثالث</label>
+                <li id="li_3" onclick="selectOption('3')">
+                    <input type="radio" name="answer" id="3" class="answer">
+                    <label for="3" id="text_3">الخيار 3</label>
                 </li>
-                <li id="li_D" onclick="selectOption('D')">
-                    <input type="radio" name="answer" id="D" class="answer">
-                    <label for="D" id="d_text">الخيار الرابع</label>
+                <li id="li_4" onclick="selectOption('4')">
+                    <input type="radio" name="answer" id="4" class="answer">
+                    <label for="4" id="text_4">الخيار 4</label>
                 </li>
             </ul>
+            <div id="live-accuracy" class="live-accuracy">نسبة الدقة الحالية: 100%</div>
             <button id="submit-btn" class="action-btn">تأكيد الإجابة</button>
         </div>
     </div>
 
-    <!-- 3. واجهة النتيجة -->
+    <!-- 4. شاشة النتيجة -->
     <div id="result-screen" class="glass-card">
         <div class="result-body">
-            <h1 id="result-title">اكتمل التقييم</h1>
+            <h1 id="result-title">اكتمل التقييم ⚓</h1>
             <p id="result-msg" style="color: var(--text-secondary); font-size: 1.2rem;"></p>
             
             <div class="score-box">
@@ -207,101 +278,298 @@
             </div>
             
             <h2 id="final-percentage" style="font-size: 2.5rem; margin: 20px 0;">%0</h2>
-            
-            <button class="start-btn" onclick="resetQuiz()" style="max-width: 300px; margin: 0 auto; display: block;">العودة للقائمة الرئيسية</button>
+            <button class="start-btn" onclick="resetQuiz()" style="max-width: 320px; margin: 0 auto; display: block;">العودة للقائمة الرئيسية</button>
         </div>
     </div>
 
-    <!-- قسم الحقوق واسم المنشئ -->
+    <!-- الحقوق -->
     <div class="site-footer">
         © 2026 جميع الحقوق محفوظة | تم الإنشاء بواسطة <span class="creator-name">Mohammed Frhan</span>
     </div>
 
     <script>
-        const fullQuizData = [
-            // قانون بحري (law)
-            { q: "ما هي أنواع القانون البحري؟", A: "القانون البحري المدني، التجاري الدولي", B: "القانون البحري الإداري، المدني، البيئي", C: "القانون البحري الدولي العام، الإداري، الجنائي", D: "القانون البحري الخاص، العام، الجنائي", correct: "D", cat: "law" },
-            { q: "القانون البحري يهتم بشكل أساسي بـ:", A: "تنظيم الملاحة النهرية", B: "ضبط العلاقات بين الدول البحرية فقط", C: "تنظيم إدارة وتشغيل السفن وصلاحيتها والبيئة البحرية", D: "تسجيل السفن فقط", correct: "C", cat: "law" },
-            { q: "لا يمكن أداء الرحلة البحرية على أكمل وجه دون:", A: "خبرة الطاقم في الطقس فقط", B: "دراية كاملة بالقانون البحري", C: "استخدام سفن كبيرة", D: "مراقبة مستمرة من الدولة", correct: "B", cat: "law" },
-            { q: "ما هو تعريف القانون البحري؟", A: "هو قانون تنظيم الموانئ", B: "هو القانون الخاص بالتجارة البحرية فقط", C: "مجموع القواعد القانونية التي تحكم الملاحة البحرية", D: "القانون الذي ينظم العلاقات السياسية بين الدول البحرية", correct: "C", cat: "law" },
-            { q: "ما هو تعريف الملاحة البحرية؟", A: "هي الملاحة الجوية", B: "الملاحة التي تتم في البحر بمنشآت عائمة عرضة لمخاطر البحر", C: "الملاحة بين الأنهار فقط", D: "ملاحة ناقلات النفط فقط", correct: "B", cat: "law" },
-            { q: "ما هي أنواع الملاحة البحرية حسب طول الرحلة؟", A: "ملاحة داخلية وخارجية", B: "ملاحة سياحية وتجارية", C: "ملاحة أعالي البحار وملاحة ساحلية", D: "ملاحة ليلية ونهارية", correct: "C", cat: "law" },
-            { q: "الملاحة بين موانئ دول أجنبية مهما كانت المسافة تسمى:", A: "ملاحة ساحلية", B: "ملاحة داخلية", C: "ملاحة أعالي البحار", D: "ملاحة نهرية", correct: "C", cat: "law" },
-            { q: "الملاحة التي تتم بين موانئ الدولة الواحدة تسمى:", A: "ملاحة دولية", B: "ملاحة عابرة", C: "ملاحة ساحلية", D: "ملاحة إقليمية", correct: "C", cat: "law" },
-            { q: "من أهداف المنظمة البحرية الدولية:", A: "تنظيم السياحة البحرية فقط", B: "تطوير اقتصاد الموانئ", C: "وضع آلية للتعاون في السلامة البحرية وحماية الأرواح", D: "إدارة الموانئ الخاصة", correct: "C", cat: "law" },
-            { q: "تشمل أهداف المنظمة البحرية الدولية ما يلي ما عدا:", A: "مكافحة التلوث البحري", B: "رفع علم الدولة على الطائرات", C: "إعداد الاتفاقيات الملاحية الدولية", D: "تنظيم حركة النقل البحري", correct: "B", cat: "law" },
-            { q: "يجب أن تحمل كل سفينة:", A: "رقم تسجيل فقط", B: "علم دولي", C: "اسماً خاصاً بها", D: "جنسية مزدوجة", correct: "C", cat: "law" },
-            { q: "لا يحق لمالك السفينة الاحتفاظ بالاسم إذا:", A: "تغير القبطان", B: "انتهى التسجيل أو بيعت السفينة لأجنبي", C: "تغير لون الطلاء", D: "أبحرت السفينة خارج المياه الإقليمية", correct: "B", cat: "law" },
-            { q: "في حال طمس اسم السفينة عمداً:", A: "لا توجد عقوبة", B: "يعاقب بالسجن فقط", C: "يعاقب بالغرامة فقط", D: "يعاقب بالحبس والغرامة أو إحداهما", correct: "D", cat: "law" },
-            { q: "ما هو موطن السفينة؟", A: "دولة المالك", B: "الدولة التي بنيت فيها", C: "الميناء الذي تسجل فيه", D: "أقرب ميناء تصل إليه", correct: "C", cat: "law" },
-            { q: "ما المقصود بجنسية السفينة؟", A: "اسمها التجاري", B: "لونها وميناؤها", C: "الرابطة القانونية بينها وبين دولة العلم", D: "الدولة التي صنعت محركها", correct: "C", cat: "law" },
-            { q: "أهمية جنسية السفينة تشمل جميع ما يلي ما عدا:", A: "التمتع بحماية الدولة", B: "التمتع بالقضاء الدولي", C: "رفع علم الدولة", D: "الخضوع للسلطة القضائية", correct: "C", cat: "law" },
-            { q: "من شروط اكتساب الجنسية:", A: "شرط التجهيز البحري", B: "شرط العلم الملون", C: "شرط البناء الوطني وشرط الملكية الوطنية", D: "شرط الملاحة الداخلية", correct: "C", cat: "law" },
-            { q: "ميزة التسجيل المفتوح لا تشمل:", A: "سهولة الإجراءات", B: "السماح بطواقم أجنبية", C: "إعفاء السفينة من دفع ضرائب نهائياً", D: "عدم فرض ضرائب محلية كبيرة", correct: "C", cat: "law" },
-            { q: "من عيوب التسجيل المفتوح:", A: "الرقابة المشددة", B: "عدم السماح بتسجيل السفينة", C: "ضعف الرقابة وصلاحية الملاحة", D: "ارتفاع الضرائب", correct: "C", cat: "law" },
-            { q: "متى تصدر شهادة تسجيل جديدة للسفينة؟", A: "عند تغيير طاقم السفينة", B: "عند تغيير اسمها فقط", C: "عند بناء سفينة جديدة أو انتقال الملكية", D: "عند رسوها في ميناء دولي", correct: "C", cat: "law" },
-            { q: "من أسباب شطب شهادة التسجيل:", A: "إذا زادت سرعة السفينة", B: "إذا تم تجديد الطلاء", C: "إذا هلكت السفينة أو انتقلت ملكيتها لأجنبي", D: "إذا شاركت السفينة في سباق بحري", correct: "C", cat: "law" },
-            { q: "شهادة التسجيل المؤقتة تصدر:", A: "بعد 10 سنوات من تسجيل السفينة", B: "فقط داخل المياه الإقليمية", C: "إذا لم تستوف السفينة الإجراءات", D: "إذا تجاوزت السفينة الحمولة", correct: "C", cat: "law" },
-            { q: "مدة شهادة التسجيل المؤقتة في مصر هي:", A: "سنة واحدة", B: "ثلاثة أشهر", C: "ستة شهور قابلة للتجديد", D: "شهرين فقط", correct: "C", cat: "law" },
-            { q: "من السفن المعفاة من التسجيل:", A: "ناقلات النفط الضخمة", B: "السفن السياحية", C: "سفن النزهة الصغيرة التي لا تبحر خارج المياه الإقليمية", D: "السفن الأجنبية العابرة", correct: "C", cat: "law" },
-            { q: "السفن الحربية والسفن الحكومية:", A: "لا تسجل إطلاقاً", B: "تسجل في نفس سجل السفن التجارية", C: "لا تحتاج إلى تسجيل", D: "تسجل في سجلات خاصة", correct: "D", cat: "law" },
-            { q: "المعاينة التي تجرى عند بناء السفينة هي:", A: "المعاينة الدورية", B: "المعاينة الابتدائية", C: "المعاينة السنوية", D: "المعاينة النهائية", correct: "B", cat: "law" },
-            { q: "المعاينة التي تجرى كل سنة تسمى:", A: "المعاينة التجديدية", B: "المعاينة المتوسطة", C: "المعاينة السنوية", D: "المعاينة الخارجية", correct: "C", cat: "law" },
-            { q: "المعاينة التي تجرى عند انتهاء جميع المعاينات الأخرى تسمى:", A: "المعاينة الإضافية", B: "المعاينة النهائية", C: "المعاينة الابتدائية", D: "معاينة الحوض", correct: "B", cat: "law" },
+        // ====================================================
+        // القسم الأول: أسئلة القانون البحري والاتفاقيات (70 سؤال)
+        // ====================================================
+        const lawQuizData = [
+            { q: "ما هي أنواع القانون البحري؟", opt1: "القانون البحري المدني، التجاري الدولي", opt2: "القانون البحري الإداري، المدني، البيئي", opt3: "القانون البحري الدولي العام، الإداري، الجنائي", opt4: "القانون البحري الخاص، العام، الجنائي", correct: "4", cat: "law" },
+            { q: "القانون البحري يهتم بشكل أساسي بـ:", opt1: "تنظيم الملاحة النهرية", opt2: "ضبط العلاقات بين الدول البحرية فقط", opt3: "تنظيم إدارة وتشغيل السفن وصلاحيتها والبيئة البحرية", opt4: "تسجيل السفن فقط", correct: "3", cat: "law" },
+            { q: "لا يمكن أداء الرحلة البحرية على أكمل وجه دون:", opt1: "خبرة الطاقم في الطقس فقط", opt2: "دراية كاملة بالقانون البحري", opt3: "استخدام سفن كبيرة", opt4: "مراقبة مستمرة من الدولة", correct: "2", cat: "law" },
+            { q: "ما هو تعريف القانون البحري؟", opt1: "هو قانون تنظيم الموانئ", opt2: "هو القانون الخاص بالتجارة البحرية فقط", opt3: "مجموع القواعد القانونية التي تحكم الملاحة البحرية", opt4: "القانون الذي ينظم العلاقات السياسية بين الدول البحرية", correct: "3", cat: "law" },
+            { q: "ما هو تعريف الملاحة البحرية؟", opt1: "هي الملاحة الجوية", opt2: "الملاحة التي تتم في البحر بمنشآت عائمة عرضة لمخاطر البحر", opt3: "الملاحة بين الأنهار فقط", opt4: "ملاحة ناقلات النفط فقط", correct: "2", cat: "law" },
+            { q: "ما هي أنواع الملاحة البحرية حسب طول الرحلة؟", opt1: "ملاحة داخلية وخارجية", opt2: "ملاحة سياحية وتجارية", opt3: "ملاحة أعالي البحار وملاحة ساحلية", opt4: "ملاحة ليلية ونهارية", correct: "3", cat: "law" },
+            { q: "الملاحة بين موانئ دول أجنبية مهما كانت المسافة تسمى:", opt1: "ملاحة ساحلية", opt2: "ملاحة داخلية", opt3: "ملاحة أعالي البحار", opt4: "ملاحة نهرية", correct: "3", cat: "law" },
+            { q: "الملاحة التي تتم بين موانئ الدولة الواحدة تسمى:", opt1: "ملاحة دولية", opt2: "ملاحة عابرة", opt3: "ملاحة ساحلية", opt4: "ملاحة إقليمية", correct: "3", cat: "law" },
+            { q: "من أهداف المنظمة البحرية الدولية:", opt1: "تنظيم السياحة البحرية فقط", opt2: "تطوير اقتصاد الموانئ", opt3: "وضع آلية للتعاون في السلامة البحرية وحماية الأرواح", opt4: "إدارة الموانئ الخاصة", correct: "3", cat: "law" },
+            { q: "تشمل أهداف المنظمة البحرية الدولية ما يلي ما عدا:", opt1: "مكافحة التلوث البحري", opt2: "رفع علم الدولة على الطائرات", opt3: "إعداد الاتفاقيات الملاحية الدولية", opt4: "تنظيم حركة النقل البحري", correct: "2", cat: "law" },
+            { q: "يجب أن تحمل كل سفينة:", opt1: "رقم تسجيل فقط", opt2: "علم دولي", opt3: "اسماً خاصاً بها", opt4: "جنسية مزدوجة", correct: "3", cat: "law" },
+            { q: "لا يحق لمالك السفينة الاحتفاظ بالاسم إذا:", opt1: "تغير القبطان", opt2: "انتهى التسجيل أو بيعت السفينة لأجنبي", opt3: "تغير لون الطلاء", opt4: "أبحرت السفينة خارج المياه الإقليمية", correct: "2", cat: "law" },
+            { q: "في حال طمس اسم السفينة عمداً:", opt1: "لا توجد عقوبة", opt2: "يعاقب بالسجن فقط", opt3: "يعاقب بالغرامة فقط", opt4: "يعاقب بالحبس والغرامة أو إحداهما", correct: "4", cat: "law" },
+            { q: "ما هو موطن السفينة؟", opt1: "دولة المالك", opt2: "الدولة التي بنيت فيها", opt3: "الميناء الذي تسجل فيه", opt4: "أقرب ميناء تصل إليه", correct: "3", cat: "law" },
+            { q: "ما المقصود بجنسية السفينة؟", opt1: "اسمها التجاري", opt2: "لونها وميناؤها", opt3: "الرابطة القانونية بينها وبين دولة العلم", opt4: "الدولة التي صنعت محركها", correct: "3", cat: "law" },
+            { q: "أهمية جنسية السفينة تشمل جميع ما يلي ما عدا:", opt1: "التمتع بحماية الدولة", opt2: "التمتع بالقضاء الدولي", opt3: "رفع علم الدولة", opt4: "الخضوع للسلطة القضائية", correct: "3", cat: "law" },
+            { q: "من شروط اكتساب الجنسية:", opt1: "شرط التجهيز البحري", opt2: "شرط العلم الملون", opt3: "شرط البناء الوطني وشرط الملكية الوطنية", opt4: "شرط الملاحة الداخلية", correct: "3", cat: "law" },
+            { q: "ميزة التسجيل المفتوح لا تشمل:", opt1: "سهولة الإجراءات", opt2: "السماح بطواقم أجنبية", opt3: "إعفاء السفينة من دفع ضرائب نهائياً", opt4: "عدم فرض ضرائب محلية كبيرة", correct: "3", cat: "law" },
+            { q: "من عيوب التسجيل المفتوح:", opt1: "الرقابة المشددة", opt2: "عدم السماح بتسجيل السفينة", opt3: "ضعف الرقابة وصلاحية الملاحة", opt4: "ارتفاع الضرائب", correct: "3", cat: "law" },
+            { q: "متى تصدر شهادة تسجيل جديدة للسفينة؟", opt1: "عند تغيير طاقم السفينة", opt2: "عند تغيير اسمها فقط", opt3: "عند بناء سفينة جديدة أو انتقال الملكية", opt4: "عند رسوها في ميناء دولي", correct: "3", cat: "law" },
+            { q: "من أسباب شطب شهادة التسجيل:", opt1: "إذا زادت سرعة السفينة", opt2: "إذا تم تجديد الطلاء", opt3: "إذا هلكت السفينة أو انتقلت ملكيتها لأجنبي", opt4: "إذا شاركت السفينة في سباق بحري", correct: "3", cat: "law" },
+            { q: "شهادة التسجيل المؤقتة تصدر:", opt1: "بعد 10 سنوات من تسجيل السفينة", opt2: "فقط داخل المياه الإقليمية", opt3: "إذا لم تستوف السفينة الإجراءات", opt4: "إذا تجاوزت السفينة الحمولة", correct: "3", cat: "law" },
+            { q: "مدة شهادة التسجيل المؤقتة في مصر هي:", opt1: "سنة واحدة", opt2: "ثلاثة أشهر", opt3: "ستة شهور قابلة للتجديد", opt4: "شهرين فقط", correct: "3", cat: "law" },
+            { q: "من السفن المعفاة من التسجيل:", opt1: "ناقلات النفط الضخمة", opt2: "السفن السياحية", opt3: "سفن النزهة الصغيرة التي لا تبحر خارج المياه الإقليمية", opt4: "السفن الأجنبية العابرة", correct: "3", cat: "law" },
+            { q: "السفن الحربية والسفن الحكومية:", opt1: "لا تسجل إطلاقاً", opt2: "تسجل في نفس سجل السفن التجارية", opt3: "لا تحتاج إلى تسجيل", opt4: "تسجل في سجلات خاصة", correct: "4", cat: "law" },
+            { q: "المعاينة التي تجرى عند بناء السفينة هي:", opt1: "المعاينة الدورية", opt2: "المعاينة الابتدائية", opt3: "المعاينة السنوية", opt4: "المعاينة النهائية", correct: "2", cat: "law" },
+            { q: "المعاينة التي تجرى كل سنة تسمى:", opt1: "المعاينة التجديدية", opt2: "المعاينة المتوسطة", opt3: "المعاينة السنوية", opt4: "المعاينة الخارجية", correct: "3", cat: "law" },
+            { q: "المعاينة التي تجرى عند انتهاء جميع المعاينات الأخرى تسمى:", opt1: "المعاينة الإضافية", opt2: "المعاينة النهائية", opt3: "المعاينة الابتدائية", opt4: "معاينة الحوض", correct: "2", cat: "law" },
 
-            // ISPS Code
-            { q: "ما هو المقصود بـ ISPS Code؟", A: "المدونة الدولية لصيانة السفن والبضائع", B: "المدونة الدولية لأمن السفن والمرافق المينائية", C: "نظام تفتيش السفن في الميناء", D: "اتفاقية دولية لحماية البيئة البحرية", correct: "B", cat: "isps" },
-            { q: "ما هو الهدف الرئيسي من ISPS Code؟", A: "تنظيم نقل الركاب عبر البحار", B: "ضمان السلامة من الحريق على السفن", C: "وضع إطار للتعاون بين الحكومات لتعزيز أمن السفن والموانئ", D: "تقليل الحوادث البحرية فقط", correct: "C", cat: "isps" },
-            { q: "تم اعتماد ISPS Code كجزء من أي اتفاقية دولية؟", A: "اتفاقية MARPOL", B: "اتفاقية SOLAS", C: "اتفاقية STCW", D: "اتفاقية MLC", correct: "B", cat: "isps" },
-            { q: "ما سبب إدخال ISPS Code إلى اتفاقية SOLAS؟", A: "بسبب مشاكل التلوث البحري", B: "بعد حوادث اصطدام متكررة", C: "نتيجة لهجمات 11 سبتمبر 2001 في أمريكا", D: "بطلب من شركات التأمين", correct: "C", cat: "isps" },
-            { q: "ما هو الحدث الذي شكل الدافع الأساسي لاعتماد مدونة ISPS؟", A: "حوادث تسرب النفط", B: "حوادث الغرق الجماعي", C: "الهجمات الإرهابية في 11 سبتمبر 2001", D: "القرصنة في القرن الإفريقي", correct: "C", cat: "isps" },
-            { q: "ما نوع المدونة التي يُصنّف تحتها ISPS Code؟", A: "مدونة تقنية", B: "مدونة أمنية", C: "مدونة بيئية", D: "مدونة طبية", correct: "B", cat: "isps" },
-            { q: "من الجهات التي يشملها تطبيق ISPS Code؟", A: "فقط السفن التجارية", B: "فقط الموانئ الكبيرة", C: "الحكومات، شركات النقل، السفن، والمرافئ", D: "المسافرين عبر البحر", correct: "C", cat: "isps" },
-            { q: "ما أهمية ISPS Code في النقل البحري؟", A: "تنظيم حركة السفن في الموانئ", B: "تقليل عدد أفراد الطاقم", C: "حماية السفن والموانئ من المخاطر الأمنية", D: "تسريع عمليات الشحن والتفريغ", correct: "C", cat: "isps" },
-            { q: "ما المقصود بالجزء 'A' من ISPS Code؟", A: "تعليمات غير ملزمة", B: "أحكام اختيارية حسب الدولة", C: "أحكام إلزامية", D: "توجيهات خاصة بالركاب", correct: "C", cat: "isps" },
-            { q: "ما المقصود بالجزء 'B' من ISPS Code؟", A: "قوانين صارمة يجب اتباعها", B: "توصيات وأحكام استرشادية", C: "مواد تدريبية", D: "نصوص خاصة بالركاب", correct: "B", cat: "isps" },
-            { q: "من الجهات الملزمة بتطبيق الجزء A من المدونة؟", A: "فقط السفن", B: "فقط المرافئ", C: "جميع الدول الأعضاء في الاتفاقية", D: "شركات التأمين فقط", correct: "C", cat: "isps" },
-            { q: "كيف يتم استخدام الجزء B من المدونة؟", A: "كتفسير للقوانين الجنائية", B: "لتقديم التوجيهات لتطبيق الجزء A", C: "كبديل عن الجزء A", D: "في حالات الطوارئ فقط", correct: "B", cat: "isps" },
-            { q: "هل الدول ملزمة بتطبيق الجزء B من المدونة؟", A: "نعم، التطبيق إجباري تماما", B: "لا، التطبيق اختياري ويعتمد على ظروف الدولة", C: "فقط في حال وجود تهديد", D: "فقط للسفن الدولية", correct: "B", cat: "isps" },
-            { q: "متى دخلت ISPS Code حيز التنفيذ؟", A: "1 يناير 2000", B: "1 يوليو 2004", C: "1 سبتمبر 2002", D: "11 سبتمبر 2001", correct: "B", cat: "isps" },
-            { q: "ما هي أهم العناصر التي تتطلبها ISPS Code في السفن والمرافئ؟", A: "زيادة عدد أفراد الطاقم", B: "وجود نظام أمني موثق", C: "إنشاء مكاتب حكومية على السفن", D: "تغيير أعلام السفن", correct: "B", cat: "isps" },
-            { q: "من الجهات المسؤولة عن مراقبة تطبيق ISPS Code؟", A: "شركات الشحن فقط", B: "الموانئ المحلية", C: "الدول الأعضاء في SOLAS", D: "شركات الأمن الخاصة", correct: "C", cat: "isps" },
-            { q: "هل تسري ISPS Code على السفن الصغيرة الخاصة؟", A: "نعم، بدون استثناء", B: "لا، تسري فقط على الكبيرة", C: "تسري على السفن الخاضعة لاتفاقية SOLAS فقط", D: "تسري على الزوارق الترفيهية", correct: "C", cat: "isps" },
+            { q: "ما هو المقصود بـ ISPS Code؟", opt1: "المدونة الدولية لصيانة السفن والبضائع", opt2: "المدونة الدولية لأمن السفن والمرافق المينائية", opt3: "نظام تفتيش السفن في الميناء", opt4: "اتفاقية دولية لحماية البيئة البحرية", correct: "2", cat: "isps" },
+            { q: "ما هو الهدف الرئيسي من ISPS Code؟", opt1: "تنظيم نقل الركاب عبر البحار", opt2: "ضمان السلامة من الحريق على السفن", opt3: "وضع إطار للتعاون بين الحكومات لتعزيز أمن السفن والموانئ", opt4: "تقليل الحوادث البحرية فقط", correct: "3", cat: "isps" },
+            { q: "تم اعتماد ISPS Code كجزء من أي اتفاقية دولية؟", opt1: "اتفاقية MARPOL", opt2: "اتفاقية SOLAS", opt3: "اتفاقية STCW", opt4: "اتفاقية MLC", correct: "2", cat: "isps" },
+            { q: "ما سبب إدخال ISPS Code إلى اتفاقية SOLAS؟", opt1: "بسبب مشاكل التلوث البحري", opt2: "بعد حوادث اصطدام متكررة", opt3: "نتيجة لهجمات 11 سبتمبر 2001 في أمريكا", opt4: "بطلب من شركات التأمين", correct: "3", cat: "isps" },
+            { q: "ما هو الحدث الذي شكل الدافع الأساسي لاعتماد مدونة ISPS؟", opt1: "حوادث تسرب النفط", opt2: "حوادث الغرق الجماعي", opt3: "الهجمات الإرهابية في 11 سبتمبر 2001", opt4: "القرصنة في القرن الإفريقي", correct: "3", cat: "isps" },
+            { q: "ما نوع المدونة التي يُصنّف تحتها ISPS Code؟", opt1: "مدونة تقنية", opt2: "مدونة أمنية", opt3: "مدونة بيئية", opt4: "مدونة طبية", correct: "2", cat: "isps" },
+            { q: "من الجهات التي يشملها تطبيق ISPS Code؟", opt1: "فقط السفن التجارية", opt2: "فقط الموانئ الكبيرة", opt3: "الحكومات، شركات النقل، السفن، والمرافئ", opt4: "المسافرين عبر البحر", correct: "3", cat: "isps" },
+            { q: "ما أهمية ISPS Code في النقل البحري؟", opt1: "تنظيم حركة السفن في الموانئ", opt2: "تقليل عدد أفراد الطاقم", opt3: "حماية السفن والموانئ من المخاطر الأمنية", opt4: "تسريع عمليات الشحن والتفريغ", correct: "3", cat: "isps" },
+            { q: "ما المقصود بالجزء 'A' من ISPS Code؟", opt1: "تعليمات غير ملزمة", opt2: "أحكام اختيارية حسب الدولة", opt3: "أحكام إلزامية", opt4: "توجيهات خاصة بالركاب", correct: "3", cat: "isps" },
+            { q: "ما المقصود بالجزء 'B' من ISPS Code؟", opt1: "قوانين صارمة يجب اتباعها", opt2: "توصيات وأحكام استرشادية", opt3: "مواد تدريبية", opt4: "نصوص خاصة بالركاب", correct: "2", cat: "isps" },
+            { q: "من الجهات الملزمة بتطبيق الجزء A من المدونة؟", opt1: "فقط السفن", opt2: "فقط المرافئ", opt3: "جميع الدول الأعضاء في الاتفاقية", opt4: "شركات التأمين فقط", correct: "3", cat: "isps" },
+            { q: "كيف يتم استخدام الجزء B من المدونة؟", opt1: "كتفسير للقوانين الجنائية", opt2: "لتقديم التوجيهات لتطبيق الجزء A", opt3: "كبديل عن الجزء A", opt4: "في حالات الطوارئ فقط", correct: "2", cat: "isps" },
+            { q: "هل الدول ملزمة بتطبيق الجزء B من المدونة؟", opt1: "نعم، التطبيق إجباري تماما", opt2: "لا، التطبيق اختياري ويعتمد على ظروف الدولة", opt3: "فقط في حال وجود تهديد", opt4: "فقط للسفن الدولية", correct: "2", cat: "isps" },
+            { q: "متى دخلت ISPS Code حيز التنفيذ؟", opt1: "1 يناير 2000", opt2: "1 يوليو 2004", opt3: "1 سبتمبر 2002", opt4: "11 سبتمبر 2001", correct: "2", cat: "isps" },
+            { q: "ما هي أهم العناصر التي تتطلبها ISPS Code في السفن والمرافئ؟", opt1: "زيادة عدد أفراد الطاقم", opt2: "وجود نظام أمني موثق", opt3: "إنشاء مكاتب حكومية على السفن", opt4: "تغيير أعلام السفن", correct: "2", cat: "isps" },
+            { q: "من الجهات المسؤولة عن مراقبة تطبيق ISPS Code؟", opt1: "شركات الشحن فقط", opt2: "الموانئ المحلية", opt3: "الدول الأعضاء في SOLAS", opt4: "شركات الأمن الخاصة", correct: "3", cat: "isps" },
+            { q: "هل تسري ISPS Code على السفن الصغيرة الخاصة؟", opt1: "نعم، بدون استثناء", opt2: "لا، تسري فقط على الكبيرة", opt3: "تسري على السفن الخاضعة لاتفاقية SOLAS فقط", opt4: "تسري على الزوارق الترفيهية", correct: "3", cat: "isps" },
 
-            // STCW
-            { q: "متى تم اعتماد اتفاقية STCW؟", A: "1984", B: "1995", C: "1978", D: "2010", correct: "C", cat: "stcw" },
-            { q: "ما هو الهدف الأساسي من اتفاقية STCW؟", A: "حماية البيئة البحرية", B: "تحديد ساعات العمل للضباط", C: "وضع معايير التدريب والإجازة والخفارة", D: "تحسين الملاحة الإلكترونية", correct: "C", cat: "stcw" },
-            { q: "دخلت اتفاقية STCW حيز التنفيذ في:", A: "1995", B: "1984", C: "1978", D: "2012", correct: "B", cat: "stcw" },
-            { q: "أحد عيوب نسخة 1978 من الاتفاقية هو:", A: "تجاهل التدريب العملي", B: "اعتماد الممارسات الاحتيالية", C: "ترك تحديد المعايير لكل دولة", D: "عدم وجود ملحق فني", correct: "C", cat: "stcw" },
-            { q: "ما هو الأثر الأساسي لتعديلات 1995؟", A: "إلغاء شهادات الملاحة", B: "إنشاء فصول جديدة", C: "معالجة التباين في مفهوم المتطلبات", D: "إضافة التدريب القطبي", correct: "C", cat: "stcw" },
-            { q: "تنقسم الاتفاقية STCW إلى:", A: "5 فصول", B: "8 فصول", C: "10 فصول", D: "7 فصول", correct: "B", cat: "stcw" },
-            { q: "ما هو الفرق بين الجزء A و B في STCW؟", A: "الجزء A أمان، B تدريب", B: "A إلزامي، B اختياري", C: "A للربان، B للمحرك", D: "A للضباط، B للبحارة", correct: "B", cat: "stcw" },
-            { q: "كم عدد الوظائف الأساسية في STCW؟", A: "5", B: "7", C: "3", D: "8", correct: "B", cat: "stcw" },
-            { q: "من يصنف ضمن مستوى الإدارة؟", A: "كل الضباط", B: "الربان وكبير المهندسين فقط", C: "المهندس الثالث", D: "البحري العادي", correct: "B", cat: "stcw" },
-            { q: "في أي فصل نجد معايير الاتصالات الراديوية؟", A: "الفصل الثالث", B: "الفصل الرابع", C: "الفصل الخامس", D: "الفصل الثامن", correct: "B", cat: "stcw" },
+            { q: "متى تم اعتماد اتفاقية STCW؟", opt1: "1984", opt2: "1995", opt3: "1978", opt4: "2010", correct: "3", cat: "stcw" },
+            { q: "ما هو الهدف الأساسي من اتفاقية STCW؟", opt1: "حماية البيئة البحرية", opt2: "تحديد ساعات العمل للضباط", opt3: "وضع معايير التدريب والإجازة والخفارة", opt4: "تحسين الملاحة الإلكترونية", correct: "3", cat: "stcw" },
+            { q: "دخلت اتفاقية STCW حيز التنفيذ في:", opt1: "1995", opt2: "1984", opt3: "1978", opt4: "2012", correct: "2", cat: "stcw" },
+            { q: "أحد عيوب نسخة 1978 من الاتفاقية هو:", opt1: "تجاهل التدريب العملي", opt2: "اعتماد الممارسات الاحتيالية", opt3: "ترك تحديد المعايير لكل دولة", opt4: "عدم وجود ملحق فني", correct: "3", cat: "stcw" },
+            { q: "ما هو الأثر الأساسي لتعديلات 1995؟", opt1: "إلغاء شهادات الملاحة", opt2: "إنشاء فصول جديدة", opt3: "معالجة التباين في مفهوم المتطلبات", opt4: "إضافة التدريب القطبي", correct: "3", cat: "stcw" },
+            { q: "تنقسم الاتفاقية STCW إلى:", opt1: "5 فصول", opt2: "8 فصول", opt3: "10 فصول", opt4: "7 فصول", correct: "2", cat: "stcw" },
+            { q: "ما هو الفرق بين الجزء A و B في STCW؟", opt1: "الجزء A أمان، B تدريب", opt2: "A إلزامي، B اختياري", opt3: "A للربان، B للمحرك", opt4: "A للضباط، B للبحارة", correct: "2", cat: "stcw" },
+            { q: "كم عدد الوظائف الأساسية في STCW؟", opt1: "5", opt2: "7", opt3: "3", opt4: "8", correct: "2", cat: "stcw" },
+            { q: "من يصنف ضمن مستوى الإدارة؟", opt1: "كل الضباط", opt2: "الربان وكبير المهندسين فقط", opt3: "المهندس الثالث", opt4: "البحري العادي", correct: "2", cat: "stcw" },
+            { q: "في أي فصل نجد معايير الاتصالات الراديوية؟", opt1: "الفصل الثالث", opt2: "الفصل الرابع", opt3: "الفصل الخامس", opt4: "الفصل الثامن", correct: "2", cat: "stcw" },
 
-            // MLC
-            { q: "متى دخلت اتفاقية العمل البحري 2006 MLC حيز التنفيذ؟", A: "7 شباط 2006", B: "20 آب 2012", C: "20 آب 2013", D: "1 كانون الثاني 2010", correct: "C", cat: "mlc" },
-            { q: "ما الجهة التي أعدت اتفاقية العمل البحري 2006 MLC؟", A: "المنظمة البحرية الدولية IMO", B: "منظمة العمل الدولية ILO", C: "هيئة الأمم المتحدة", D: "الاتحاد الدولي للبحارة", correct: "B", cat: "mlc" },
-            { q: "ما هو المقصود بشهادة العمل البحري MLC؟", A: "شهادة تأمين بحري", B: "شهادة الصلاحية للإبحار", C: "Maritime Labour Certificate", D: "Document of Maritime Labour Compliance", correct: "C", cat: "mlc" },
-            { q: "المبدأ المطبق على سفن الدول غير المصادقة في موانئ دول مصادقة؟", A: "مبدأ الدولة العلم", B: "مبدأ السيادة البحرية", C: "لا مزيد من التساهل (No More Favorable Treatment)", D: "الحصانة المينائية", correct: "C", cat: "mlc" },
-            { q: "أي من اللوائح التالية تتعلق بـ 'أماكن الإقامة وتقديم الوجبات' في MLC؟", A: "الباب الأول", B: "الباب الثاني", C: "الباب الثالث", D: "الباب الخامس", correct: "C", cat: "mlc" },
+            { q: "متى دخلت اتفاقية العمل البحري 2006 MLC حيز التنفيذ؟", opt1: "7 شباط 2006", opt2: "20 آب 2012", opt3: "20 آب 2013", opt4: "1 كانون الثاني 2010", correct: "3", cat: "mlc" },
+            { q: "ما الجهة التي أعدت اتفاقية العمل البحري 2006 MLC؟", opt1: "المنظمة البحرية الدولية IMO", opt2: "منظمة العمل الدولية ILO", opt3: "هيئة الأمم المتحدة", opt4: "الاتحاد الدولي للبحارة", correct: "2", cat: "mlc" },
+            { q: "ما هو المقصود بشهادة العمل البحري MLC؟", opt1: "شهادة تأمين بحري", opt2: "شهادة الصلاحية للإبحار", opt3: "Maritime Labour Certificate", opt4: "Document of Maritime Labour Compliance", correct: "3", cat: "mlc" },
+            { q: "المبدأ المطبق على سفن الدول غير المصادقة في موانئ دول مصادقة؟", opt1: "مبدأ الدولة العلم", opt2: "مبدأ السيادة البحرية", opt3: "لا مزيد من التساهل (No More Favorable Treatment)", opt4: "الحصانة المينائية", correct: "3", cat: "mlc" },
+            { q: "أي من اللوائح التالية تتعلق بـ 'أماكن الإقامة وتقديم الوجبات' في MLC؟", opt1: "الباب الأول", opt2: "الباب الثاني", opt3: "الباب الثالث", opt4: "الباب الخامس", correct: "3", cat: "mlc" },
 
-            // MARPOL
-            { q: "ما هو تاريخ دخول اتفاقية MARPOL حيز التنفيذ؟", A: "2 نوفمبر 1973", B: "2 أكتوبر 1983", C: "1 يوليو 1992", D: "19 مايو 2005", correct: "B", cat: "marpol" },
-            { q: "أي مرفق يختص بمنع التلوث بالمواد الضارة السائلة المنقولة بكميات كبيرة؟", A: "المرفق الأول", B: "المرفق الثاني", C: "المرفق الثالث", D: "المرفق الرابع", correct: "B", cat: "marpol" },
-            { q: "ما هي أهم ميزة في المرفق الخامس من اتفاقية MARPOL؟", A: "حظر تصريف مياه الصرف", B: "فرض أنظمة تغليف للمواد", C: "الحظر الكامل للتخلص من البلاستيك في البحر", D: "الحد من انبعاثات الكبريت", correct: "C", cat: "marpol" },
-            { q: "ما الذي يغطيه المرفق السادس في اتفاقية MARPOL؟", A: "مياه الصرف الصحي", B: "المواد المغلفة", C: "التلوث النفطي", D: "تلوث الهواء", correct: "D", cat: "marpol" },
-            { q: "ما السبب الرئيسي لاعتماد بروتوكول 1978 ضمن MARPOL؟", A: "التغيرات في أنظمة السلامة", B: "فشل اتفاقية 1954", C: "حوادث ناقلات النفط بين 1976-1977", D: "إدخال مرفقات جديدة", correct: "C", cat: "marpol" },
+            { q: "ما هو تاريخ دخول اتفاقية MARPOL حيز التنفيذ؟", opt1: "2 نوفمبر 1973", opt2: "2 أكتوبر 1983", opt3: "1 يوليو 1992", opt4: "19 مايو 2005", correct: "2", cat: "marpol" },
+            { q: "أي مرفق يختص بمنع التلوث بالمواد الضارة السائلة المنقولة بكميات كبيرة؟", opt1: "المرفق الأول", opt2: "المرفق الثاني", opt3: "المرفق الثالث", opt4: "المرفق الرابع", correct: "2", cat: "marpol" },
+            { q: "ما هي أهم ميزة في المرفق الخامس من اتفاقية MARPOL؟", opt1: "حظر تصريف مياه الصرف", opt2: "فرض أنظمة تغليف للمواد", opt3: "الحظر الكامل للتخلص من البلاستيك في البحر", opt4: "الحد من انبعاثات الكبريت", correct: "3", cat: "marpol" },
+            { q: "ما الذي يغطيه المرفق السادس في اتفاقية MARPOL؟", opt1: "مياه الصرف الصحي", opt2: "المواد المغلفة", opt3: "التلوث النفطي", opt4: "تلوث الهواء", correct: "4", cat: "marpol" },
+            { q: "ما السبب الرئيسي لاعتماد بروتوكول 1978 ضمن MARPOL؟", opt1: "التغيرات في أنظمة السلامة", opt2: "فشل اتفاقية 1954", opt3: "حوادث ناقلات النفط بين 1976-1977", opt4: "إدخال مرفقات جديدة", correct: "3", cat: "marpol" },
 
-            // ISM
-            { q: "ما الهدف من تعيين الشخص المعين (Designated Person) في نظام ISM؟", A: "الإشراف على المعدات", B: "التفتيش على الشهادات", C: "مراقبة السلامة ومنع التلوث وربط السفينة بالشركة", D: "إصدار رواتب الطاقم", correct: "C", cat: "ism" },
-            { q: "من هو المسؤول عن التأكد من أن الربان مؤهل ومطلع على نظام SMS؟", A: "الإدارة البحرية", B: "المنظمة البحرية", C: "الشركة", D: "المهندس الأول", correct: "C", cat: "ism" },
-            { q: "ما اسم الشهادة التي تمنح للسفينة بعد التحقق من امتثالها لنظام السلامة؟", A: "Ship Registration Certificate", B: "Safety Management Certificate", C: "Document of Compliance", D: "Pollution Control Certificate", correct: "B", cat: "ism" },
-            { q: "وفقًا لمدونة ISM، ما هي مسؤولية الربان الأساسية؟", A: "قيادة السفينة فقط", B: "مراجعة وثائق الوقود", C: "تنفيذ سياسة السلامة وحماية البيئة وتحفيز الطاقم", D: "الحفاظ على الحضور اليومي", correct: "C", cat: "ism" },
-            { q: "ما الذي يجب أن تحتويه وثائق إدارة السلامة؟", A: "أسماء الطاقم فقط", B: "مخطط التفتيش الجمركي", C: "الإجراءات والسياسات الخاصة بالسلامة", D: "تعليمات الترفيه والراحة", correct: "C", cat: "ism" }
+            { q: "ما الهدف من تعيين الشخص المعين (Designated Person) في نظام ISM؟", opt1: "الإشراف على المعدات", opt2: "التفتيش على الشهادات", opt3: "مراقبة السلامة ومنع التلوث وربط السفينة بالشركة", opt4: "إصدار رواتب الطاقم", correct: "3", cat: "ism" },
+            { q: "من هو المسؤول عن التأكد من أن الربان مؤهل ومطلع على نظام SMS؟", opt1: "الإدارة البحرية", opt2: "المنظمة البحرية", opt3: "الشركة", opt4: "المهندس الأول", correct: "3", cat: "ism" },
+            { q: "ما اسم الشهادة التي تمنح للسفينة بعد التحقق من امتثالها لنظام السلامة؟", opt1: "Ship Registration Certificate", opt2: "Safety Management Certificate", opt3: "Document of Compliance", opt4: "Pollution Control Certificate", correct: "2", cat: "ism" },
+            { q: "وفقًا لمدونة ISM، ما هي مسؤولية الربان الأساسية؟", opt1: "قيادة السفينة فقط", opt2: "مراجعة وثائق الوقود", opt3: "تنفيذ سياسة السلامة وحماية البيئة وتحفيز الطاقم", opt4: "الحفاظ على الحضور اليومي", correct: "3", cat: "ism" },
+            { q: "ما الذي يجب أن تحتويه وثائق إدارة السلامة؟", opt1: "أسماء الطاقم فقط", opt2: "مخطط التفتيش الجمركي", opt3: "الإجراءات والسياسات الخاصة بالسلامة", opt4: "تعليمات الترفيه والراحة", correct: "3", cat: "ism" }
         ];
 
+        // ====================================================
+        // القسم الثاني: أسئلة تأمين النوبة الملاحية (66 سؤال)
+        // ====================================================
+        const watchQuizData = [
+            { q: "What does the term 'masthead light' mean?", opt1: "Any white light placed on the mast of a vessel at a height prescribed by the register standards.", opt2: "Any white all round light.", opt3: "Any white light placed over the fore and aft centreline of the vessel showing an unbroken light over an arc of the horizon of 225°...", opt4: "A yellow light showing an unbroken light over an arc of 135°.", correct: "3", cat: "w_r21" },
+            { q: "What does the word 'sidelight' mean?", opt1: "A green light on the starboard side and a red light on the port side each showing an unbroken light over an arc of 112.5°...", opt2: "The white sidelights from the side-ladders.", opt3: "The white light from the decks.", opt4: "A light showing an unbroken light visible over an arc of the horizon of 180°.", correct: "1", cat: "w_r21" },
+            { q: "What does the word 'sternlight' mean?", opt1: "A white light placed at the stern of a vessel.", opt2: "A white light placed as nearly as practicable at the stern showing an unbroken light over an arc of the horizon of 135°...", opt3: "A white light placed at the stern showing an unbroken light over an arc of 360°.", opt4: "A yellow light placed at the stern.", correct: "2", cat: "w_r21" },
+            { q: "What does the term 'towing light' mean?", opt1: "A white light placed above the sternlight used as a steering guide while towing.", opt2: "A yellow light showing an unbroken light over an arc of the horizon of 360°.", opt3: "A yellow light placed as nearly as practicable at the stern showing an unbroken light over an arc of the horizon of 135°...", opt4: "A red light placed at the stern.", correct: "3", cat: "w_r21" },
+            { q: "What does the term 'all round light' mean?", opt1: "A light showing an unbroken light over an arc of the horizon of 360°.", opt2: "An unbroken light visible from ahead and either side of the vessel.", opt3: "A light showing an unbroken light visible over an arc of the horizon of 180°.", opt4: "A flashing light.", correct: "1", cat: "w_r21" },
+            { q: "What does the term 'flashing light' mean?", opt1: "A light flashing at regular intervals at a frequency of 60 flashes per minute.", opt2: "A light flashing at regular intervals at a frequency of 120 flashes or more per minute.", opt3: "A light flashing quick flashes at regular intervals.", opt4: "An all round yellow light.", correct: "2", cat: "w_r21" },
+            
+            { q: "What ranges shall the mastlights be visible at for vessels of 50m or more in length?", opt1: "maximum 5 nm.", opt2: "Between 3 and 5 nm.", opt3: "6 nm.", opt4: "2 nm.", correct: "3", cat: "w_r22" },
+            { q: "What range shall the mastlights be visible at, for vessels between 20 and 50m in length?", opt1: "5 nm.", opt2: "Between 3 - 5 nm.", opt3: "2 nm.", opt4: "6 nm.", correct: "1", cat: "w_r22" },
+            { q: "What range shall the mastlights be visible at, for vessels between 12m and 20m in length?", opt1: "1-2 nm.", opt2: "2 nm.", opt3: "3 nm.", opt4: "5 nm.", correct: "3", cat: "w_r22" },
+            { q: "What range shall the mastlight be visible at, for vessels less than 12m in length?", opt1: "3 nm.", opt2: "2 nm.", opt3: "1 nm.", opt4: "0.5 nm.", correct: "2", cat: "w_r22" },
+            { q: "What range shall the sidelights be visible at for vessels more than 50m in length?", opt1: "3 nm.", opt2: "5 nm.", opt3: "Between 3 and 5 nm.", opt4: "2 nm.", correct: "1", cat: "w_r22" },
+            { q: "What range shall the sidelights be visible at, for vessels of 12m or more in length, but less than 50m?", opt1: "3 nm.", opt2: "2 nm.", opt3: "1.5 nm.", opt4: "1 nm.", correct: "2", cat: "w_r22" },
+            { q: "What range shall the sidelights be visible at for vessels less than 12m in length?", opt1: "2 nm.", opt2: "0.5 nm.", opt3: "1 nm.", opt4: "3 nm.", correct: "3", cat: "w_r22" },
+            { q: "What range shall the sternlight be visible at, for vessels of 50m or more in length?", opt1: "3 nm.", opt2: "4 nm.", opt3: "2 nm.", opt4: "5 nm.", correct: "1", cat: "w_r22" },
+            { q: "What range shall the sternlight be visible at, for vessels between 12m and 50m in length?", opt1: "3 nm.", opt2: "2 nm.", opt3: "1 nm.", opt4: "1.5 nm.", correct: "2", cat: "w_r22" },
+            { q: "What range shall the sternlight be visible at, for vessels less than 12m in length?", opt1: "3 nm.", opt2: "1.5 nm.", opt3: "2 nm.", opt4: "1 nm.", correct: "3", cat: "w_r22" },
+            { q: "What range shall the towing light be visible at, for vessels of 50m in length?", opt1: "3 nm.", opt2: "2 nm.", opt3: "3.5 nm.", opt4: "5 nm.", correct: "1", cat: "w_r22" },
+            { q: "What range shall the towing light be visible at, for vessels of length 12m-50m?", opt1: "3 nm.", opt2: "2 nm.", opt3: "5 nm.", opt4: "1 nm.", correct: "2", cat: "w_r22" },
+            { q: "What range shall the towing light be visible at, for vessels less than 12m in length?", opt1: "1 nm.", opt2: "3 nm.", opt3: "2 nm.", opt4: "0.5 nm.", correct: "3", cat: "w_r22" },
+            { q: "What range shall the all round light be visible at, for vessels of 50m or more in length?", opt1: "3 nm.", opt2: "4 nm.", opt3: "5 nm.", opt4: "2 nm.", correct: "1", cat: "w_r22" },
+            { q: "What range shall the all round light be visible at, for vessels of 12m-50m in length?", opt1: "3 nm.", opt2: "2 nm.", opt3: "1 nm.", opt4: "5 nm.", correct: "2", cat: "w_r22" },
+            { q: "What range shall the all round light be visible at, for vessels less than 12m in length?", opt1: "1 nm.", opt2: "Less than 1 nm.", opt3: "2 nm.", opt4: "3 nm.", correct: "3", cat: "w_r22" },
+
+            { q: "What light shall a power-driven vessel underway, less than 50m in length, exhibit?", opt1: "A masthead light, sidelights, a sternlight.", opt2: "A masthead light and sidelight.", opt3: "Sidelights and a sternligtht.", opt4: "Two masthead lights.", correct: "1", cat: "w_r23" },
+            { q: "What lights shall a power-driven vessel underway, of 50m or more in length, exhibit?", opt1: "A masthead light, sidelight and a sternlight.", opt2: "A masthead light forward, a second masthead light abaft of and higher than the forward one, sidelights and a sternlight.", opt3: "Sidelights, a sternlight and two white masthead lights side by side.", opt4: "Only a second masthead light abaft.", correct: "2", cat: "w_r23" },
+            { q: "What light shall an air-cushion vessel exhibit, when operating in non-displacement mode?", opt1: "The same lights as a power-driven vessel underway.", opt2: "An all-round flashing yellow light.", opt3: "The same lights as a power-driven vessel underway and an additional all-round flashing yellow light.", opt4: "A flashing red light.", correct: "3", cat: "w_r23" },
+            { q: "What lights shall a power-driven vessel underway, of less than 7m in length and whose maximum speed does not exceed 7 knots, exhibit?", opt1: "An all-round white light and also, if practicable, sidelights.", opt2: "Sidelights.", opt3: "A white light which could be exhibited if practicable.", opt4: "Only a sternlight.", correct: "1", cat: "w_r23" },
+
+            { q: "What range shall an all-round white light of an inconspicuous, partly submerged vessel or object being towed be visible?", opt1: "3 nm.", opt2: "2 nm.", opt3: "1 nm.", opt4: "5 nm.", correct: "1", cat: "w_r24" },
+            { q: "What lights shall a power-driven vessel of less than 50m in length exhibit when towing and the length of the tow is less than 200m?", opt1: "2 masthead lights in a vertical line, sidelights and a towing light.", opt2: "2 masthead lights in a vertical line, sidelights, a sternlight and a towing light.", opt3: "Sidelights, a sternlight and a towing light.", opt4: "3 masthead lights.", correct: "2", cat: "w_r24" },
+            { q: "What lights shall a power-driven vessel of less than 50m in length exhibit, when towing and the length of the tow exceeds 200m?", opt1: "3 masthead lights in a vertical line and a towing light.", opt2: "3 masthead lights in a vertical line, sidelights and a sternlight.", opt3: "3 masthead lights in a vertical line, sidelights, a sternlight and a towing light.", opt4: "2 masthead lights.", correct: "3", cat: "w_r24" },
+            { q: "What lights shall a power-driven vessel of more than 50m in length exhibit, when towing and the length of the tow is less than 200 metres?", opt1: "Instead of the masthead lights forward and aft, 2 masthead lights in a vertical line, sidelights, a stern light and a towing light.", opt2: "Sidelights, a sternlight and a towing light.", opt3: "2 masthead lights in a vertical line, sidelights and a towing light.", opt4: "Only a towing light.", correct: "1", cat: "w_r24" },
+            { q: "What lights shall a power-driven vessel of more than 50m in length exhibit, when towing and the length of the tow exceeds 200m?", opt1: "3 masthead lights in a vertical line, sidelights and a sternlight.", opt2: "Instead of the lights forward or aft, 3 masthead lights in a vertical line, sidelights, a sternlight, a towing light.", opt3: "3 masthead lights in a vertical line, sidelights and a towing light.", opt4: "4 masthead lights.", correct: "2", cat: "w_r24" },
+            { q: "What shape shall a power-driven vessel underway exhibit, when the length of the tow exceeds 200m?", opt1: "A diamond.", opt2: "A cone with the apex downwards.", opt3: "2 cones with apexes together.", opt4: "A ball.", correct: "1", cat: "w_r24" },
+            { q: "Where the shape of the power-driven vessel underway shall be placed, when the length of the tow exceeds 200m?", opt1: "At the fore masthead.", opt2: "Where it can best be seen.", opt3: "At the afthead.", opt4: "At the stern.", correct: "2", cat: "w_r24" },
+            { q: "What light shall a pushing vessel and a vessel being pushed ahead exhibit, when they are rigidly connected in a composite unit?", opt1: "The lights of a tugboat with the length of the tow less than 200m.", opt2: "Every vessel shall exhibit her own lights.", opt3: "The lights of a single power-driven vessel, underway.", opt4: "Only sidelights.", correct: "3", cat: "w_r24" },
+            { q: "What lights shall a power-driven vessel exhibit when pushing ahead or towing alongside, this not being the case of a composite unit?", opt1: "2 masthead lights forward in a vertical line, sidelights, a sternlight.", opt2: "3 masthead lights in a vertical line, sidelights and a towing light.", opt3: "Sidelights and a towing light.", opt4: "Only a towing light.", correct: "1", cat: "w_r24" },
+            { q: "What lights shall the objects or vessels being towed exhibit, other than inconspicuous vessels or objects?", opt1: "Masthead lights and a sternlight.", opt2: "Sidelights and a sternlight.", opt3: "Towing lights and a sternlight.", opt4: "Only a sternlight.", correct: "2", cat: "w_r24" },
+            { q: "What shape shall a power-driven vessel being towed exhibit, when the length of the tow exceeds 200m?", opt1: "A cone with the apex downward.", opt2: "A diamond.", opt3: "Two black cones with apexes together.", opt4: "A cylinder.", correct: "2", cat: "w_r24" },
+            { q: "Where the shape of a vessel being towed shall be placed when the length of the tow exceeds 200m?", opt1: "At the foremast head.", opt2: "At the aftermast head.", opt3: "Where it can best be seen.", opt4: "In the middle.", correct: "3", cat: "w_r24" },
+            { q: "What lights shall a vessel being pushed ahead exhibit, this not being the case of a composite unit?", opt1: "She shall exhibit the sidelights at the forward end.", opt2: "The masthead light and sidelights.", opt3: "The masthead light and a sternlight.", opt4: "A sternlight only.", correct: "1", cat: "w_r24" },
+            { q: "What lights shall a vessel being towed alongside exhibit?", opt1: "The masthead lights and a sternlight.", opt2: "A sternlight and sidelights at the forward end.", opt3: "Sidelights at the forward end.", opt4: "Only a towing light.", correct: "2", cat: "w_r24" },
+            { q: "What lights shall an inconspicuous, partly submerged vessel or object less than 25m in breadth exhibit, when being towed?", opt1: "An all-round white light at the forward end.", opt2: "An all-round white light at the after end.", opt3: "An all-round white light at the forward end and one at the after end.", opt4: "An all round red light.", correct: "3", cat: "w_r24" },
+            { q: "What lights shall an inconspicuous, partly submerged vessel or object more than 25m in breadth, exhibit?", opt1: "4 all-round white lights at the after end, forward end and on each side at the extremities of her breadth.", opt2: "An all-round white light at the forward end and another all-round white light at the after end.", opt3: "Green and red sidelights at the extremities of her breadth.", opt4: "None.", correct: "1", cat: "w_r24" },
+            { q: "What lights shall an inconspicuous, partly submerged vessel or object being towed exhibit, when her length exceeds 100m and her breadth exceeds 25m?", opt1: "5 all-round white lights at the forward end, after end, at or near the extremities of her breadth and a light between the forward end and the after end so that the distance between the lights shall not exceed 100m.", opt2: "3 all-round white lights.", opt3: "4 all-round white lights at the forward end, after end and at the extremities of her breadth.", opt4: "Only 2 white lights.", correct: "1", cat: "w_r24" },
+            { q: "What shape shall an inconspicuous, partly submerged object or vessel exhibit by day when being towed and the length of the tow is less than 200m?", opt1: "A cone apex downwards at the forward end.", opt2: "A diamond at or near the after end of the last vessel or object being towed.", opt3: "2 black cones, apexes together.", opt4: "A cylinder.", correct: "2", cat: "w_r24" },
+            { q: "What shapes shall an inconspicuous, partly submerged object or vessel exhibit by day, when being towed and the length of the tow exceeds 200m?", opt1: "A cone apex upwards at the forward end and an additional one at the after end.", opt2: "2 black cones, apexes together.", opt3: "A diamond at or near the aftermost extremity and an additional one where it can best be seen and located as far forward as practicable.", opt4: "A black ball.", correct: "3", cat: "w_r24" },
+            { q: "What shall a vessel or object being towed do when, from any sufficient cause it is impracticable to exhibit the lights prescribed by the rules?", opt1: "All possible measures shall be taken to light the vessel or object being towed or at least to indicate the presence of such vessel or object.", opt2: "It shall exhibit no light.", opt3: "It shall exhibit only the sidelights.", opt4: "Shoot flares.", correct: "1", cat: "w_r24" },
+            { q: "What shall a vessel engaged in towing which is not normally engaged in towing operations do, when it is impracticable to exhibit the prescribed lights (e.g. towing a vessel in distress)?", opt1: "She shall navigate with caution the radiotelephone working.", opt2: "She shall take all possible measures to indicate the nature of the relationship between the towing vessel and the vessel being towed, in particular by illuminating the towline.", opt3: "She shall exhibit the lights for a disabled vessel and will take the towline.", opt4: "Abandon the tow.", correct: "2", cat: "w_r24" },
+
+            { q: "What lights shall a sailing vessel underway exhibit?", opt1: "Sidelights.", opt2: "Masthead lights and sidelights.", opt3: "Sidelights and a sternlight.", opt4: "A yellow light.", correct: "3", cat: "w_r25" },
+            { q: "What lights shall a sailing vessel underway exhibit, when her length is less than 20m?", opt1: "Sidelights and a sternlight combined in one lantern.", opt2: "Sidelights.", opt3: "A white light to be exhibited if necessary.", opt4: "A red flashing light.", correct: "1", cat: "w_r25" },
+            { q: "Where shall a sailing vessel underway carry the lantern, when her length is less than 20m?", opt1: "Anywhere and to be exhibited only if necessary.", opt2: "At the top of the mast where it can best be seen.", opt3: "At the jack stick.", opt4: "At the bow.", correct: "2", cat: "w_r25" },
+            { q: "Which are the additional lights a sailing vessel underway may exhibit?", opt1: "An all-round green light at the top of the mast.", opt2: "An all-round red light at the top of the mast.", opt3: "2 all-round lights in a vertical line, the upper being red and the lower green at the top of the mast.", opt4: "2 all-round lights, white over red.", correct: "3", cat: "w_r25" },
+            { q: "What lights shall a sailing vessel underway exhibit, when her length is less than 7m?", opt1: "She shall have ready at hand an electric torch or lighted lantern showing a white light which shall be exhibited in sufficient time to prevent collision.", opt2: "Sidelights.", opt3: "A white light at the masthead.", opt4: "A green lantern.", correct: "1", cat: "w_r25" },
+            { q: "What lights shall a vessel under oars exhibit?", opt1: "A blue light to be shown at any time.", opt2: "A red light.", opt3: "If she does not exhibit the lights of a sailing vessel, she shall be ready to show an electric torch or lighted lantern showing a white light.", opt4: "A yellow flashing light.", correct: "3", cat: "w_r25" },
+            { q: "What shape shall a vessel proceeding under sail exhibit, when also being propelled by machinery?", opt1: "A conical shape forward, apex downward, where it can best be seen.", opt2: "A diamond where it can best be seen.", opt3: "2 black cones with the apexes together.", opt4: "A black cylinder.", correct: "1", cat: "w_r25" },
+
+            { q: "When shall a vessel engaged in fishing exhibit the prescribed lights and shapes?", opt1: "In any circumstance.", opt2: "While underway and at anchor.", opt3: "When underway.", opt4: "Only at night.", correct: "2", cat: "w_r26" },
+            { q: "What lights shall a vessel engaged in trawling exhibit, when not making way through the water?", opt1: "An all-round green light and a masthead light placed higher.", opt2: "2 all-round lights in a vertical line, the upper being green and the lower white, a masthead light placed abaft of and higher than the all-round light.", opt3: "2 all-round lights in a vertical line, the upper being white and the lower green and a sternlight.", opt4: "A red over white light.", correct: "2", cat: "w_r26" },
+            { q: "What lights shall a vessel engaged in trawling exhibit, when making way through the water?", opt1: "Sidelights, a sternlight and an all-round green light at the masthead.", opt2: "Sidelights, 2 lights in a vertical line, the upper being white and the lower green...", opt3: "Sidelights, a sternlight, 2 lights in a vertical line, the upper being green and the lower white, a masthead placed abaft...", opt4: "Only a sternlight.", correct: "3", cat: "w_r26" },
+            { q: "What shapes shall a vessel engaged in trawling exhibit?", opt1: "A shape consisting of 2 cones with their apexes together.", opt2: "A diamond shape.", opt3: "2 black balls in a vertical line.", opt4: "A cylinder.", correct: "1", cat: "w_r26" },
+            { q: "What shape shall a vessel of less than 20m in length exhibit, when engaged in trawling?", opt1: "A red ball.", opt2: "A basket.", opt3: "A black diamond.", opt4: "Two balls.", correct: "2", cat: "w_r26" },
+            { q: "What lights shall a fishing vessel other than trawling exhibit, when making way through the water?", opt1: "Sidelights, 2 all-round lights in a vertical line, the upper being white and the lower red.", opt2: "2 all-round lights in a vertical line, the upper being red and the lower white and a sternlight.", opt3: "Sidelights, a sternlight, 2 all-round lights in a vertical line, the upper being red and the lower white.", opt4: "Green over white lights.", correct: "3", cat: "w_r26" },
+            { q: "What lights shall a vessel engaged in fishing, other than trawling exhibit, when there is outlying gear extending more than 150m horizontally and is making way?", opt1: "Sidelights, a sternlight, 2 all-round lights in a vertical line, the upper being red and the lower white, an all-round white light in the direction of the gear.", opt2: "Sidelights, a sternlight, an all-round white light in the direction of the gear.", opt3: "Sidelights, a sterlinght, two lights in a vertical line, the upper white and the lower red.", opt4: "A yellow light.", correct: "1", cat: "w_r26" },
+            { q: "What lights shall a fishing vessel other than trawling exhibit, when gear extends >150m and is NOT making way?", opt1: "2 all-round lights in a vertical line, upper white and lower red...", opt2: "2 lights in a vertical line, the upper being red and the lower white, an all-round white light in the direction of the gear.", opt3: "An all-round white light in the direction of the gear.", opt4: "Only an all round red light.", correct: "2", cat: "w_r26" },
+            { q: "What shapes shall a fishing vessel other than trawling exhibit, when there is outlying gear extending more than 150m horizontally?", opt1: "A black diamond.", opt2: "2 cones with their apexes together.", opt3: "2 cones with their apexes together + a cone apex upwards in the direction of the gear.", opt4: "A basket.", correct: "3", cat: "w_r26" },
+            { q: "What lights and shapes shall a fishing vessel exhibit, when not engaged in fishing?", opt1: "The lights and shapes prescribed for a vessel of her length.", opt2: "The lights of a vessel engaged in fishing and making way through the water.", opt3: "The lights of a vessel restricted in her ability to manoeuvre.", opt4: "A single white light.", correct: "1", cat: "w_r26" },
+            { q: "What additional lights shall a trawler exhibit when shooting her nets in close proximity to other vessels?", opt1: "An all-round red light.", opt2: "2 all-round white lights in a vertical line.", opt3: "An all-round green light.", opt4: "Red over white.", correct: "2", cat: "w_r26" },
+            { q: "What additional lights shall a trawler exhibit, when hauling her nets in close proximity to other vessels?", opt1: "2 red lights in a vertical line.", opt2: "An all-round red light.", opt3: "One white light over one red light in a vertical line.", opt4: "One green over white.", correct: "3", cat: "w_r26" }
+        ];
+
+        // ====================================================
+        // القسم الثالث: أسئلة تداول البضائع (60 سؤال)
+        // ====================================================
+        const cargoQuizData = [
+            // الفرع 1: مصطلحات الشحن وخطوط التحميل (c_terms)
+            { q: "يقصد بالمصطلح light displacement:", opt1: "وزن حديد السفينة + معدات الشحن والماكينات والمخاطيف", opt2: "الإزاحة الكلية + البضائع", opt3: "وزن ما تحمله السفينة من بضائع ووقود ومياه", opt4: "وزن السفينة بكل ما فيها من بضائع ومؤن حتى غاطس التحميل المسموح فيه", correct: "1", cat: "c_terms" },
+            { q: "المقصود من المصطلح الإزاحة displacement:", opt1: "هو إزاحة السفينة الكاملة + إزاحة السفينة الخفيفة", opt2: "هو إزاحة السفينة الكاملة أو إزاحة السفينة الخفيفة", opt3: "هو إزاحة السفينة الخفيفة + وزن البضائع", opt4: "هو إزاحة السفينة الكاملة ناقص إزاحة السفينة الخفيفة", correct: "2", cat: "c_terms" },
+            { q: "يقصد بالمصطلح حمولة البضائع cargo weight:", opt1: "حمولة البضائع الكلية", opt2: "حمولة البضائع الصافية", opt3: "حمولة البضائع الوزنية والحجمية", opt4: "حمولة المقاسة", correct: "3", cat: "c_terms" },
+            { q: "حجم العنبر للبالات Bale Capacity هو:", opt1: "هو سعة العنبر مقاساً بالمتر المربع مخصوماً منه الأجزاء البارزة والانحناءات", opt2: "هو سعة العنبر مقاساً بالمتر المكعب من داخل ألواح البدن من الجانبين", opt3: "هو سعة العنبر مقاساً بالمتر المكعب من خارج ألواح البدن من الجانبين", opt4: "هو سعة العنبر مقاساً بالمتر المكعب مخصوماً منه الأجزاء البارزة والانحناءات", correct: "4", cat: "c_terms" },
+            { q: "حجم العنبر للحبوب Grain Capacity هو:", opt1: "هو سعة العنبر مقاساً بالمتر المكعب من داخل ألواح البدن من الجانبين", opt2: "هو سعة العنبر مقاساً بالمتر المربع مخصوماً منه الأجزاء البارزة والانحناءات", opt3: "هو سعة العنبر مقاساً بالمتر المكعب من خارج ألواح البدن من الجانبين", opt4: "هو سعة العنبر مقاساً بالمتر المربع متضمناً الأجزاء البارزة والانحناءات", correct: "1", cat: "c_terms" },
+            { q: "Broken stowage يعني:", opt1: "فقدان مساحة الشحن بسبب التستيف غير الصحيح للبضائع", opt2: "فقدان مساحة الشحن بسبب التسوية غير الصحيحة للبضائع", opt3: "فقدان مساحة الشحن بسبب تلف البضائع", opt4: "فقدان مساحة الشحن بسبب معامل التستيف الكبير", correct: "2", cat: "c_terms" },
+            { q: "Stowage factor يمثل:", opt1: "قيمة عدد الأطنان التي يمكن شحنها حسب كثافة المادة", opt2: "قيمة توضح الحجم بالمتر المكعب الذي يشغله عدد الأطنان من البضائع", opt3: "قيمة توضح الحجم بالمتر المربع الذي يشغله طن من البضائع", opt4: "قيمة توضح الحجم بالمتر المكعب الذي يشغله طن من البضائع", correct: "4", cat: "c_terms" },
+            { q: "ما هو المصطلح الذي يصف البضائع التي يقل عامل التستيف فيها عن 1.2 متر مكعب للطن:", opt1: "Light cargo", opt2: "Gross tonnage cargo", opt3: "cargo weight", opt4: "Deadweight cargo", correct: "4", cat: "c_terms" },
+            { q: "ما هو المصطلح الذي يصف البضائع التي يزيد عامل التستيف فيها عن 1.2 متر مكعب للطن:", opt1: "Measurement cargo", opt2: "Gross tonnage cargo", opt3: "cargo weight", opt4: "Deadweight cargo", correct: "1", cat: "c_terms" },
+            { q: "تقع علامة Plimsoll Mark:", opt1: "أسفل خط الشحن الصيفي بمسافة 1/48 من هذا الخط", opt2: "أسفل خط السطح بما يعادل الحد الحر", opt3: "أسفل خط شحن المناطق الشتوية مسافة 5 سم", opt4: "أعلى خط الشحن الصيفي بمسافة 1/48 من هذا الخط", correct: "2", cat: "c_terms" },
+            { q: "خط شحن المناطق الشتوية يقع هذا الخط:", opt1: "أعلى خط الشحن الاستوائي بمسافة 1/48 من هذا الخط", opt2: "أسفل خط الشحن الصيفي بمسافة 1/48 من هذا الخط", opt3: "أعلى خط الشحن الصيفي بمسافة 1/48 من هذا الخط", opt4: "أسفل خط شحن المناطق الشتوية مسافة 5 سم", correct: "2", cat: "c_terms" },
+            { q: "خط شحن المناطق الشتوية لشمال المحيط الأطلسي يقع هذا الخط:", opt1: "أعلى خط الشحن الشتوي بمسافة 50 مم من هذا الخط", opt2: "أسفل خط الشحن الصيفي بمسافة 1/48 من هذا الخط", opt3: "أسفل خط الشحن الاستوائي بمسافة 5 سم من هذا الخط", opt4: "أسفل خط شحن المناطق الشتوية مسافة 5 سم", correct: "4", cat: "c_terms" },
+            { q: "خط شحن المناطق الاستوائية يقع هذا الخط:", opt1: "أعلى خط الشحن الشتوي بمسافة 1/48 من هذا الخط", opt2: "أسفل خط الشحن الصيفي بمسافة 1/48 من هذا الخط", opt3: "أعلى خط الشحن الصيفي بمسافة 1/48 من هذا الخط", opt4: "أسفل خط شحن المناطق الشتوية مسافة 5 سم", correct: "3", cat: "c_terms" },
+            { q: "خط شحن المناطق ذات المياه العذبة Fresh water load line يقع هذا الخط:", opt1: "أعلى وإلى الأمام من خط الشحن الصيفي بقيمة تعادل إزاحة السفينة مقسوماً على 4 ضرب TPC", opt2: "أسفل خط الشحن الصيفي بمسافة 1/48 من هذا الخط", opt3: "أعلى وإلى الخلف من خط الشحن الصيفي بقيمة تعادل إزاحة السفينة مقسوماً على 4 ضرب TPC", opt4: "أسفل خط شحن المناطق الشتوية مسافة 5 سم", correct: "3", cat: "c_terms" },
+            { q: "خط شحن المناطق الاستوائية ذات المياه العذبة:", opt1: "يقع هذا الخط أعلى خط شحن المياه العذبة بمسافة 1/48 من خط الشحن الصيفي", opt2: "أعلى خط الشحن الصيفي بمسافة 1/48 من هذا الخط", opt3: "أسفل خط الشحن الاستوائي بمسافة 5 سم من هذا الخط", opt4: "أسفل خط السطح بما يعادل الحد الحر", correct: "1", cat: "c_terms" },
+            { q: "غاطس السفينة Ship draft يقاس من:", opt1: "قاع السفينة حتى الحد العلوي لخط بليمسول", opt2: "قاع السفينة حتى الحد العلوي لخط السطح", opt3: "قاع السفينة حتى الحد العلوي لخط الشحن الشتوي", opt4: "قاع السفينة حتى الحد العلوي لخط الشحن الاستوائي", correct: "1", cat: "c_terms" },
+            { q: "إن الغرض الأساسي من خطوط التحميل (Load line) هو:", opt1: "تحديد غاطس السفينة في المنطقة التي تبحر بها", opt2: "عدم شحن السفينة أكثر من الحمولة الصافية المحددة", opt3: "تخصيص حد قانوني أقصى للسفينة يمكن تحميلها بحيث يكون للسفينة حد طفو وحد حر كاف", opt4: "إصدار شهادة خطوط التحميل الدولية للسفينة طبقاً للمعاهدة 1988", correct: "3", cat: "c_terms" },
+
+            // الفرع 2: التهوية والرطوبة (c_vent)
+            { q: "من الأسباب التي تؤدي لتلف البضائع هي:", opt1: "عدم فصل البضائع التالفة عن البضائع الجيدة", opt2: "عدم التستيف الجيد للبضائع وتسويتها في العنبر", opt3: "عدم استمرار التهوية الميكانيكية خلال الرحلة", opt4: "البلل بالعرق للبضائع", correct: "4", cat: "c_vent" },
+            { q: "الطرق المتبعة للتهوية على السفن هي:", opt1: "زيادة عدد دورات التهوية عن طريق التحكم بسرعة المراوح", opt2: "تهوية ميكانيكية وتهوية طبيعية", opt3: "تهوية مستمرة وسطحية وبدائرة مغلقة", opt4: "تهوية تعتمد على إزالة الرطوبة مع عدم تغيير درجة الحرارة", correct: "2", cat: "c_vent" },
+            { q: "القاعدة الأساسية للتهوية هي:", opt1: "تتم التهوية عندما تكون نقطة الندى خارج العنبر أقل من نقطة الندى داخل العنبر", opt2: "تتم التهوية عندما تكون نقطة الندى خارج العنبر أكبر من نقطة الندى داخل العنبر", opt3: "تتم التهوية عندما تكون نقطة الندى خارج العنبر أبرد من نقطة الندى داخل العنبر", opt4: "a+b+c", correct: "3", cat: "c_vent" },
+            { q: "تعرف الرطوبة النسبية:", opt1: "هي نسبة بخار الماء في الهواء عند تغيير درجة الحرارة", opt2: "هي نسبة بخار الماء في الهواء والتي تصل إلى درجة التشبع عندما تتغير رطوبة الهواء", opt3: "هي نسبة بخار الماء في الهواء والتي تصل إلى درجة التشبع مع عدم تغيير درجة حرارة الهواء", opt4: "هي نسبة بخار الماء في الهواء والتي تصل إلى درجة التشبع عندما تتغير درجة حرارة الهواء", correct: "3", cat: "c_vent" },
+            { q: "تعرف نقطة الندى على أنها:", opt1: "هي نسبة بخار الماء في الهواء عند تغيير درجة الحرارة", opt2: "هي درجة رطوبة البخار في الهواء والتي تصل إلى درجة التشبع ويتخلص من البخار على شكل عرق", opt3: "هي درجة الحرارة التي لا يستطيع الهواء تحتها الاحتفاظ بالرطوبة ويتخلص منها على شكل ندى أو عرق", opt4: "هي نسبة بخار الماء في الهواء والتي تصل إلى درجة التشبع عندما تتغير درجة حرارة الهواء", correct: "3", cat: "c_vent" },
+            { q: "عندما تكون نقطة ندى الهواء الخارجي أقل من نقطة الندى داخل العنبر يجب عليك:", opt1: "فتح جميع هوايات العنبر والتهوية", opt2: "غلق جميع هوايات العنبر وعدم التهوية", opt3: "الاكتفاء بالتهوية السطحية", opt4: "تشغيل التهوية الميكانيكية لزيادة دورات التهوية", correct: "1", cat: "c_vent" },
+
+            // الفرع 3: شحن الحبوب والبضائع الصب (c_bulk)
+            { q: "المصطلح Filled Compartment يعني:", opt1: "هو العنبر الذي امتلأ وسوي", opt2: "هو العنبر الذي امتلأ بالكامل ومستوي", opt3: "هو العنبر الذي امتلأ بالكامل ولم يسوى", opt4: "هو العنبر غير الممتلئ ومستوي", correct: "2", cat: "c_bulk" },
+            { q: "المصطلح Partly Filled Compartment يعني:", opt1: "هو العنبر الذي امتلأ وسوي", opt2: "هو العنبر الذي امتلأ بالكامل ومستوي", opt3: "هو العنبر الذي امتلأ بالكامل ولم يسوى", opt4: "هو العنبر غير الممتلئ ومستوي", correct: "4", cat: "c_bulk" },
+            { q: "لن يسمح لأي سفينة بشحن الحبوب ما لم يكن لديها وثيقة التفويض الخاصة لشحن الحبوب صادرة عن:", opt1: "مالك السفينة", opt2: "إدارة الشركة التي تتبع لها السفينة", opt3: "نادي الحماية والتأمين", opt4: "سلطة علم السفينة", correct: "4", cat: "c_bulk" },
+            { q: "من المخاطر المصاحبة لشحنة الحبوب:", opt1: "شحنة ليست صلبة جداً وليست سائلة", opt2: "ميل الحبوب إلى Sinkage", opt3: "إمكانية تحرك الحبوب إلى جانب واحد نتيجة الدرفلة العرضية", opt4: "كل ما سبق", correct: "4", cat: "c_bulk" },
+            { q: "من طرق تأمين شحنة الحبوب للحد من حركتها بالنسبة للقطاع الممتلئ جزئياً:", opt1: "تستيف الأجولة فوق الشحنة بارتفاع ثمن عرض السفينة", opt2: "تستيف الأجولة فوق الشحنة بارتفاع 1.8 متر", opt3: "تستيف الأجولة فوق الشحنة بارتفاع 1.2 متر", opt4: "تستيف الأجولة فوق الشحنة بارتفاع ثلث عرض السفينة", correct: "3", cat: "c_bulk" },
+            { q: "من الطرق الأكثر شيوعاً لشحن ناقلات البضائع الصب السائبة الصلبة هي الطريقة التبادلية وتتم فيها:", opt1: "شحن العنابر الفردية فقط مع الإمكانية للوصول إلى غاطس التحميل الصيفي", opt2: "شحن العنابر بشكل جزئي", opt3: "شحن جميع عنابر السفينة حتى الوصول إلى غاطس تحميل السفينة", opt4: "شحن العنابر مع إمكانية استخدام عنبرين متجاورين وترك عنابر فارغة", correct: "1", cat: "c_bulk" },
+            { q: "من الطرق الأكثر شيوعاً لشحن ناقلات البضائع الصب السائبة الصلبة هي طريقة التجانس وتتم فيها:", opt1: "شحن العنابر الفردية فقط مع الإمكانية للوصول إلى غاطس التحميل الصيفي", opt2: "شحن العنابر مع إمكانية استخدام عنبرين متجاورين وترك عنابر فارغة", opt3: "شحن العنابر بشكل جزئي", opt4: "شحن جميع عنابر السفينة حتى الوصول إلى غاطس تحميل السفينة", correct: "4", cat: "c_bulk" },
+            { q: "قسمت المدونة الدولية IMSBC Code البضائع من حيث إجراءات التسوية إلى بضائع:", opt1: "بضائع ذات كثافة عالية", opt2: "بضائع رطبة ليست بحاجة إلى تسوية", opt3: "بضائع ذات زاوية انهمار منخفضة", opt4: "بضائع متماسكة وغير متماسكة", correct: "4", cat: "c_bulk" },
+            { q: "من العوامل التي تؤخذ في الاعتبار عند شحن البضائع الصب القابلة للتمييع:", opt1: "التأكد من نسبة TML", opt2: "معرفة تاريخ مكونات الرطوبة ونسبة الرطوبة", opt3: "فحص زاوية الانهمار فقط", opt4: "A+B", correct: "4", cat: "c_bulk" },
+            { q: "إن الفصل السادس من سولاس يعطي وصفاً تاماً لما يلي:", opt1: "شحن البضائع طبقاً لـ IMBC Code", opt2: "شحن البضائع طبقاً لمدونة الحبوب", opt3: "تحميل تخزين البضائع على سطح السفينة أو تحته", opt4: "كل مما سبق", correct: "2", cat: "c_bulk" },
+            { q: "السفن التي يسمح لها بشحن الحبوب حسب المدونة الدولية لنقل الحبوب هي:", opt1: "السفن التي تقل حمولتها الإجمالية عن 500 طن والتي تعمل في نقل الحبوب", opt2: "السفن التي تشحن حبوب ولها زاوية انهمار أقل من 25 درجة", opt3: "السفن التي تقل حمولتها الإجمالية عن 400 طن والتي تعمل في نقل الحبوب", opt4: "السفن التي تكون حمولتها الإجمالية أكبر من 400 طن والتي تعمل في نقل الحبوب", correct: "1", cat: "c_bulk" },
+            { q: "تطبق المدونة الدولية لشحن الحبوب IGC على:", opt1: "جميع السفن التي تبلغ حمولتها 500 طن وأكثر", opt2: "جميع السفن التي تبلغ حمولتها 400 طن وأكثر", opt3: "جميع سفن البضائع الصب", opt4: "جميع السفن بغض النظر عن حجمها والتي تعمل في نقل الحبوب", correct: "2", cat: "c_bulk" },
+            { q: "يسمح للسفينة التي لا تحمل وثيقة تفويض بشحن الحبوب أن تشحن الحبوب في الظروف التالية:", opt1: "يجب أن لا يتجاوز الوزن الإجمالي للحبوب ثلث الحمولة الوزنية للسفينة", opt2: "أن تكون جميع العنابر مملوءة مع تسوية لسطح الحبوب", opt3: "لا تستطيع شحن الحبوب إلا بوجود وثيقة تفويض شحن الحبوب", opt4: "أخذ موافقة دولة العلم للسفينة وهيئة التصنيف", correct: "3", cat: "c_bulk" },
+            { q: "تبين الميزات الخدمية الإضافية المصممة لناقلات الصب ومتطلباتها على الناقلات التي يزيد طولها عن 150 متر:", opt1: "BC-A-bulk carriers لتحمل بضائع جافة ذات كثافة نوعية 1 طن/م3 وما دون مع عنبر فارغ", opt2: "BC-A-bulk carriers لتحمل بضائع جافة ذات كثافة نوعية 1 طن/م3 مع وجود عنبر فارغ", opt3: "BC-C-bulk carriers صممت لتحمل بضائع جافة ذات الكثافة النوعية أقل من 1 طن/متر مكعب مع وجود عنبر فارغ مخصص على أقصى غاطس للسفينة", opt4: "جميع ما سبق", correct: "3", cat: "c_bulk" },
+            { q: "صنفت المدونة الدولية IMSBC Code البضائع إلى ثلاث تصنيفات:", opt1: "المجموعة C وهي جميع البضائع التي تحتوي على مخاطر كيميائية", opt2: "المجموعة A وهي جميع البضائع التي تحتوي على مخاطر التسييل", opt3: "المجموعة B وهي البضائع التي لها زاوية انهمار كبيرة", opt4: "المجموعة B وهي البضائع التي لها زاوية انهمار صغيرة", correct: "2", cat: "c_bulk" },
+            { q: "إن الغرض من تسوية البضائع trimming طبقاً للكود IMBC هو:", opt1: "لملء العنبر بشكل كامل", opt2: "لتجنب الإجهادات على العنبر", opt3: "لتحقيق أفضل trim للسفينة", opt4: "التقليل من مخاطر تحرك البضائع", correct: "4", cat: "c_bulk" },
+            { q: "إن المصطلح angle of repose هو سمة من سمات البضائع:", opt1: "غير المتماسكة", opt2: "المتماسكة", opt3: "البضائع غير المستوية", opt4: "البضائع الصب بصفة عامة", correct: "1", cat: "c_bulk" },
+            { q: "المعلومات المتعلقة بمحتوى الرطوبة للبضائع الصب يمكن الحصول عليها من:", opt1: "من الكتب مثل Tomas stowage", opt2: "من stevedores", opt3: "من IMBC code", opt4: "من الشاحن في شكل إقرار أو شهادة", correct: "4", cat: "c_bulk" },
+            { q: "طبقاً للمدونة الدولية IMBC code فإن البضائع ذات التصنيف (المجموعة) B تعني:", opt1: "البضائع السائبة التي قد تسيل", opt2: "البضائع التي تنطوي على خطر كيميائي محتمل", opt3: "البضائع ذات زاوية الانهمار 30 درجة", opt4: "لا شيء مما سبق صحيح", correct: "2", cat: "c_bulk" },
+
+            // الفرع 4: الحاويات والأخشاب والبضائع الخطرة (c_imdg)
+            { q: "اختر من الأرقام التالية الرقم الذي يدل على أن الحاوية ذات المقياس 20 قدم قد شحنت في الارتفاع الثالث على السطح:", opt1: "351284", opt2: "550506", opt3: "141284", opt4: "530380", correct: "1", cat: "c_imdg" },
+            { q: "اختر من الأرقام التالية الرقم الذي يدل على أن الحاوية ذات المقياس 40 قدم قد شحنت على السطح:", opt1: "371282", opt2: "200280", opt3: "261284", opt4: "550380", correct: "2", cat: "c_imdg" },
+            { q: "من مواصفات الممر الآمن للسفن التي تحمل أخشاب على السطح:", opt1: "أن لا يقل عرضه عن 1.5 متر والمسافة بين الأعمدة لا تقل 1.6 متر", opt2: "أن لا يقل عرضه عن 1 متر والمسافة بين الأعمدة لا تزيد 1.5 متر", opt3: "أن لا يقل عرضه عن 1.5 متر والمسافة بين الأعمدة لا تقل 1.2 متر", opt4: "أن لا يقل عرضه عن 1.2 متر والمسافة بين الأعمدة لا تقل 1 متر", correct: "2", cat: "c_imdg" },
+            { q: "صنفت المدونة الدولية IMDG CODE البضائع الخطرة إلى:", opt1: "تسعة أقسام رئيسية", opt2: "ثمانية أقسام رئيسية", opt3: "تسعة أقسام رئيسية وتسعة فروع", opt4: "سبعة أقسام رئيسية وثلاث ملاحق", correct: "1", cat: "c_imdg" },
+            { q: "من القواعد العامة لعزل البضائع الخطرة هي بعيداً عن Away From وتعني:", opt1: "شحن البضائع الخطرة في عنبرين منفصلين أو على السطح بمسافة أفقية لا تقل عن 3 متر", opt2: "شحن البضائع الخطرة في عنبر واحد بمسافة أفقية لا تقل عن 6 متر", opt3: "شحن البضائع الخطرة في عنبر واحد أو على السطح بمسافة أفقية لا تقل عن 3 متر", opt4: "شحن البضائع الخطرة في عنبر واحد أو على السطح بمسافة أفقية لا تقل عن 12 متر", correct: "3", cat: "c_imdg" },
+            { q: "من القواعد العامة لفصل البضائع الخطرة هي Separated From منفصل عن وتعني:", opt1: "شحن البضائع الخطرة في عنبرين منفصلين على أن يكون القاطع بينهما مقاوماً للحريق والسوائل", opt2: "إذا شحنت على السطح تعني الفصل بمسافة أفقية لا تقل عن 6 أمتار", opt3: "شحن البضائع الخطرة في عنبرين منفصلين على أن يكون بينهما عنبر فارغ", opt4: "A+B", correct: "4", cat: "c_imdg" },
+            { q: "عرفت المدونة IMDG Code المواد الخطرة التي لا ينطبق عليها الكود بما يلي:", opt1: "البضائع الخطيرة المطلوبة لتسيير وسائل النقل أو تشغيل معدات النقل المتخصصة كالتبريد وإطفاء الحريق", opt2: "البضائع الخطرة التي لا يزيد وزنها على 9 كغ وتستخدم في تشغيل السفينة", opt3: "البضائع الخطرة المعبأة للبيع بالتجزئة التي يحملها الأفراد لاستعمالهم الخاص", opt4: "A+C", correct: "4", cat: "c_imdg" },
+            { q: "كتاب المدونة الدولية لشحن البضائع الخطرة Volume 2 - IMDG Code يحتوي على الأجزاء التالية:", opt1: "part 1+2+3+4+5", opt2: "part 3+7", opt3: "part 6 only", opt4: "part 3 only", correct: "4", cat: "c_imdg" },
+            { q: "كتاب المدونة الدولية لشحن البضائع الخطرة Volume 1 - IMDG Code يحتوي على الأجزاء التالية:", opt1: "part 1+2+3+4+5+6", opt2: "part 1+2+3+4+5+6+7", opt3: "part 1+2+4+5+6+7", opt4: "part 7 only", correct: "3", cat: "c_imdg" },
+
+            // الفرع 5: دليل التحميل ومدونات CSS & BLU (c_codes)
+            { q: "من أحد طرق تستيف البضائع حسب الكود الدولي CSS هو cross stowage والذي يتمثل كالتالي:", opt1: "تخزين البضائع بمفردها مع وجود مساحة كافية على أرضية العنبر", opt2: "تخزين البضائع مقابل جانب السفينة أو بشكل طولي يوفر الدعم ضد القوى المستعرضة", opt3: "تخزين البضائع في كتلة تمتد بشكل مستمر من جانب السفينة إلى جانب السفينة", opt4: "تخزين البضائع باتجاه طول السفينة ولا يسمح بالتستيف العرضي", correct: "3", cat: "c_codes" },
+            { q: "إن دليل التحميل للسفن Loading manual يعطينا وصفاً كاملاً لما يلي:", opt1: "خطوط الشحن التي تشحن السفينة عليها", opt2: "وصف لجميع العمليات التشغيلية للسفينة استناداً إلى هيكل تصميم السفينة", opt3: "وصف كامل لحالات طفو السفينة في جميع حالات الشحن", opt4: "معلومات عن شحن أنواع محددة من البضائع حسب نوع السفينة", correct: "2", cat: "c_codes" },
+            { q: "حسب الكود الدولي BLU فإن SWBM هو:", opt1: "عزم الانحناء في البحر المفتوح", opt2: "عزم الانحناء في المياه الساكنة", opt3: "عزم الانحناء خلال الرحلة", opt4: "عزم الانحناء عند كل عملية شحن وتفريغ", correct: "2", cat: "c_codes" },
+            { q: "في حال الحاجة إلى توزيع الشحنة بشكل مختلف عن تلك الموصوفة في دليل التحميل فإنه يتم ذلك:", opt1: "إجراء حسابات الإجهاد والإزاحة", opt2: "إبلاغ سلطة العلم للسفينة بذلك", opt3: "أخذ موافقة خطية من هيئة تصنيف السفينة", opt4: "تزامن عملية الشحن مع تفريغ مياه الصابورة", correct: "1", cat: "c_codes" },
+            { q: "إن أداة التحميل أو آلية التحميل Loading instrument يمكن أن:", opt1: "تعتمد في جميع عمليات الشحن والتفريغ", opt2: "لا تحل محل Loading Manual", opt3: "تحل محل Loading Manual", opt4: "كل مما سبق صحيح", correct: "2", cat: "c_codes" },
+            { q: "تقدم المدونة الدولية CSS تفاصيل دقيقة حول:", opt1: "شحن الحاويات والبضائع الثقيلة وتستيفها وتأمينها", opt2: "التستيف والتأمين المناسبين والإجراءات الواجب اتخاذها في البحر السيئ", opt3: "الإجراءات والقواعد التي يجب اتباعها لأنواع مختلفة من البضائع", opt4: "B+C", correct: "4", cat: "c_codes" },
+            { q: "تكون الأحمال التي تعمل على هيكل السفينة عندما تطفو في مياه ساكنة هي أحمال ثابتة وعادة تتكون من:", opt1: "الوزن الفعلي لهيكل السفينة وتجهيزاتها ومعداتها وآلاتها", opt2: "الوقود والأحمال المستهلكة الأخرى", opt3: "الضغط الهيدروستاتيكي (ضغط مياه البحر على الهيكل)", opt4: "A+B+C", correct: "1", cat: "c_codes" },
+            { q: "إن من المطالب الأولية للكود الدولي BLU هو:", opt1: "معرفة الإجراءات بين السفينة والمحطة قبل مناولة البضائع", opt2: "معرفة الإجراءات بين السفينة والمحطة قبل وصول السفينة", opt3: "معرفة الإجراءات بين السفينة والمحطة قبل تحميل البضائع أو تفريغ الصابورة", opt4: "معرفة الإجراءات بين السفينة والمحطة حسب الإدارة للشركة", correct: "1", cat: "c_codes" },
+            { q: "Loading manual هو مطلب قانوني يجب أن تحمله السفن:", opt1: "All Container Carriers", opt2: "All Ships", opt3: "All general cargo Ship", opt4: "All Ships Except Tankers and Bulk Carriers", correct: "1", cat: "c_codes" }
+        ];
+
+        const allQuizData = [...lawQuizData, ...watchQuizData, ...cargoQuizData];
+
+        // تعريف هيكلة الأفرع لكل مادة من المواد الثلاث
+        const subjectConfigs = {
+            law: {
+                title: "⚖️ قسم القانون البحري والاتفاقيات",
+                color: "var(--accent-blue)",
+                defaultCat: "all-law",
+                branches: [
+                    { id: "law", name: "القانون البحري (28 سؤال)" },
+                    { id: "isps", name: "مدونة ISPS (17 سؤال)" },
+                    { id: "stcw", name: "اتفاقية STCW (10 أسئلة)" },
+                    { id: "mlc", name: "اتفاقية MLC (5 أسئلة)" },
+                    { id: "marpol", name: "اتفاقية MARPOL (5 أسئلة)" },
+                    { id: "ism", name: "نظام ISM (5 أسئلة)" },
+                    { id: "all-law", name: "شامل القانون البحري والمعاهدات (70 سؤال)", full: true }
+                ]
+            },
+            watch: {
+                title: "🧭 قسم تأمين النوبة الملاحية (COLREGS)",
+                color: "var(--accent-orange)",
+                defaultCat: "all-watch",
+                branches: [
+                    { id: "w_r21", name: "التعاريف - Rule 21 (6 أسئلة)" },
+                    { id: "w_r22", name: "مدى الرؤية - Rule 22 (16 سؤال)" },
+                    { id: "w_r23", name: "السفن الآلية - Rule 23 (4 أسئلة)" },
+                    { id: "w_r24", name: "القطر والدفع - Rule 24 (21 سؤال)" },
+                    { id: "w_r25", name: "الشراعية والتجذيف - Rule 25 (7 أسئلة)" },
+                    { id: "w_r26", name: "سفن الصيد - Rule 26 (12 سؤال)" },
+                    { id: "all-watch", name: "شامل تأمين النوبة الملاحية (66 سؤال)", full: true }
+                ]
+            },
+            cargo: {
+                title: "📦 قسم تداول واستيفاء البضائع",
+                color: "var(--accent-purple)",
+                defaultCat: "all-cargo",
+                branches: [
+                    { id: "c_terms", name: "مصطلحات الشحن وخطوط التحميل (17 سؤال)" },
+                    { id: "c_vent", name: "التهوية والرطوبة ونقطة الندى (6 أسئلة)" },
+                    { id: "c_bulk", name: "شحن الحبوب والبضائع الصب (19 سؤال)" },
+                    { id: "c_imdg", name: "الحاويات والأخشاب والبضائع الخطرة (9 أسئلة)" },
+                    { id: "c_codes", name: "دليل التحميل ومدونات CSS & BLU (9 أسئلة)" },
+                    { id: "all-cargo", name: "شامل مادة تداول البضائع (60 سؤال)", full: true }
+                ]
+            }
+        };
+
+        let currentSubject = 'law';
+        let selectedCategory = 'all-law';
         let currentQuizData = [];
         let currentQuestionIndex = 0;
         let score = 0;
@@ -309,33 +577,78 @@
         let answered = false;
         let timerInterval = null;
         let timeRemaining = 0;
-        let selectedCategory = 'all';
 
         const screens = {
-            landing: document.getElementById('landing-screen'),
+            home: document.getElementById('home-screen'),
+            branches: document.getElementById('branches-screen'),
             quiz: document.getElementById('quiz-screen'),
             result: document.getElementById('result-screen')
         };
+
         const listItems = document.querySelectorAll('ul li');
         const answerEls = document.querySelectorAll('.answer');
         const submitBtn = document.getElementById('submit-btn');
         const barCorrect = document.getElementById('bar-correct');
         const barWrong = document.getElementById('bar-wrong');
 
-        document.querySelectorAll('.cat-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
-                e.target.classList.add('selected');
-                selectedCategory = e.target.getAttribute('data-cat');
-            });
-        });
+        // فتح شاشة الأفرع الخاصة بالمادة المختارة
+        window.openSubject = function(subjKey) {
+            currentSubject = subjKey;
+            const config = subjectConfigs[subjKey];
+            selectedCategory = config.defaultCat;
 
-        function startAssessment() {
-            if (selectedCategory === 'all') {
-                currentQuizData = [...fullQuizData];
+            const titleEl = document.getElementById('branch-title');
+            titleEl.innerText = config.title;
+            titleEl.style.color = config.color;
+
+            const container = document.getElementById('branches-container');
+            container.innerHTML = '';
+
+            config.branches.forEach(b => {
+                const btn = document.createElement('button');
+                btn.className = 'cat-btn' + (b.full ? ' full-sub-quiz' : '') + (b.id === selectedCategory ? ' selected' : '');
+                btn.innerText = b.name;
+                if (b.id === selectedCategory) {
+                    btn.style.background = config.color;
+                    btn.style.borderColor = config.color;
+                }
+
+                btn.onclick = () => {
+                    container.querySelectorAll('.cat-btn').forEach(el => {
+                        el.classList.remove('selected');
+                        el.style.background = 'rgba(255,255,255,0.05)';
+                        el.style.borderColor = 'var(--border-color)';
+                    });
+                    btn.classList.add('selected');
+                    btn.style.background = config.color;
+                    btn.style.borderColor = config.color;
+                    selectedCategory = b.id;
+                };
+                container.appendChild(btn);
+            });
+
+            switchScreen('branches');
+            window.scrollTo(0, 0);
+        };
+
+        window.startAssessment = function() {
+            if (selectedCategory === 'all-law') {
+                currentQuizData = [...lawQuizData];
+            } else if (selectedCategory === 'all-watch') {
+                currentQuizData = [...watchQuizData];
+            } else if (selectedCategory === 'all-cargo') {
+                currentQuizData = [...cargoQuizData];
             } else {
-                currentQuizData = fullQuizData.filter(q => q.cat === selectedCategory);
+                currentQuizData = allQuizData.filter(q => q.cat === selectedCategory);
             }
+
+            currentQuestionIndex = 0;
+            score = 0;
+            wrongScore = 0;
+            document.getElementById('correct-count').innerText = '0';
+            document.getElementById('wrong-count').innerText = '0';
+            barCorrect.style.width = '0%';
+            barWrong.style.width = '0%';
 
             const timeInput = document.getElementById('time-input').value;
             if (timeInput && timeInput > 0) {
@@ -349,7 +662,7 @@
 
             switchScreen('quiz');
             loadQuestion();
-        }
+        };
 
         function updateTimer() {
             if (timeRemaining <= 0) {
@@ -362,26 +675,22 @@
             let s = timeRemaining % 60;
             const timerEl = document.getElementById('timer-display');
             timerEl.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-            
-            if (timeRemaining < 60) {
-                timerEl.style.backgroundColor = 'rgba(255,69,58,0.3)';
-                timerEl.style.color = '#ff453a';
-                timerEl.style.animation = 'shake 1s infinite';
-            }
         }
 
         function loadQuestion() {
             resetOptions();
             answered = false;
             submitBtn.innerText = "تأكيد الإجابة";
+            document.getElementById('live-accuracy').style.display = 'none';
             document.getElementById('progress-text').innerText = `السؤال ${currentQuestionIndex + 1} من ${currentQuizData.length}`;
             
             const qData = currentQuizData[currentQuestionIndex];
             document.getElementById('question').innerText = qData.q;
-            document.getElementById('a_text').innerText = qData.A;
-            document.getElementById('b_text').innerText = qData.B;
-            document.getElementById('c_text').innerText = qData.C;
-            document.getElementById('d_text').innerText = qData.D;
+            document.getElementById('text_1').innerText = qData.opt1;
+            document.getElementById('text_2').innerText = qData.opt2;
+            document.getElementById('text_3').innerText = qData.opt3;
+            document.getElementById('text_4').innerText = qData.opt4;
+            window.scrollTo(0, 0);
         }
 
         function resetOptions() {
@@ -396,7 +705,7 @@
             if(!answered) {
                 document.getElementById(id).checked = true;
                 listItems.forEach(item => item.style.border = '1px solid rgba(255, 255, 255, 0.08)');
-                document.getElementById('li_' + id).style.border = '1px solid var(--accent-blue)';
+                document.getElementById('li_' + id).style.border = `1px solid ${subjectConfigs[currentSubject].color}`;
             }
         };
 
@@ -421,18 +730,24 @@
                         document.getElementById('li_' + correctAnswer).classList.add('correct-answer');
                     }
                     
+                    document.getElementById('correct-count').innerText = score;
+                    document.getElementById('wrong-count').innerText = wrongScore;
+
                     let total = currentQuizData.length;
                     barCorrect.style.width = (score / total) * 100 + '%';
                     barWrong.style.width = (wrongScore / total) * 100 + '%';
+
+                    let currentAcc = Math.round((score / (currentQuestionIndex + 1)) * 100);
+                    const accEl = document.getElementById('live-accuracy');
+                    accEl.innerText = `نسبة الدقة حتى الآن: ${currentAcc}%`;
+                    accEl.style.color = currentAcc >= 60 ? 'var(--success)' : 'var(--danger)';
+                    accEl.style.display = 'block';
 
                     listItems.forEach(item => item.classList.add('disabled'));
                     answerEls.forEach(el => el.disabled = true);
 
                     answered = true;
                     submitBtn.innerText = "السؤال التالي ➔";
-                } else {
-                    submitBtn.style.animation = 'shake 0.4s';
-                    setTimeout(() => submitBtn.style.animation = '', 400);
                 }
             } else {
                 currentQuestionIndex++;
@@ -446,7 +761,6 @@
 
         function finishAssessment(timeOut = false) {
             if(timerInterval) clearInterval(timerInterval);
-            
             switchScreen('result');
             
             const total = currentQuizData.length;
@@ -461,35 +775,26 @@
             
             if (timeOut) {
                 document.getElementById('result-title').innerText = "⏰ انتهى الوقت!";
-                document.getElementById('result-msg').innerText = "تم سحب ورقة الاختبار لانتهاء الوقت المحدد.";
+                document.getElementById('result-msg').innerText = "تم إيقاف الاختبار لانتهاء الوقت المحدد.";
             } else {
-                document.getElementById('result-msg').innerText = percentage >= 60 ? "أداء ممتاز، كفاءة بحرية عالية!" : "تحتاج إلى مراجعة بعض المعلومات البحرية.";
+                document.getElementById('result-title').innerText = "اكتمل التقييم ⚓";
+                document.getElementById('result-msg').innerText = percentage >= 60 ? "أداء ممتاز، كفاءة بحرية عالية!" : "تحتاج إلى مراجعة بعض النقاط في هذا القسم.";
             }
 
             pctEl.style.color = percentage >= 60 ? 'var(--success)' : 'var(--danger)';
+            window.scrollTo(0, 0);
         }
 
-        function resetQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            wrongScore = 0;
-            timeRemaining = 0;
+        window.resetQuiz = function() {
             if (timerInterval) clearInterval(timerInterval);
-            
-            barCorrect.style.width = '0%';
-            barWrong.style.width = '0%';
-            document.getElementById('timer-display').style.display = 'none';
-            document.getElementById('timer-display').style.backgroundColor = 'rgba(255,69,58,0.1)';
-            document.getElementById('timer-display').style.color = 'var(--danger)';
-            document.getElementById('timer-display').style.animation = 'none';
+            switchScreen('home');
+            window.scrollTo(0, 0);
+        };
 
-            switchScreen('landing');
-        }
-
-        function switchScreen(screenName) {
+        window.switchScreen = function(screenName) {
             Object.values(screens).forEach(s => s.classList.remove('active'));
             screens[screenName].classList.add('active');
-        }
+        };
     </script>
 </body>
 </html>
