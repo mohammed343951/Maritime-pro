@@ -15,6 +15,7 @@
             --accent-blue: #0A84FF;
             --accent-orange: #FF9F0A;
             --accent-purple: #BF5AF2;
+            --accent-cyan: #32ADE6;
             --success: #32d74b;
             --danger: #ff453a;
             --border-color: rgba(255, 255, 255, 0.12);
@@ -42,7 +43,7 @@
             border: 1px solid var(--border-color);
             border-radius: 32px;
             box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
-            width: 850px;
+            width: 880px;
             max-width: 100%;
             overflow: hidden;
             position: relative;
@@ -59,18 +60,18 @@
 
         .setup-section { padding: 20px 35px 40px; }
 
-        /* بطاقات الأقسام الثلاثة الرئيسية */
+        /* بطاقات الأقسام الأربعة الرئيسية */
         .main-subjects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 16px;
             margin-top: 10px;
         }
         .subject-card {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
             border-radius: 24px;
-            padding: 28px 20px;
+            padding: 26px 18px;
             text-align: center;
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -84,12 +85,21 @@
         .subject-card.law-card:hover { border-color: var(--accent-blue); box-shadow: 0 12px 30px rgba(10, 132, 255, 0.25); }
         .subject-card.watch-card:hover { border-color: var(--accent-orange); box-shadow: 0 12px 30px rgba(255, 159, 10, 0.25); }
         .subject-card.cargo-card:hover { border-color: var(--accent-purple); box-shadow: 0 12px 30px rgba(191, 90, 242, 0.25); }
+        .subject-card.radar-card:hover { border-color: var(--accent-cyan); box-shadow: 0 12px 30px rgba(50, 173, 230, 0.25); }
 
-        .subject-icon { font-size: 2.8rem; margin-bottom: 12px; display: block; }
-        .subject-card h3 { margin: 0 0 8px; font-size: 1.3rem; color: #fff; font-weight: 800; }
-        .subject-card span { font-size: 0.9rem; color: var(--text-secondary); display: block; }
+        .subject-icon { font-size: 2.6rem; margin-bottom: 12px; display: block; }
+        .subject-card h3 { margin: 0 0 8px; font-size: 1.25rem; color: #fff; font-weight: 800; }
+        .subject-card span { font-size: 0.88rem; color: var(--text-secondary); display: block; }
 
         /* شاشة الأفرع الداخلية */
+        .top-actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
         .back-nav {
             display: inline-flex;
             align-items: center;
@@ -104,9 +114,33 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
-            margin-bottom: 20px;
         }
         .back-nav:hover { background: rgba(255,255,255,0.15); }
+
+        .oral-guide-btn {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(50, 173, 230, 0.2), rgba(10, 132, 255, 0.25));
+            border: 1px solid var(--accent-cyan);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 18px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 6px 20px rgba(50, 173, 230, 0.15);
+        }
+        .oral-guide-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            transform: translateY(-2px);
+        }
 
         .branch-header-title {
             font-size: 1.5rem;
@@ -140,10 +174,10 @@
         .quiz-body { padding: 10px 32px 32px; }
         h2#question { text-align: center; font-size: 1.3rem; font-weight: 800; line-height: 1.6; margin-bottom: 1.8rem; color: #fff; }
         
-        ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-        ul li { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 15px 20px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; line-height: 1.5; }
+        ul#options-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+        ul#options-list li { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 15px 20px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; line-height: 1.5; }
         input[type="radio"] { display: none; }
-        ul li:not(.disabled):hover { background: rgba(255, 255, 255, 0.09); transform: scale(1.01); border-color: rgba(255, 255, 255, 0.25); }
+        ul#options-list li:not(.disabled):hover { background: rgba(255, 255, 255, 0.09); transform: scale(1.01); border-color: rgba(255, 255, 255, 0.25); }
 
         .correct-answer { background: rgba(50,215,75,0.15) !important; border-color: var(--success) !important; color: var(--success) !important; }
         .wrong-answer { background: rgba(255,69,58,0.15) !important; border-color: var(--danger) !important; color: var(--danger) !important; }
@@ -160,6 +194,68 @@
         .score-box { background: rgba(0,0,0,0.35); border-radius: 20px; padding: 20px; margin: 20px auto; max-width: 320px; border: 1px solid var(--border-color); }
         .score-box div { font-size: 1.15rem; margin: 10px 0; }
 
+        /* تنسيقات شاشة الأسئلة الشفهية (الرادار) */
+        .oral-content-wrapper {
+            padding: 25px 35px 40px;
+            line-height: 1.8;
+        }
+        .oral-main-title {
+            text-align: center;
+            color: var(--accent-cyan);
+            border-bottom: 2px solid rgba(50, 173, 230, 0.3);
+            padding-bottom: 15px;
+            margin-top: 5px;
+            font-size: 1.6rem;
+        }
+        .oral-sec-title {
+            color: #fff;
+            background: linear-gradient(90deg, rgba(50, 173, 230, 0.25), transparent);
+            border-right: 4px solid var(--accent-cyan);
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-size: 1.2rem;
+        }
+        .qa-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 18px 22px;
+            margin-bottom: 16px;
+            page-break-inside: avoid;
+        }
+        .qa-question {
+            font-weight: 800;
+            color: #5ac8fa;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .qa-answer {
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+        .qa-answer ul, .qa-answer ol {
+            margin-top: 6px;
+            margin-bottom: 6px;
+            padding-right: 22px;
+        }
+        .qa-answer li {
+            margin-bottom: 6px;
+        }
+        .print-btn {
+            background: var(--accent-cyan);
+            color: #000;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 980px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .print-btn:hover { filter: brightness(1.1); }
+
         .site-footer { 
             position: relative; 
             width: 100%; 
@@ -172,11 +268,23 @@
             flex-shrink: 0;
         }
         .site-footer span.creator-name { color: var(--accent-blue); font-weight: 800; text-shadow: 0 0 10px rgba(10, 132, 255, 0.4); }
+
+        /* تنسيق الطباعة الرسمي للأسئلة الشفهية */
+        @media print {
+            body { background: #fff !important; color: #000 !important; padding: 0; }
+            .glass-card { box-shadow: none !important; border: none !important; background: #fff !important; width: 100% !important; backdrop-filter: none !important; }
+            .top-actions-bar, .site-footer { display: none !important; }
+            .oral-main-title { color: #0f2942 !important; border-bottom: 3px solid #0f2942 !important; }
+            .oral-sec-title { background: #16436b !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .qa-box { border: none !important; border-bottom: 1px dashed #ccc !important; border-radius: 0 !important; padding: 10px 0 !important; background: transparent !important; }
+            .qa-question { color: #b91c1c !important; }
+            .qa-answer { color: #1a1a1a !important; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. الشاشة الأولى: اختيار المادة الرئيسية (3 أقسام) -->
+    <!-- 1. الشاشة الأولى: اختيار المادة الرئيسية (4 أقسام) -->
     <div id="home-screen" class="glass-card active">
         <div class="landing-header">
             <h1>Maritime Pro Assessment ⚓</h1>
@@ -201,6 +309,12 @@
                     <h3>تداول بضائع</h3>
                     <span>60 سؤالاً • 5 أفرع</span>
                 </div>
+
+                <div class="subject-card radar-card" onclick="openSubject('radar')">
+                    <span class="subject-icon">📡</span>
+                    <h3>الرادار و ARPA</h3>
+                    <span>40 سؤال أتمتة + ملخص الشفهي</span>
+                </div>
             </div>
         </div>
     </div>
@@ -208,9 +322,16 @@
     <!-- 2. الشاشة الثانية: أفرع المادة المحددة وإعداد الوقت -->
     <div id="branches-screen" class="glass-card">
         <div class="setup-section" style="padding-top: 30px;">
-            <button class="back-nav" onclick="switchScreen('home')">➔ العودة للمواد الرئيسية</button>
+            <div class="top-actions-bar">
+                <button class="back-nav" onclick="switchScreen('home')">➔ العودة للمواد الرئيسية</button>
+            </div>
             
             <div id="branch-title" class="branch-header-title">أفرع المادة</div>
+
+            <!-- زر خاص يظهر فقط في قسم الرادار لعرض أسئلة المقابلة الشفهية -->
+            <button id="oral-guide-btn" class="oral-guide-btn" onclick="switchScreen('oral')">
+                📖 تصفح ملخص أسئلة المقابلة الشفهية (17 سؤال وجواب)
+            </button>
             
             <div id="branches-container" class="category-grid">
                 <!-- يتم توليد أزرار الأفرع هنا تلقائياً حسب المادة -->
@@ -226,7 +347,7 @@
         </div>
     </div>
 
-    <!-- 3. شاشة الاختبار -->
+    <!-- 3. شاشة الاختبار التفاعلي (أتمتة) -->
     <div id="quiz-screen" class="glass-card">
         <div class="progress-line-container">
             <div class="progress-correct" id="bar-correct"></div>
@@ -279,6 +400,230 @@
             
             <h2 id="final-percentage" style="font-size: 2.5rem; margin: 20px 0;">%0</h2>
             <button class="start-btn" onclick="resetQuiz()" style="max-width: 320px; margin: 0 auto; display: block;">العودة للقائمة الرئيسية</button>
+        </div>
+    </div>
+
+    <!-- 5. شاشة ملخص أسئلة المقابلة الشفهية (الرادار و ARPA) -->
+    <div id="oral-screen" class="glass-card">
+        <div class="oral-content-wrapper">
+            <div class="top-actions-bar">
+                <button class="back-nav" onclick="switchScreen('branches')">➔ العودة لأفرع الرادار</button>
+                <button class="print-btn" onclick="window.print()">🖨️ حفظ كملف PDF / طباعة</button>
+            </div>
+
+            <h1 class="oral-main-title">ملخص أسئلة المقابلة الشفهية - الرادار البحري و ARPA</h1>
+
+            <h2 class="oral-sec-title">أولاً: أسئلة المفاهيم الأساسية ومبدأ العمل</h2>
+
+            <div class="qa-box">
+                <div class="qa-question">س1: عرّف الرادار البحري، وما معنى اختصار كلمتي (RADAR) و (ARPA)؟</div>
+                <div class="qa-answer">
+                    <ul>
+                        <li><strong>الرادار:</strong> هو جهاز استشعار إلكتروني وظيفته اكتشاف الأهداف (سواء كانت ثابتة أو متحركة) وتحديد موقعها واتجاهها وسرعتها، وقياس المسافات بين السفينة الراصدة والأهداف بدقة.</li>
+                        <li>كلمة <strong>RADAR</strong> تعني: (Radio detection and Ranging).</li>
+                        <li>كلمة <strong>ARPA</strong> تعني: (Automatic Radar plotting Aid)، وهي الرادارات المخصصة للتوقيع الملاحي التي تستخدم الدوائر الإلكترونية لدراسة طبيعة الأهداف وإيجاد بياناتها من خط سير وسرعة وأقرب مسافة مرور وغيرها.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س2: ما هو مبدأ عمل الرادار؟ ولماذا نستخدم الأمواج الكهرومغناطيسية بدلاً من الأمواج الصوتية؟</div>
+                <div class="qa-answer">
+                    <p>يعتمد المبدأ الرئيسي على أن الموجات الكهرومغناطيسية تنعكس عند انتقالها من وسط إلى آخر يختلفان في خصائصهما الكهربائية والمغناطيسية، حيث تنطلق من الهوائي في الفضاء وتنعكس عن الأجسام التي تعترض طريقها، ثم يلتقطها الهوائي ويعالجها لاستخلاص بيانات الهدف وتظهر كنقطة مضيئة على الشاشة.</p>
+                    <p><strong>استُخدمت الأمواج الكهرومغناطيسية بدلاً من الصوتية للأسباب التالية:</strong></p>
+                    <ol>
+                        <li>لها قابلية عالية على الانعكاس.</li>
+                        <li>ذات سرعة انتقال كبيرة جداً مساوية لسرعة الضوء (300,000 كم/ث).</li>
+                        <li>لا تحتاج لوسط مادي للانتقال فيه (تنتقل في الفراغ).</li>
+                        <li>قدرتها على أداء عملها حتى عندما تكون ضعيفة.</li>
+                        <li>غير مسببة للإزعاج كموجات الصوت.</li>
+                        <li>الانتقال لمسافات طويلة دون اضمحلال فضائياً.</li>
+                        <li>قياس المسافات بدقة عالية بسبب ثبات كثافتها.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س3: على ماذا تعتمد الموجة المنعكسة عن الهدف؟ ولماذا يستخدم الرادار أمواجاً عالية التردد (بالغة القصر)؟</div>
+                <div class="qa-answer">
+                    <p>تعتمد الموجة المنعكسة على ثلاثة عوامل:</p>
+                    <ol>
+                        <li><strong>طبيعة المادة:</strong> للمعادن معامل انعكاس عالٍ لذلك يسهل اكتشافها.</li>
+                        <li><strong>شكل سطح جسم الهدف:</strong> الأسطح المستوية والمنتظمة لها قابلية عالية للانعكاس.</li>
+                        <li><strong>طول الموجة التي يعمل عليها الرادار:</strong> إذا كان طول الموجة أكبر من أبعاد الجسم فإن الموجة لا تنعكس، ولذلك يستخدم الرادار أمواجاً بالغة القصر أي عالية التردد (من 1 غيغا إلى 100 غيغا هرتز).</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س4: ما هي الوحدات الأربع الرئيسية المكونة لجهاز الرادار البحري؟ وما وظيفة كل منها؟</div>
+                <div class="qa-answer">
+                    <p>يتكون الرادار من أربع وحدات تعمل في تزامن دقيق:</p>
+                    <ol>
+                        <li><strong>وحدة التكوين والإرسال:</strong> وظيفتها توليد نبضات رادارية ذات طاقة كهرومغناطيسية تتولد ضمن "الماغنترون"، وتتميز بأنها محددة ومتناهية في الصغر، ذات معدل تكرار محدد، وتردد ثابت وعالٍ جداً، وطاقة عالية.</li>
+                        <li><strong>وحدة الهوائي:</strong> يحول الإشارة الكهربائية إلى أمواج كهرومغناطيسية عند الإرسال، ومن كهرومغناطيسية إلى كهربائية عند الاستقبال، ويتحكم به صمام منظم يغلق وحدة الإرسال عند الاستقبال ويغلق وحدة الاستقبال عند الإرسال.</li>
+                        <li><strong>وحدة الاستقبال:</strong> تعمل على تكبير الأصداء الضعيفة العائدة من الأهداف ووضعها في الشكل والقيمة المناسبة لإظهارها على الشاشة.</li>
+                        <li><strong>وحدة عرض المعلومات:</strong> وظيفتها إظهار الأهداف على الشاشة وأخذ البيانات عنها بواسطة المفاتيح والأزرار الجانبية.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س5: كيف يقوم الرادار بحساب مسافة الهدف وتحديد موقعه؟</div>
+                <div class="qa-answer">
+                    يحتاج الرادار لتحديد موقع الهدف إلى: زاوية السمت، وزاوية الارتفاع، والمسافة من الرادار إلى الهدف. ويتم تحديد المسافة عن طريق قياس الوقت الذي تستغرقه النبضات ذهاباً وإياباً من الرادار إلى الهدف.
+                </div>
+            </div>
+
+            <h2 class="oral-sec-title">ثانياً: أسئلة المقارنات</h2>
+
+            <div class="qa-box">
+                <div class="qa-question">س6: قارن بين رادار (X-band) ورادار (S-band) من حيث طول الموجة، الاستخدام، والقدرة على كشف الأهداف؟</div>
+                <div class="qa-answer">
+                    <ul>
+                        <li><strong>رادار X-band:</strong> طول موجته 3 سم (تردده حوالي 10 غيغاهرتز) وهوائيه صغير. يستخدم في الطقس الجيد، ويعمل بنبضات قصيرة ضعيفة المقاومة للطقس السيئ. له إمكانية عالية لاكتشاف الأهداف الصغيرة والقريبة، وإمكانية ضعيفة لاكتشاف الأهداف البعيدة، لذلك يستخدم في الملاحة الساحلية والقنوات ودخول المرافئ.</li>
+                        <li><strong>رادار S-band:</strong> طول موجته 10 سم (تردده حوالي 3 غيغاهرتز) وهوائيه كبير. يستخدم في الطقس السيئ، ويعمل بنبضات طويلة مقاومة للطقس السيئ. له إمكانية عالية لاكتشاف الأهداف البعيدة، وإمكانية ضعيفة لاكتشاف الأهداف الصغيرة والقريبة، لذلك يستخدم في البحر المفتوح.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س7: ما الفرق بين وضع الحركة الحقيقية (True Motion) ووضع الحركة النسبية (Relative Motion)؟ وكيف يظهر الهدف الثابت في كلا الوضعين؟</div>
+                <div class="qa-answer">
+                    <ul>
+                        <li><strong>الحركة الحقيقية (True Motion):</strong> تتحرك السفينة الراصدة عبر الشاشة، وتتحرك جميع الأهداف المتحركة بسرعتها وخط سيرها الحقيقيين، بينما تبقى الأهداف الثابتة (مثل الكتل الأرضية) في مكان ثابت على الشاشة.</li>
+                        <li><strong>الحركة النسبية (Relative Motion):</strong> تكون السفينة الراصدة ثابتة في مركز الشاشة، وتبدو جميع الأهداف الأخرى (الثابتة والمتحركة) وكأنها تتحرك حول السفينة الراصدة.</li>
+                        <li><strong>حالة الهدف الثابت في الحركة النسبية:</strong> إذا كانت السفينة الراصدة متحركة فعلياً والهدف ثابتاً، فإن الهدف يظهر على الشاشة وكأنه يتحرك بنفس سرعة الراصد وبعكس خط سيره.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س8: اشرح الفرق بين أوضاع توجيه الشاشة الثلاثة: (North-up) و (Heading-up) و (Course-up)؟</div>
+                <div class="qa-answer">
+                    <ul>
+                        <li><strong>وضع الشمال الحقيقي في الأعلى (North-up):</strong> يكون الشمال الحقيقي ثابتاً في أعلى الشاشة والجنوب في الأسفل، وتظهر الأهداف في مواقعها الجغرافية الحقيقية. يُفضل استخدامه في التخطيط والتحليل وعند مقارنة صورة الرادار مع الخرائط الورقية أو الإلكترونية، لكن يصعب تفسيره بسرعة أثناء المناورة وتغيير خط السير.</li>
+                        <li><strong>وضع مقدمة السفينة في الأعلى (Heading-up):</strong> تكون مقدمة السفينة دائماً في أعلى الشاشة وتدور الصورة مع دوران السفينة. يُفضل استخدامه أثناء القيادة المباشرة والمناورة في الموانئ الضيقة أو الاقتراب من رصيف لأن الصورة تتطابق مع ما يراه الضابط أمامه.</li>
+                        <li><strong>وضع خط السير في الأعلى (Course-up):</strong> يكون اتجاه خط سير السفينة الفعلي (فوق الأرض COG) في أعلى الشاشة وتظهر السفينة في المركز. يُفضل استخدامه أثناء الملاحة في البحر عند اتباع مسار معين لتسهيل فهم مواقع الأهداف والعوائق بالنسبة للمسار الفعلي.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 class="oral-sec-title">ثالثاً: أسئلة التشغيل العملي ومفاتيح الرادار</h2>
+
+            <div class="qa-box">
+                <div class="qa-question">س9: ما هي الإجراءات الواجب اتخاذها بالترتيب قبل وعند تشغيل الرادار؟ وكيف يتم إطفاؤه؟</div>
+                <div class="qa-answer">
+                    <ol>
+                        <li>التأكد من أن هوائي الرادار حر من أي معوقات جانبية ولا يوجد أشخاص بالقرب منه (وفي حال عمل أشخاص قربه يجب كتابة تنبيه لعدم تشغيله).</li>
+                        <li>التأكد من وصول التغذية الرئيسية إلى الرادار.</li>
+                        <li>تشغيل الرادار ووضعه على وضع الاستعداد (Stand-by)، حيث يكون الجهاز جاهزاً لكن الهوائي لا يدور.</li>
+                        <li>الانتظار بضع دقائق حتى يصبح جاهزاً للإرسال (Warm-up) ثم ضغط مفتاح الإرسال (Transmit).</li>
+                        <li>توليف ومعايرة صورة الشاشة عبر المفاتيح العيارية للحصول على أفضل صورة.</li>
+                        <li>ضبط مدى العمل بين 6 إلى 12 ميل أو أقل حسب الحاجة.</li>
+                    </ol>
+                    <p><strong>عند الإطفاء:</strong> يجب تحويل جميع المفاتيح إلى الوضعية (0) ثم إطفاء الرادار بطريقة عكسية للتشغيل.</p>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س10: كيف تعرف عملياً أن جهاز الرادار يعمل بشكل جيد ويستقبل الأهداف بشكل مقبول؟</div>
+                <div class="qa-answer">
+                    الرادار الذي يعمل بشكل جيد هو الذي يستقبل التشويش الصادر عن البحر (Sea) والأمطار (Rain) بشكل جيد؛ فإذا استقبل تشويش البحر والمطر فهذا يعني أنه يستقبل الأهداف المحيطة جيداً.
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س11: ما هي وظيفة المفاتيح والأدوات التالية على شاشة الرادار؟</div>
+                <div class="qa-answer">
+                    <ul>
+                        <li><strong>Gain:</strong> يتحكم بحساسية الرادار وقدرته على استقبال الأهداف، وزيادته تزيد التشويش على الشاشة.</li>
+                        <li><strong>Sea Clutter & Rain Clutter:</strong> معايرة الشاشة بضبط تشويش البحر وتشويش الطقس والأمطار.</li>
+                        <li><strong>EBL (خط الاتجاه الإلكتروني):</strong> خط يمتد من المركز إلى الهدف لتحديد اتجاه الهدف بالنسبة للسفينة.</li>
+                        <li><strong>VRM (مؤشر المسافة المتغير):</strong> دائرة تتسع لتمس الهدف وتحدد المسافة أو بعد الهدف عن السفينة.</li>
+                        <li><strong>Parallel Index (مؤشر الخط المتوازي):</strong> تحديد خطوط موازية مرجعية تساعد في الحفاظ على المسار أو الاقتراب الآمن من الساحل أو الممرات المائية.</li>
+                        <li><strong>Guard Zone (منطقة الحظر):</strong> إنشاء منطقة مراقبة حول السفينة تعطي إنذاراً ضوئياً أو صوتياً إذا دخلها أي جسم.</li>
+                        <li><strong>Pulse Length (طول النبضة):</strong> تحديد نبضة الرادار، حيث تُستخدم النبضة الطويلة للمسافات الطويلة، والنبضة القصيرة للمسافات القريبة.</li>
+                        <li><strong>Anti-Interference:</strong> تقليل التشويش الناتج عن أجهزة رادار أخرى شغالة بالقرب من السفينة.</li>
+                        <li><strong>Echo Stretch / Enhance:</strong> تكبير وتضخيم الأهداف على الشاشة لزيادة وضوحها.</li>
+                        <li><strong>Offset / Zoom:</strong> التركيز على جزء معين من الشاشة بعيد عن مركز السفينة لتكبير مناطق معينة مثل ممر ملاحي أو قناة.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 class="oral-sec-title">رابعاً: أسئلة جهاز (ARPA) والتوقيع الراداري</h2>
+
+            <div class="qa-box">
+                <div class="qa-question">س12: ما هي الوحدات الرئيسية لجهاز (ARPA)؟ ومن أين يستمد الكمبيوتر بياناته؟</div>
+                <div class="qa-answer">
+                    <ol>
+                        <li><strong>وحدة الرادار:</strong> لضبط الصورة والأهداف بواسطة مفاتيح المعايرة.</li>
+                        <li><strong>مكرر الجايرو:</strong> يمد وحدة الكمبيوتر بخط سير السفينة الراصدة.</li>
+                        <li><strong>عداد السرعة (أو GPS/Log):</strong> يمد السفينة الراصدة بالسرعة.</li>
+                        <li><strong>وحدة الكمبيوتر:</strong> تأخذ المدخلات من الرادار ومكرر الجايرو وعداد السرعة لإجراء العمليات الحسابية وإعطاء البيانات المطلوبة وتقويم حركة الهدف والتنبؤ بمكانه.</li>
+                        <li><strong>وحدة عرض المعلومات:</strong> تعرض المعلومات بيانياً ورقمياً وتعطي تحذيرات صوتية وضوئية للضابط في برج القيادة.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س13: ما هو الغرض الأساسي من التوقيع الراداري؟</div>
+                <div class="qa-answer">
+                    <ol>
+                        <li>معرفة ما إذا كان هناك خطر تصادم من عدمه والوقت المتوقع لحدوثه.</li>
+                        <li>معرفة التغيير اللازم في خط السير والسرعة لتلافي خطر التصادم والوقت الذي يجب عنده إجراء التغيير.</li>
+                        <li>تحديد الوقت الذي يجب عنده الرجوع إلى خط السير والسرعة الأصليين بعد تلافي خطر التصادم.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س14: ماذا تعني المصطلحات التالية: (CPA)، (TCPA)، (BCR)، (TBCR)؟</div>
+                <div class="qa-answer">
+                    <ul>
+                        <li><strong>CPA (Closest Point of Approach):</strong> أقرب مسافة مرور سيمر بها الهدف عن السفينة الراصدة.</li>
+                        <li><strong>TCPA (Time to Closest Point of Approach):</strong> الوقت اللازم (بالدقائق) لوصول الهدف إلى أقرب مسافة مرور عن السفينة الراصدة من لحظة رصده.</li>
+                        <li><strong>BCR (Bow Cross Range):</strong> المسافة التي يقطع فيها الهدف مقدمة السفينة الراصدة.</li>
+                        <li><strong>TBCR (Time of Bow Cross Range):</strong> الزمن اللازم لعبور الهدف خط مقدمة ومؤخرة السفينة.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س15: ماذا يعني ظهور إشارة موجبة (+) أو سالبة (-) أمام كل من (BCR) و (TBCR)؟</div>
+                <div class="qa-answer">
+                    <ul>
+                        <li><strong>(+BCR) موجبة:</strong> تعني أن السفينة الهدف ستعبر من أمام مقدمة سفينتك.</li>
+                        <li><strong>(-BCR) سالبة:</strong> تعني أن السفينة الهدف ستعبر من خلف سفينتك.</li>
+                        <li><strong>(+TBCR) موجبة:</strong> تعني أن العبور لم يحدث بعد، ويحتاج للزمن المذكور ليعبر سفينتك.</li>
+                        <li><strong>(-TBCR) سالبة:</strong> تعني أن العبور قد حدث بالفعل ومضى عليه الزمن المذكور.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س16: ما هي "زاوية المواجهة" (Aspect)؟ ومتى تكون حمراء أو خضراء؟ ومتى تشكل خطراً؟</div>
+                <div class="qa-answer">
+                    <ul>
+                        <li><strong>زاوية المواجهة (Aspect):</strong> هي مكان السفينة الراصدة بالنسبة لمقدم الهدف.</li>
+                        <li>تكون <strong>أحمر (Red)</strong> إذا كانت السفينة الراصدة على يسار السفينة المرصودة (الهدف)، وتكون <strong>أخضر (Green)</strong> إذا كانت على يمين السفينة المرصودة (حسب لون النور الجانبي للهدف).</li>
+                        <li>تتطلب الحالة مراقبة حذرة (Watch out) عندما يكون الهدف بزاوية مواجهة حمراء (Red aspect) وموجوداً على الجانب الأيمن للسفينة الراصدة (Starboard side)، بينما تكون آمنة (Safe) إذا كان الهدف بزاوية مواجهة حمراء على الجانب الأيسر للسفينة الراصدة (Port side).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-question">س17: أسئلة استنتاجية سريعة حول التوقيع الراداري وحالات السفن:</div>
+                <div class="qa-answer">
+                    <ul>
+                        <li><strong>متى نحكم بوجود حالة تصادم حتمية؟</strong> عندما يمر امتداد خط الحركة النسبية (الضلع OA) بمركز الدائرة، وعندها تكون قيمة (CPA) مساوية للصفر.</li>
+                        <li><strong>ماذا تستنتج إذا كان اتجاه الهدف ومسافته لا يتغيران؟</strong> نستنتج أن الهدف يسير بنفس خط سير السفينة الراصدة وبنفس سرعتها.</li>
+                        <li><strong>كيف تعرف من الرسم أن أقرب مسافة مرور (CPA) قد مرت بالفعل؟</strong> إذا كانت نقطة أقرب مسافة تقع على الضلع (OA) نفسه بين النقطتين O و A، أو إذا كان عمود أقرب مسافة من موقع السفينة الراصدة لا يقابل الضلع (OA).</li>
+                        <li><strong>متى يتغير المسار الظاهري للهدف (RML)؟</strong> لا يتغير إلا إذا تغير خط سير الراصد وسرعته، أو خط سير الهدف وسرعته.</li>
+                        <li><strong>ما هو نظام (VTS) في الموانئ؟</strong> هو نظام خدمة حركة السفن (Vessel Traffic Service) للتحكم بالسفن وتتبعها في الموانئ المزدحمة والممرات والقنوات وتوجيهها بأمان عبر الاتصالات الراديوية (UHF).</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -450,7 +795,6 @@
         // القسم الثالث: أسئلة تداول البضائع (60 سؤال)
         // ====================================================
         const cargoQuizData = [
-            // الفرع 1: مصطلحات الشحن وخطوط التحميل (c_terms)
             { q: "يقصد بالمصطلح light displacement:", opt1: "وزن حديد السفينة + معدات الشحن والماكينات والمخاطيف", opt2: "الإزاحة الكلية + البضائع", opt3: "وزن ما تحمله السفينة من بضائع ووقود ومياه", opt4: "وزن السفينة بكل ما فيها من بضائع ومؤن حتى غاطس التحميل المسموح فيه", correct: "1", cat: "c_terms" },
             { q: "المقصود من المصطلح الإزاحة displacement:", opt1: "هو إزاحة السفينة الكاملة + إزاحة السفينة الخفيفة", opt2: "هو إزاحة السفينة الكاملة أو إزاحة السفينة الخفيفة", opt3: "هو إزاحة السفينة الخفيفة + وزن البضائع", opt4: "هو إزاحة السفينة الكاملة ناقص إزاحة السفينة الخفيفة", correct: "2", cat: "c_terms" },
             { q: "يقصد بالمصطلح حمولة البضائع cargo weight:", opt1: "حمولة البضائع الكلية", opt2: "حمولة البضائع الصافية", opt3: "حمولة البضائع الوزنية والحجمية", opt4: "حمولة المقاسة", correct: "3", cat: "c_terms" },
@@ -469,7 +813,6 @@
             { q: "غاطس السفينة Ship draft يقاس من:", opt1: "قاع السفينة حتى الحد العلوي لخط بليمسول", opt2: "قاع السفينة حتى الحد العلوي لخط السطح", opt3: "قاع السفينة حتى الحد العلوي لخط الشحن الشتوي", opt4: "قاع السفينة حتى الحد العلوي لخط الشحن الاستوائي", correct: "1", cat: "c_terms" },
             { q: "إن الغرض الأساسي من خطوط التحميل (Load line) هو:", opt1: "تحديد غاطس السفينة في المنطقة التي تبحر بها", opt2: "عدم شحن السفينة أكثر من الحمولة الصافية المحددة", opt3: "تخصيص حد قانوني أقصى للسفينة يمكن تحميلها بحيث يكون للسفينة حد طفو وحد حر كاف", opt4: "إصدار شهادة خطوط التحميل الدولية للسفينة طبقاً للمعاهدة 1988", correct: "3", cat: "c_terms" },
 
-            // الفرع 2: التهوية والرطوبة (c_vent)
             { q: "من الأسباب التي تؤدي لتلف البضائع هي:", opt1: "عدم فصل البضائع التالفة عن البضائع الجيدة", opt2: "عدم التستيف الجيد للبضائع وتسويتها في العنبر", opt3: "عدم استمرار التهوية الميكانيكية خلال الرحلة", opt4: "البلل بالعرق للبضائع", correct: "4", cat: "c_vent" },
             { q: "الطرق المتبعة للتهوية على السفن هي:", opt1: "زيادة عدد دورات التهوية عن طريق التحكم بسرعة المراوح", opt2: "تهوية ميكانيكية وتهوية طبيعية", opt3: "تهوية مستمرة وسطحية وبدائرة مغلقة", opt4: "تهوية تعتمد على إزالة الرطوبة مع عدم تغيير درجة الحرارة", correct: "2", cat: "c_vent" },
             { q: "القاعدة الأساسية للتهوية هي:", opt1: "تتم التهوية عندما تكون نقطة الندى خارج العنبر أقل من نقطة الندى داخل العنبر", opt2: "تتم التهوية عندما تكون نقطة الندى خارج العنبر أكبر من نقطة الندى داخل العنبر", opt3: "تتم التهوية عندما تكون نقطة الندى خارج العنبر أبرد من نقطة الندى داخل العنبر", opt4: "a+b+c", correct: "3", cat: "c_vent" },
@@ -477,7 +820,6 @@
             { q: "تعرف نقطة الندى على أنها:", opt1: "هي نسبة بخار الماء في الهواء عند تغيير درجة الحرارة", opt2: "هي درجة رطوبة البخار في الهواء والتي تصل إلى درجة التشبع ويتخلص من البخار على شكل عرق", opt3: "هي درجة الحرارة التي لا يستطيع الهواء تحتها الاحتفاظ بالرطوبة ويتخلص منها على شكل ندى أو عرق", opt4: "هي نسبة بخار الماء في الهواء والتي تصل إلى درجة التشبع عندما تتغير درجة حرارة الهواء", correct: "3", cat: "c_vent" },
             { q: "عندما تكون نقطة ندى الهواء الخارجي أقل من نقطة الندى داخل العنبر يجب عليك:", opt1: "فتح جميع هوايات العنبر والتهوية", opt2: "غلق جميع هوايات العنبر وعدم التهوية", opt3: "الاكتفاء بالتهوية السطحية", opt4: "تشغيل التهوية الميكانيكية لزيادة دورات التهوية", correct: "1", cat: "c_vent" },
 
-            // الفرع 3: شحن الحبوب والبضائع الصب (c_bulk)
             { q: "المصطلح Filled Compartment يعني:", opt1: "هو العنبر الذي امتلأ وسوي", opt2: "هو العنبر الذي امتلأ بالكامل ومستوي", opt3: "هو العنبر الذي امتلأ بالكامل ولم يسوى", opt4: "هو العنبر غير الممتلئ ومستوي", correct: "2", cat: "c_bulk" },
             { q: "المصطلح Partly Filled Compartment يعني:", opt1: "هو العنبر الذي امتلأ وسوي", opt2: "هو العنبر الذي امتلأ بالكامل ومستوي", opt3: "هو العنبر الذي امتلأ بالكامل ولم يسوى", opt4: "هو العنبر غير الممتلئ ومستوي", correct: "4", cat: "c_bulk" },
             { q: "لن يسمح لأي سفينة بشحن الحبوب ما لم يكن لديها وثيقة التفويض الخاصة لشحن الحبوب صادرة عن:", opt1: "مالك السفينة", opt2: "إدارة الشركة التي تتبع لها السفينة", opt3: "نادي الحماية والتأمين", opt4: "سلطة علم السفينة", correct: "4", cat: "c_bulk" },
@@ -498,7 +840,6 @@
             { q: "المعلومات المتعلقة بمحتوى الرطوبة للبضائع الصب يمكن الحصول عليها من:", opt1: "من الكتب مثل Tomas stowage", opt2: "من stevedores", opt3: "من IMBC code", opt4: "من الشاحن في شكل إقرار أو شهادة", correct: "4", cat: "c_bulk" },
             { q: "طبقاً للمدونة الدولية IMBC code فإن البضائع ذات التصنيف (المجموعة) B تعني:", opt1: "البضائع السائبة التي قد تسيل", opt2: "البضائع التي تنطوي على خطر كيميائي محتمل", opt3: "البضائع ذات زاوية الانهمار 30 درجة", opt4: "لا شيء مما سبق صحيح", correct: "2", cat: "c_bulk" },
 
-            // الفرع 4: الحاويات والأخشاب والبضائع الخطرة (c_imdg)
             { q: "اختر من الأرقام التالية الرقم الذي يدل على أن الحاوية ذات المقياس 20 قدم قد شحنت في الارتفاع الثالث على السطح:", opt1: "351284", opt2: "550506", opt3: "141284", opt4: "530380", correct: "1", cat: "c_imdg" },
             { q: "اختر من الأرقام التالية الرقم الذي يدل على أن الحاوية ذات المقياس 40 قدم قد شحنت على السطح:", opt1: "371282", opt2: "200280", opt3: "261284", opt4: "550380", correct: "2", cat: "c_imdg" },
             { q: "من مواصفات الممر الآمن للسفن التي تحمل أخشاب على السطح:", opt1: "أن لا يقل عرضه عن 1.5 متر والمسافة بين الأعمدة لا تقل 1.6 متر", opt2: "أن لا يقل عرضه عن 1 متر والمسافة بين الأعمدة لا تزيد 1.5 متر", opt3: "أن لا يقل عرضه عن 1.5 متر والمسافة بين الأعمدة لا تقل 1.2 متر", opt4: "أن لا يقل عرضه عن 1.2 متر والمسافة بين الأعمدة لا تقل 1 متر", correct: "2", cat: "c_imdg" },
@@ -509,7 +850,6 @@
             { q: "كتاب المدونة الدولية لشحن البضائع الخطرة Volume 2 - IMDG Code يحتوي على الأجزاء التالية:", opt1: "part 1+2+3+4+5", opt2: "part 3+7", opt3: "part 6 only", opt4: "part 3 only", correct: "4", cat: "c_imdg" },
             { q: "كتاب المدونة الدولية لشحن البضائع الخطرة Volume 1 - IMDG Code يحتوي على الأجزاء التالية:", opt1: "part 1+2+3+4+5+6", opt2: "part 1+2+3+4+5+6+7", opt3: "part 1+2+4+5+6+7", opt4: "part 7 only", correct: "3", cat: "c_imdg" },
 
-            // الفرع 5: دليل التحميل ومدونات CSS & BLU (c_codes)
             { q: "من أحد طرق تستيف البضائع حسب الكود الدولي CSS هو cross stowage والذي يتمثل كالتالي:", opt1: "تخزين البضائع بمفردها مع وجود مساحة كافية على أرضية العنبر", opt2: "تخزين البضائع مقابل جانب السفينة أو بشكل طولي يوفر الدعم ضد القوى المستعرضة", opt3: "تخزين البضائع في كتلة تمتد بشكل مستمر من جانب السفينة إلى جانب السفينة", opt4: "تخزين البضائع باتجاه طول السفينة ولا يسمح بالتستيف العرضي", correct: "3", cat: "c_codes" },
             { q: "إن دليل التحميل للسفن Loading manual يعطينا وصفاً كاملاً لما يلي:", opt1: "خطوط الشحن التي تشحن السفينة عليها", opt2: "وصف لجميع العمليات التشغيلية للسفينة استناداً إلى هيكل تصميم السفينة", opt3: "وصف كامل لحالات طفو السفينة في جميع حالات الشحن", opt4: "معلومات عن شحن أنواع محددة من البضائع حسب نوع السفينة", correct: "2", cat: "c_codes" },
             { q: "حسب الكود الدولي BLU فإن SWBM هو:", opt1: "عزم الانحناء في البحر المفتوح", opt2: "عزم الانحناء في المياه الساكنة", opt3: "عزم الانحناء خلال الرحلة", opt4: "عزم الانحناء عند كل عملية شحن وتفريغ", correct: "2", cat: "c_codes" },
@@ -521,9 +861,62 @@
             { q: "Loading manual هو مطلب قانوني يجب أن تحمله السفن:", opt1: "All Container Carriers", opt2: "All Ships", opt3: "All general cargo Ship", opt4: "All Ships Except Tankers and Bulk Carriers", correct: "1", cat: "c_codes" }
         ];
 
-        const allQuizData = [...lawQuizData, ...watchQuizData, ...cargoQuizData];
+        // ====================================================
+        // القسم الرابع: أسئلة الرادار البحري و ARPA (40 سؤال)
+        // ====================================================
+        const radarQuizData = [
+            // الفرع 1: المفاهيم الأساسية ومبدأ العمل (r_basics)
+            { q: "ماذا يعني اختصار كلمة (RADAR)؟", opt1: "Radio Detection and Ranging", opt2: "Radar Direction and Range", opt3: "Radio Distance and Reflection", opt4: "Rapid Detection and Ranging", correct: "1", cat: "r_basics" },
+            { q: "ماذا يعني اختصار كلمة (ARPA)؟", opt1: "Automatic Radio Positioning Aid", opt2: "Automatic Radar Plotting Aid", opt3: "Advanced Radar Plotting Apparatus", opt4: "Automatic Range Plotting Aid", correct: "2", cat: "r_basics" },
+            { q: "كم تبلغ سرعة انتقال الأمواج الكهرومغناطيسية المستخدمة في الرادار؟", opt1: "340 متر/ثانية", opt2: "150,000 كم/ثانية", opt3: "300,000 كم/ثانية (سرعة الضوء)", opt4: "100,000 كم/ثانية", correct: "3", cat: "r_basics" },
+            { q: "لماذا تُستخدم الأمواج الكهرومغناطيسية بدلاً من الأمواج الصوتية في الرادار البحري؟", opt1: "لأنها تحتاج لوسط مادي للانتقال", opt2: "لقابليتها العالية على الانعكاس وانتقالها في الفراغ بسرعة الضوء دون اضمحلال فضائي", opt3: "لأن سرعتها بطيئة يسهل قياسها", opt4: "لأن ترددها منخفض جداً", correct: "2", cat: "r_basics" },
+            { q: "متى لا تنعكس الموجة الكهرومغناطيسية عن جسم الهدف؟", opt1: "إذا كان الهدف مصنوعاً من المعدن", opt2: "إذا كان سطح الهدف مستوياً", opt3: "إذا كان طول الموجة أكبر من أبعاد الجسم", opt4: "إذا كان التردد عالياً جداً", correct: "3", cat: "r_basics" },
+            { q: "ما هو نطاق الترددات (الأمواج بالغة القصر) الذي يعمل عليه الرادار البحري؟", opt1: "من 1 غيغا إلى 100 غيغا هرتز", opt2: "من 10 كيلو إلى 100 كيلو هرتز", opt3: "من 1 ميغا إلى 10 ميغا هرتز", opt4: "أقل من 500 هرتز", correct: "1", cat: "r_basics" },
+            { q: "في أي جزء من وحدة التكوين والإرسال تتولد النبضات الرادارية ذات الطاقة العالية؟", opt1: "مكرر الجايرو", opt2: "الماغنترون (Magnetron)", opt3: "صمام الاستقبال", opt4: "شاشة العرض", correct: "2", cat: "r_basics" },
+            { q: "ما هي وظيفة الصمام المنظم في وحدة الهوائي؟", opt1: "تكبير الأصداء الضعيفة", opt2: "تدوير الهوائي بسرعة ثابتة", opt3: "إغلاق وحدة الإرسال عند الاستقبال وإغلاق وحدة الاستقبال عند الإرسال", opt4: "قياس سرعة السفينة", correct: "3", cat: "r_basics" },
+            { q: "ما هي الوحدة المسؤولة عن تكبير الأصداء الضعيفة العائدة من الأهداف لإظهارها على الشاشة؟", opt1: "وحدة الاستقبال", opt2: "وحدة التكوين والإرسال", opt3: "وحدة الهوائي", opt4: "وحدة الجايرو", correct: "1", cat: "r_basics" },
+            { q: "كيف يقوم الرادار بتحديد مسافة الهدف حسابياً؟", opt1: "عن طريق قياس قوة معدن الهدف", opt2: "عن طريق قياس الوقت الذي تستغرقه النبضات ذهاباً وإياباً من الرادار إلى الهدف", opt3: "عن طريق زاوية الارتفاع فقط", opt4: "عن طريق سرعة دوران الهوائي", correct: "2", cat: "r_basics" },
 
-        // تعريف هيكلة الأفرع لكل مادة من المواد الثلاث
+            // الفرع 2: المقارنات وأوضاع الشاشة (r_comp)
+            { q: "كم يبلغ طول موجة رادار (X-band) وتردده التقريبي؟", opt1: "طول الموجة 10 سم والتردد 3 غيغاهرتز", opt2: "طول الموجة 3 سم والتردد حوالي 10 غيغاهرتز", opt3: "طول الموجة 30 سم والتردد 1 غيغاهرتز", opt4: "طول الموجة 1 سم والتردد 50 غيغاهرتز", correct: "2", cat: "r_comp" },
+            { q: "كم يبلغ طول موجة رادار (S-band) وتردده التقريبي؟", opt1: "طول الموجة 10 سم والتردد حوالي 3 غيغاهرتز", opt2: "طول الموجة 3 سم والتردد 10 غيغاهرتز", opt3: "طول الموجة 5 سم والتردد 6 غيغاهرتز", opt4: "طول الموجة 20 سم والتردد 15 غيغاهرتز", correct: "1", cat: "r_comp" },
+            { q: "أي رادار يُفضل استخدامه في الملاحة الساحلية والقنوات ودخول المرافئ لقدرته العالية على كشف الأهداف الصغيرة والقريبة؟", opt1: "رادار S-band", opt2: "رادار X-band", opt3: "الرادار الصوتي", opt4: "جهاز الايكوساوندر", correct: "2", cat: "r_comp" },
+            { q: "أي رادار يتميز بهوائي كبير ويعمل بنبضات طويلة مقاومة للطقس السيئ ويكشف الأهداف البعيدة في البحر المفتوح؟", opt1: "رادار X-band", opt2: "رادار S-band", opt3: "رادار الموانئ القصير", opt4: "رادار الموجة 3 سم", correct: "2", cat: "r_comp" },
+            { q: "في أي وضع حركة تكون السفينة الراصدة ثابتة في مركز الشاشة وتبدو جميع الأهداف كأنها تتحرك حولها؟", opt1: "وضع الحركة الحقيقية (True Motion)", opt2: "وضع الحركة النسبية (Relative Motion)", opt3: "وضع الشمال الحقيقي", opt4: "وضع الإزاحة المركزية", correct: "2", cat: "r_comp" },
+            { q: "كيف يظهر الهدف الثابت على شاشة الرادار في وضع الحركة النسبية عندما تكون السفينة الراصدة متحركة؟", opt1: "يبقى ثابتاً في مكانه على الشاشة", opt2: "يتحرك بنفس سرعة الراصد وبنفس اتجاهه", opt3: "يظهر وكأنه يتحرك بنفس سرعة الراصد وبعكس خط سيره", opt4: "يختفي من الشاشة", correct: "3", cat: "r_comp" },
+            { q: "في وضع الحركة الحقيقية (True Motion)، كيف تظهر الكتل الأرضية والأهداف الثابتة؟", opt1: "تتحرك بعكس حركة السفينة", opt2: "تبقى في مكان ثابت على الشاشة بينما تتحرك السفينة الراصدة عبر الشاشة", opt3: "تظهر في مركز الشاشة دائماً", opt4: "تدور حول السفينة", correct: "2", cat: "r_comp" },
+            { q: "أي من أوضاع توجيه الشاشة يُفضل استخدامه عند مقارنة صورة الرادار مع الخرائط الورقية أو الإلكترونية؟", opt1: "وضع مقدمة السفينة في الأعلى (Heading-up)", opt2: "وضع الشمال الحقيقي في الأعلى (North-up)", opt3: "وضع خط السير في الأعلى (Course-up)", opt4: "وضع الحركة النسبية غير المثبت", correct: "2", cat: "r_comp" },
+            { q: "أي وضع لتوجيه الشاشة تكون فيه مقدمة السفينة دائماً في الأعلى ويُفضل أثناء المناورة في الموانئ الضيقة؟", opt1: "North-up", opt2: "Heading-up", opt3: "Course-up", opt4: "True-up", correct: "2", cat: "r_comp" },
+
+            // الفرع 3: التشغيل العملي ومفاتيح الرادار (r_ops)
+            { q: "ما هو الإجراء الأول الواجب التأكد منه قبل تشغيل جهاز الرادار؟", opt1: "ضبط مفتاح المطر", opt2: "التأكد من أن الهوائي حر من أي معوقات جانبية ولا يوجد أشخاص بالقرب منه", opt3: "الضغط الفوري على مفتاح الإرسال Transmit", opt4: "تغيير طول النبضة", correct: "2", cat: "r_ops" },
+            { q: "ما هي حالة الرادار عند وضعه على وضعية الاستعداد (Stand-by)؟", opt1: "يكون الجهاز مطفأ بالكامل", opt2: "يدور الهوائي ويرسل نبضات بأقصى طاقة", opt3: "يكون الجهاز جاهزاً وساخناً ولكن الهوائي لا يدور", opt4: "يمسح الأهداف البعيدة فقط", correct: "3", cat: "r_ops" },
+            { q: "كيف تعرف عملياً أن جهاز الرادار يعمل بشكل جيد ويستقبل الأهداف بشكل مقبول؟", opt1: "إذا كانت الشاشة خالية تماماً من أي نقاط", opt2: "إذا كان يستقبل التشويش الصادر عن البحر (Sea) والأمطار (Rain) بشكل جيد", opt3: "إذا كانت دائرة المسافة VRM لا تتحرك", opt4: "إذا كان يعمل بدون تغذية كهربائية", correct: "2", cat: "r_ops" },
+            { q: "ما هي وظيفة مفتاح (Gain) على شاشة الرادار؟", opt1: "التحكم بحساسية الرادار وقدرته على استقبال الأهداف (وزيادته تزيد التشويش)", opt2: "قياس مسافة الهدف بالميل البحري", opt3: "إيقاف دوران الهوائي", opt4: "تحديد اتجاه الشمال الحقيقي", correct: "1", cat: "r_ops" },
+            { q: "ما هي الأداة التي تظهر كخط يمتد من المركز إلى الهدف لتحديد اتجاه الهدف بالنسبة للسفينة؟", opt1: "VRM", opt2: "EBL (خط الاتجاه الإلكتروني)", opt3: "Guard Zone", opt4: "Gain", correct: "2", cat: "r_ops" },
+            { q: "ما هي الأداة التي تظهر كدائرة تتسع لتمس الهدف وتحدد المسافة أو بُعد الهدف عن السفينة؟", opt1: "EBL", opt2: "VRM (مؤشر المسافة المتغير)", opt3: "Parallel Index", opt4: "Sea Clutter", correct: "2", cat: "r_ops" },
+            { q: "ما هي الأداة المستخدمة لتحديد خطوط موازية مرجعية تساعد في الحفاظ على المسار أو الاقتراب الآمن من الساحل؟", opt1: "Parallel Index (مؤشر الخط المتوازي)", opt2: "Anti-Interference", opt3: "Echo Stretch", opt4: "Rain Clutter", correct: "1", cat: "r_ops" },
+            { q: "ما هي الوظيفة التي تنشئ منطقة مراقبة حول السفينة تعطي إنذاراً ضوئياً أو صوتياً إذا دخلها أي جسم؟", opt1: "Offset / Zoom", opt2: "Guard Zone (منطقة الحظر)", opt3: "Pulse Length", opt4: "Stand-by", correct: "2", cat: "r_ops" },
+            { q: "كيف يتم استخدام مفتاح طول النبضة (Pulse Length) في الرادار؟", opt1: "النبضة الطويلة للمسافات الطويلة، والنبضة القصيرة للمسافات القريبة", opt2: "النبضة القصيرة للمسافات الطويلة دائماً", opt3: "لتغيير لون الشاشة فقط", opt4: "لإطفاء الجهاز تدريجياً", correct: "1", cat: "r_ops" },
+            { q: "ما هي وظيفة أداة (Anti-Interference) في الرادار؟", opt1: "تكبير حجم السفينة الراصدة", opt2: "تقليل التشويش الناتج عن أجهزة رادار أخرى شغالة بالقرب من السفينة", opt3: "تحديد سرعة الرياح", opt4: "تشغيل صافرة الإنذار", correct: "2", cat: "r_ops" },
+
+            // الفرع 4: جهاز ARPA والتوقيع الراداري (r_arpa)
+            { q: "من أين تستمد وحدة الكمبيوتر في جهاز (ARPA) بيانات خط السير والسرعة للسفينة الراصدة؟", opt1: "من الهوائي فقط", opt2: "خط السير من مكرر الجايرو، والسرعة من عداد السرعة (Log / GPS)", opt3: "من جهاز قياس الأعماق", opt4: "من مفتاح Gain", correct: "2", cat: "r_arpa" },
+            { q: "ماذا يعني المصطلح (CPA) في جهاز ARPA؟", opt1: "الوقت اللازم للوصول لأقرب نقطة", opt2: "أقرب مسافة مرور سيمر بها الهدف عن السفينة الراصدة (Closest Point of Approach)", opt3: "مسافة قطع مقدمة السفينة", opt4: "سرعة الهدف الحقيقية", correct: "2", cat: "r_arpa" },
+            { q: "ماذا يعني المصطلح (TCPA) في جهاز ARPA؟", opt1: "الوقت اللازم (بالدقائق) لوصول الهدف إلى أقرب مسافة مرور عن السفينة الراصدة", opt2: "المسافة بالميل البحري لأقرب نقطة", opt3: "زمن تشغيل الرادار", opt4: "زاوية مواجهة الهدف", correct: "1", cat: "r_arpa" },
+            { q: "ماذا يعني ظهور إشارة موجبة (+BCR) أو سالبة (-BCR) أمام مسافة قطع المقدمة؟", opt1: "(+BCR) سيعبر الهدف من أمام مقدمة سفينتك، و(-BCR) سيعبر من خلف سفينتك", opt2: "(+BCR) الهدف ثابت، و(-BCR) الهدف متحرك", opt3: "(+BCR) سيعبر من الخلف، و(-BCR) سيعبر من الأمام", opt4: "تدل على ارتفاع الموج فقط", correct: "1", cat: "r_arpa" },
+            { q: "ماذا يعني ظهور إشارة سالبة أمام زمن عبور المقدمة (-TBCR)؟", opt1: "أن العبور لم يحدث بعد", opt2: "أن العبور قد حدث بالفعل ومضى عليه الزمن المذكور", opt3: "أن الهدف في حالة تصادم حتمي", opt4: "أن جهاز ARPA معطل", correct: "2", cat: "r_arpa" },
+            { q: "ما المقصود بـ 'زاوية المواجهة' (Aspect) في التوقيع الراداري؟", opt1: "مسافة الهدف عن الساحل", opt2: "مكان السفينة الراصدة بالنسبة لمقدم الهدف", opt3: "زاوية ارتفاع هوائي الرادار", opt4: "الفرق بين الشمال الحقيقي والمغناطيسي", correct: "2", cat: "r_arpa" },
+            { q: "متى تكون زاوية المواجهة (Aspect) حمراء (Red) ومتى تكون خضراء (Green)؟", opt1: "حمراء إذا كانت السفينة الراصدة على يسار الهدف، وخضراء إذا كانت على يمين الهدف", opt2: "حمراء إذا كان الهدف يبتعد، وخضراء إذا كان يقترب", opt3: "حمراء نهاراً وخضراء ليلاً", opt4: "حمراء في البحر المفتوح وخضراء في الموانئ", correct: "1", cat: "r_arpa" },
+            { q: "متى تتطلب الحالة مراقبة حذرة (Watch out) بناءً على زاوية المواجهة؟", opt1: "عندما يكون الهدف بزاوية مواجهة حمراء على الجانب الأيسر للسفينة الراصدة", opt2: "عندما يكون الهدف بزاوية مواجهة حمراء (Red aspect) وموجوداً على الجانب الأيمن للسفينة الراصدة (Starboard side)", opt3: "عندما يكون الهدف خلف السفينة تماماً", opt4: "عندما تكون CPA أكبر من 10 أميال", correct: "2", cat: "r_arpa" },
+            { q: "متى نحكم بوجود حالة تصادم حتمية على مخطط التوقيع الراداري؟", opt1: "عندما يمر امتداد خط الحركة النسبية (OA) بمركز الدائرة وتكون قيمة (CPA) مساوية للصفر", opt2: "عندما تكون قيمة CPA تساوي 5 أميال", opt3: "عندما تكون إشارة TBCR سالبة", opt4: "عندما يتحرك الهدف بعكس اتجاه السفينة", correct: "1", cat: "r_arpa" },
+            { q: "ماذا تستنتج إذا لاحظت على شاشة الرادار أن اتجاه الهدف ومسافته لا يتغيران؟", opt1: "أن الهدف ثابت في الماء", opt2: "أن الهدف يسير بنفس خط سير السفينة الراصدة وبنفس سرعتها", opt3: "أن الهدف في حالة تصادم فوري", opt4: "أن الهوائي متوقف عن الدوران", correct: "2", cat: "r_arpa" },
+            { q: "ما هو نظام (VTS) في الموانئ؟", opt1: "نظام خدمة حركة السفن (Vessel Traffic Service) للتحكم بالسفن وتتبعها وتوجيهها بأمان عبر اتصالات UHF", opt2: "نظام إطفاء الحرائق التلقائي", opt3: "نظام قياس ملوحة المياه", opt4: "نظام التوجيه الآلي للدفة", correct: "1", cat: "r_arpa" }
+        ];
+
+        const allQuizData = [...lawQuizData, ...watchQuizData, ...cargoQuizData, ...radarQuizData];
+
+        // تعريف هيكلة الأفرع لكل مادة من المواد الأربع
         const subjectConfigs = {
             law: {
                 title: "⚖️ قسم القانون البحري والاتفاقيات",
@@ -565,6 +958,18 @@
                     { id: "c_codes", name: "دليل التحميل ومدونات CSS & BLU (9 أسئلة)" },
                     { id: "all-cargo", name: "شامل مادة تداول البضائع (60 سؤال)", full: true }
                 ]
+            },
+            radar: {
+                title: "📡 قسم الرادار البحري و ARPA",
+                color: "var(--accent-cyan)",
+                defaultCat: "all-radar",
+                branches: [
+                    { id: "r_basics", name: "المفاهيم الأساسية ومبدأ العمل (10 أسئلة)" },
+                    { id: "r_comp", name: "المقارنات وأوضاع الشاشة (9 أسئلة)" },
+                    { id: "r_ops", name: "التشغيل العملي ومفاتيح الرادار (10 أسئلة)" },
+                    { id: "r_arpa", name: "جهاز ARPA والتوقيع الراداري (11 سؤال)" },
+                    { id: "all-radar", name: "شامل أتمتة الرادار البحري و ARPA (40 سؤال)", full: true }
+                ]
             }
         };
 
@@ -582,10 +987,11 @@
             home: document.getElementById('home-screen'),
             branches: document.getElementById('branches-screen'),
             quiz: document.getElementById('quiz-screen'),
-            result: document.getElementById('result-screen')
+            result: document.getElementById('result-screen'),
+            oral: document.getElementById('oral-screen')
         };
 
-        const listItems = document.querySelectorAll('ul li');
+        const listItems = document.querySelectorAll('ul#options-list li');
         const answerEls = document.querySelectorAll('.answer');
         const submitBtn = document.getElementById('submit-btn');
         const barCorrect = document.getElementById('bar-correct');
@@ -600,6 +1006,10 @@
             const titleEl = document.getElementById('branch-title');
             titleEl.innerText = config.title;
             titleEl.style.color = config.color;
+
+            // إظهار زر ملخص الأسئلة الشفهية في قسم الرادار فقط
+            const oralBtn = document.getElementById('oral-guide-btn');
+            oralBtn.style.display = (subjKey === 'radar') ? 'flex' : 'none';
 
             const container = document.getElementById('branches-container');
             container.innerHTML = '';
@@ -638,6 +1048,8 @@
                 currentQuizData = [...watchQuizData];
             } else if (selectedCategory === 'all-cargo') {
                 currentQuizData = [...cargoQuizData];
+            } else if (selectedCategory === 'all-radar') {
+                currentQuizData = [...radarQuizData];
             } else {
                 currentQuizData = allQuizData.filter(q => q.cat === selectedCategory);
             }
@@ -794,6 +1206,7 @@
         window.switchScreen = function(screenName) {
             Object.values(screens).forEach(s => s.classList.remove('active'));
             screens[screenName].classList.add('active');
+            window.scrollTo(0, 0);
         };
     </script>
 </body>
