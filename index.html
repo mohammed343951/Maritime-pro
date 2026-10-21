@@ -9,13 +9,14 @@
         
         :root {
             --bg-color: #000000;
-            --card-bg: rgba(20, 20, 25, 0.75);
+            --card-bg: rgba(20, 20, 25, 0.78);
             --text-main: #f5f5f7;
             --text-secondary: #a1a1a6;
             --accent-blue: #0A84FF;
             --accent-orange: #FF9F0A;
             --accent-purple: #BF5AF2;
             --accent-cyan: #32ADE6;
+            --accent-emerald: #30D158;
             --success: #32d74b;
             --danger: #ff453a;
             --border-color: rgba(255, 255, 255, 0.12);
@@ -43,7 +44,7 @@
             border: 1px solid var(--border-color);
             border-radius: 32px;
             box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
-            width: 880px;
+            width: 900px;
             max-width: 100%;
             overflow: hidden;
             position: relative;
@@ -60,7 +61,43 @@
 
         .setup-section { padding: 20px 35px 40px; }
 
-        /* بطاقات الأقسام الأربعة الرئيسية */
+        /* شبكة اختيار الفصل الدراسي (ترم ثاني / ترم رابع) */
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+            margin-top: 15px;
+        }
+        .term-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 36px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .term-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .term-card.term-4:hover { border-color: var(--accent-blue); box-shadow: 0 15px 35px rgba(10, 132, 255, 0.28); }
+        .term-card.term-2:hover { border-color: var(--accent-emerald); box-shadow: 0 15px 35px rgba(48, 209, 88, 0.28); }
+        .term-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 980px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .term-4 .term-badge { background: rgba(10, 132, 255, 0.2); color: #5ac8fa; border: 1px solid rgba(10, 132, 255, 0.4); }
+        .term-2 .term-badge { background: rgba(48, 209, 88, 0.2); color: #30d158; border: 1px solid rgba(48, 209, 88, 0.4); }
+        .term-card h2 { margin: 5px 0 10px; font-size: 1.7rem; color: #fff; font-weight: 800; }
+        .term-card p { margin: 0; color: var(--text-secondary); font-size: 0.98rem; line-height: 1.5; }
+
+        /* بطاقات المواد داخل كل ترم */
         .main-subjects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -86,6 +123,7 @@
         .subject-card.watch-card:hover { border-color: var(--accent-orange); box-shadow: 0 12px 30px rgba(255, 159, 10, 0.25); }
         .subject-card.cargo-card:hover { border-color: var(--accent-purple); box-shadow: 0 12px 30px rgba(191, 90, 242, 0.25); }
         .subject-card.radar-card:hover { border-color: var(--accent-cyan); box-shadow: 0 12px 30px rgba(50, 173, 230, 0.25); }
+        .subject-card.tech2-card:hover { border-color: var(--accent-emerald); box-shadow: 0 12px 30px rgba(48, 209, 88, 0.25); }
 
         .subject-icon { font-size: 2.6rem; margin-bottom: 12px; display: block; }
         .subject-card h3 { margin: 0 0 8px; font-size: 1.25rem; color: #fff; font-weight: 800; }
@@ -119,7 +157,7 @@
 
         .oral-guide-btn {
             width: 100%;
-            background: linear-gradient(135deg, rgba(50, 173, 230, 0.2), rgba(10, 132, 255, 0.25));
+            background: linear-gradient(135deg, rgba(50, 173, 230, 0.2), rgba(48, 209, 88, 0.2));
             border: 1px solid var(--accent-cyan);
             color: #fff;
             padding: 15px 20px;
@@ -194,7 +232,7 @@
         .score-box { background: rgba(0,0,0,0.35); border-radius: 20px; padding: 20px; margin: 20px auto; max-width: 320px; border: 1px solid var(--border-color); }
         .score-box div { font-size: 1.15rem; margin: 10px 0; }
 
-        /* تنسيقات شاشة الأسئلة الشفهية (الرادار) */
+        /* تنسيقات شاشة الأسئلة الشفهية والجداول */
         .oral-content-wrapper {
             padding: 25px 35px 40px;
             line-height: 1.8;
@@ -205,7 +243,7 @@
             border-bottom: 2px solid rgba(50, 173, 230, 0.3);
             padding-bottom: 15px;
             margin-top: 5px;
-            font-size: 1.6rem;
+            font-size: 1.55rem;
         }
         .oral-sec-title {
             color: #fff;
@@ -241,6 +279,23 @@
         }
         .qa-answer li {
             margin-bottom: 6px;
+        }
+        .oral-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.95rem;
+        }
+        .oral-table th, .oral-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            text-align: right;
+            vertical-align: top;
+        }
+        .oral-table th {
+            background: rgba(255, 255, 255, 0.08);
+            color: #5ac8fa;
+            font-weight: 800;
         }
         .print-btn {
             background: var(--accent-cyan);
@@ -279,19 +334,46 @@
             .qa-box { border: none !important; border-bottom: 1px dashed #ccc !important; border-radius: 0 !important; padding: 10px 0 !important; background: transparent !important; }
             .qa-question { color: #b91c1c !important; }
             .qa-answer { color: #1a1a1a !important; }
+            .oral-table th, .oral-table td { border: 1px solid #999 !important; color: #000 !important; }
+            .oral-table th { background: #e5e7eb !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. الشاشة الأولى: اختيار المادة الرئيسية (4 أقسام) -->
-    <div id="home-screen" class="glass-card active">
+    <!-- 1. الشاشة الرئيسية الأولى: اختيار الفصل الدراسي (ترم ثاني / ترم رابع) -->
+    <div id="terms-screen" class="glass-card active">
         <div class="landing-header">
             <h1>Maritime Pro Assessment ⚓</h1>
-            <p>اختر المادة الدراسية لعرض الأفرع والاختبارات</p>
+            <p>منصة الاختبارات والمراجعة البحرية الشاملة — اختر الفصل الدراسي</p>
         </div>
         <div class="setup-section">
-            <div class="main-subjects-grid">
+            <div class="terms-grid">
+                <div class="term-card term-2" onclick="openTerm('term2')">
+                    <span class="term-badge">الفصل الدراسي الثاني</span>
+                    <h2>🚢 ترم ثاني</h2>
+                    <p>مادة التقنيات البحرية (2)<br>(بنك الأتمتة + دليل المقابلة الشفهية والعملي الشامل)</p>
+                </div>
+
+                <div class="term-card term-4" onclick="openTerm('term4')">
+                    <span class="term-badge">الفصل الدراسي الرابع</span>
+                    <h2>⚓ ترم رابع</h2>
+                    <p>قانون بحري • تأمين نوبة (COLREGS)<br>تداول بضائع • الرادار البحري و ARPA</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. شاشة مواد الترم المختار -->
+    <div id="subjects-screen" class="glass-card">
+        <div class="setup-section" style="padding-top: 30px;">
+            <div class="top-actions-bar">
+                <button class="back-nav" onclick="switchScreen('terms')">➔ العودة لاختيار الترم</button>
+            </div>
+            <div id="term-subjects-title" class="branch-header-title">مواد الفصل الدراسي</div>
+
+            <!-- مواد ترم رابع -->
+            <div id="term4-subjects" class="main-subjects-grid" style="display: none;">
                 <div class="subject-card law-card" onclick="openSubject('law')">
                     <span class="subject-icon">⚖️</span>
                     <h3>قانون بحري</h3>
@@ -316,26 +398,33 @@
                     <span>40 سؤال أتمتة + ملخص الشفهي</span>
                 </div>
             </div>
+
+            <!-- مواد ترم ثاني -->
+            <div id="term2-subjects" class="main-subjects-grid" style="display: none;">
+                <div class="subject-card tech2-card" onclick="openSubject('tech2')">
+                    <span class="subject-icon">⚙️</span>
+                    <h3>التقنيات البحرية (2)</h3>
+                    <span>45 سؤال أتمتة + دليل المقابلة الشفهية الشامل</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- 2. الشاشة الثانية: أفرع المادة المحددة وإعداد الوقت -->
+    <!-- 3. شاشة أفرع المادة المحددة وإعداد الوقت -->
     <div id="branches-screen" class="glass-card">
         <div class="setup-section" style="padding-top: 30px;">
             <div class="top-actions-bar">
-                <button class="back-nav" onclick="switchScreen('home')">➔ العودة للمواد الرئيسية</button>
+                <button class="back-nav" onclick="switchScreen('subjects')">➔ العودة لمواد الترم</button>
             </div>
             
             <div id="branch-title" class="branch-header-title">أفرع المادة</div>
 
-            <!-- زر خاص يظهر فقط في قسم الرادار لعرض أسئلة المقابلة الشفهية -->
-            <button id="oral-guide-btn" class="oral-guide-btn" onclick="switchScreen('oral')">
-                📖 تصفح ملخص أسئلة المقابلة الشفهية (17 سؤال وجواب)
+            <!-- زر خاص يظهر في المواد التي تحتوي على ملخص مقابلة شفهية (الرادار / التقنيات 2) -->
+            <button id="oral-guide-btn" class="oral-guide-btn" onclick="openOralGuide()">
+                📖 تصفح دليل المراجعة للمقابلة الشفهية والامتحان العملي
             </button>
             
-            <div id="branches-container" class="category-grid">
-                <!-- يتم توليد أزرار الأفرع هنا تلقائياً حسب المادة -->
-            </div>
+            <div id="branches-container" class="category-grid"></div>
 
             <div style="font-size: 1rem; margin-bottom: 10px; color: var(--text-secondary); font-weight: 600;">المؤقت الزمني (اختياري):</div>
             <div class="time-input-wrapper">
@@ -347,7 +436,7 @@
         </div>
     </div>
 
-    <!-- 3. شاشة الاختبار التفاعلي (أتمتة) -->
+    <!-- 4. شاشة الاختبار التفاعلي (أتمتة) -->
     <div id="quiz-screen" class="glass-card">
         <div class="progress-line-container">
             <div class="progress-correct" id="bar-correct"></div>
@@ -386,7 +475,7 @@
         </div>
     </div>
 
-    <!-- 4. شاشة النتيجة -->
+    <!-- 5. شاشة النتيجة -->
     <div id="result-screen" class="glass-card">
         <div class="result-body">
             <h1 id="result-title">اكتمل التقييم ⚓</h1>
@@ -403,227 +492,581 @@
         </div>
     </div>
 
-    <!-- 5. شاشة ملخص أسئلة المقابلة الشفهية (الرادار و ARPA) -->
+    <!-- 6. شاشة ملخصات المقابلة الشفهية (الرادار / التقنيات 2) -->
     <div id="oral-screen" class="glass-card">
         <div class="oral-content-wrapper">
             <div class="top-actions-bar">
-                <button class="back-nav" onclick="switchScreen('branches')">➔ العودة لأفرع الرادار</button>
+                <button class="back-nav" onclick="switchScreen('branches')">➔ العودة لأفرع المادة</button>
                 <button class="print-btn" onclick="window.print()">🖨️ حفظ كملف PDF / طباعة</button>
             </div>
 
-            <h1 class="oral-main-title">ملخص أسئلة المقابلة الشفهية - الرادار البحري و ARPA</h1>
+            <!-- محتوى شفهي الرادار و ARPA -->
+            <div id="oral-radar-content" style="display: none;">
+                <h1 class="oral-main-title">ملخص أسئلة المقابلة الشفهية - الرادار البحري و ARPA</h1>
 
-            <h2 class="oral-sec-title">أولاً: أسئلة المفاهيم الأساسية ومبدأ العمل</h2>
+                <h2 class="oral-sec-title">أولاً: أسئلة المفاهيم الأساسية ومبدأ العمل</h2>
+                <div class="qa-box">
+                    <div class="qa-question">س1: عرّف الرادار البحري، وما معنى اختصار كلمتي (RADAR) و (ARPA)؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>الرادار:</strong> هو جهاز استشعار إلكتروني وظيفته اكتشاف الأهداف (سواء كانت ثابتة أو متحركة) وتحديد موقعها واتجاهها وسرعتها، وقياس المسافات بين السفينة الراصدة والأهداف بدقة.</li>
+                            <li>كلمة <strong>RADAR</strong> تعني: (Radio detection and Ranging).</li>
+                            <li>كلمة <strong>ARPA</strong> تعني: (Automatic Radar plotting Aid)، وهي الرادارات المخصصة للتوقيع الملاحي التي تستخدم الدوائر الإلكترونية لدراسة طبيعة الأهداف وإيجاد بياناتها من خط سير وسرعة وأقرب مسافة مرور وغيرها.</li>
+                        </ul>
+                    </div>
+                </div>
 
-            <div class="qa-box">
-                <div class="qa-question">س1: عرّف الرادار البحري، وما معنى اختصار كلمتي (RADAR) و (ARPA)؟</div>
-                <div class="qa-answer">
-                    <ul>
-                        <li><strong>الرادار:</strong> هو جهاز استشعار إلكتروني وظيفته اكتشاف الأهداف (سواء كانت ثابتة أو متحركة) وتحديد موقعها واتجاهها وسرعتها، وقياس المسافات بين السفينة الراصدة والأهداف بدقة.</li>
-                        <li>كلمة <strong>RADAR</strong> تعني: (Radio detection and Ranging).</li>
-                        <li>كلمة <strong>ARPA</strong> تعني: (Automatic Radar plotting Aid)، وهي الرادارات المخصصة للتوقيع الملاحي التي تستخدم الدوائر الإلكترونية لدراسة طبيعة الأهداف وإيجاد بياناتها من خط سير وسرعة وأقرب مسافة مرور وغيرها.</li>
-                    </ul>
+                <div class="qa-box">
+                    <div class="qa-question">س2: ما هو مبدأ عمل الرادار؟ ولماذا نستخدم الأمواج الكهرومغناطيسية بدلاً من الأمواج الصوتية؟</div>
+                    <div class="qa-answer">
+                        <p>يعتمد المبدأ الرئيسي على أن الموجات الكهرومغناطيسية تنعكس عند انتقالها من وسط إلى آخر يختلفان في خصائصهما الكهربائية والمغناطيسية، حيث تنطلق من الهوائي في الفضاء وتنعكس عن الأجسام التي تعترض طريقها، ثم يلتقطها الهوائي ويعالجها لاستخلاص بيانات الهدف وتظهر كنقطة مضيئة على الشاشة.</p>
+                        <p><strong>استُخدمت الأمواج الكهرومغناطيسية بدلاً من الصوتية للأسباب التالية:</strong></p>
+                        <ol>
+                            <li>لها قابلية عالية على الانعكاس.</li>
+                            <li>ذات سرعة انتقال كبيرة جداً مساوية لسرعة الضوء (300,000 كم/ث).</li>
+                            <li>لا تحتاج لوسط مادي للانتقال فيه (تنتقل في الفراغ).</li>
+                            <li>قدرتها على أداء عملها حتى عندما تكون ضعيفة.</li>
+                            <li>غير مسببة للإزعاج كموجات الصوت.</li>
+                            <li>الانتقال لمسافات طويلة دون اضمحلال فضائياً.</li>
+                            <li>قياس المسافات بدقة عالية بسبب ثبات كثافتها.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س3: على ماذا تعتمد الموجة المنعكسة عن الهدف؟ ولماذا يستخدم الرادار أمواجاً عالية التردد (بالغة القصر)؟</div>
+                    <div class="qa-answer">
+                        <p>تعتمد الموجة المنعكسة على ثلاثة عوامل:</p>
+                        <ol>
+                            <li><strong>طبيعة المادة:</strong> للمعادن معامل انعكاس عالٍ لذلك يسهل اكتشافها.</li>
+                            <li><strong>شكل سطح جسم الهدف:</strong> الأسطح المستوية والمنتظمة لها قابلية عالية للانعكاس.</li>
+                            <li><strong>طول الموجة التي يعمل عليها الرادار:</strong> إذا كان طول الموجة أكبر من أبعاد الجسم فإن الموجة لا تنعكس، ولذلك يستخدم الرادار أمواجاً بالغة القصر أي عالية التردد (من 1 غيغا إلى 100 غيغا هرتز).</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س4: ما هي الوحدات الأربع الرئيسية المكونة لجهاز الرادار البحري؟ وما وظيفة كل منها؟</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li><strong>وحدة التكوين والإرسال:</strong> وظيفتها توليد نبضات رادارية ذات طاقة كهرومغناطيسية تتولد ضمن "الماغنترون"، وتتميز بأنها محددة ومتناهية في الصغر، ذات معدل تكرار محدد، وتردد ثابت وعالٍ جداً، وطاقة عالية.</li>
+                            <li><strong>وحدة الهوائي:</strong> يحول الإشارة الكهربائية إلى أمواج كهرومغناطيسية عند الإرسال، ومن كهرومغناطيسية إلى كهربائية عند الاستقبال، ويتحكم به صمام منظم يغلق وحدة الإرسال عند الاستقبال ويغلق وحدة الاستقبال عند الإرسال.</li>
+                            <li><strong>وحدة الاستقبال:</strong> تعمل على تكبير الأصداء الضعيفة العائدة من الأهداف ووضعها في الشكل والقيمة المناسبة لإظهارها على الشاشة.</li>
+                            <li><strong>وحدة عرض المعلومات:</strong> وظيفتها إظهار الأهداف على الشاشة وأخذ البيانات عنها بواسطة المفاتيح والأزرار الجانبية.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س5: كيف يقوم الرادار بحساب مسافة الهدف وتحديد موقعه؟</div>
+                    <div class="qa-answer">
+                        يحتاج الرادار لتحديد موقع الهدف إلى: زاوية السمت، وزاوية الارتفاع، والمسافة من الرادار إلى الهدف. ويتم تحديد المسافة عن طريق قياس الوقت الذي تستغرقه النبضات ذهاباً وإياباً من الرادار إلى الهدف.
+                    </div>
+                </div>
+
+                <h2 class="oral-sec-title">ثانياً: أسئلة المقارنات</h2>
+                <div class="qa-box">
+                    <div class="qa-question">س6: قارن بين رادار (X-band) ورادار (S-band) من حيث طول الموجة، الاستخدام، والقدرة على كشف الأهداف؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>رادار X-band:</strong> طول موجته 3 سم (تردده حوالي 10 غيغاهرتز) وهوائيه صغير. يستخدم في الطقس الجيد، ويعمل بنبضات قصيرة ضعيفة المقاومة للطقس السيئ. له إمكانية عالية لاكتشاف الأهداف الصغيرة والقريبة، لذلك يستخدم في الملاحة الساحلية والقنوات ودخول المرافئ.</li>
+                            <li><strong>رادار S-band:</strong> طول موجته 10 سم (تردده حوالي 3 غيغاهرتز) وهوائيه كبير. يستخدم في الطقس السيئ، ويعمل بنبضات طويلة مقاومة للطقس السيئ. له إمكانية عالية لاكتشاف الأهداف البعيدة، لذلك يستخدم في البحر المفتوح.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س7: ما الفرق بين وضع الحركة الحقيقية (True Motion) ووضع الحركة النسبية (Relative Motion)؟ وكيف يظهر الهدف الثابت في كلا الوضعين؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>الحركة الحقيقية (True Motion):</strong> تتحرك السفينة الراصدة عبر الشاشة، وتتحرك جميع الأهداف المتحركة بسرعتها وخط سيرها الحقيقيين، بينما تبقى الأهداف الثابتة في مكان ثابت على الشاشة.</li>
+                            <li><strong>الحركة النسبية (Relative Motion):</strong> تكون السفينة الراصدة ثابتة في مركز الشاشة، وتبدو جميع الأهداف الأخرى وكأنها تتحرك حول السفينة الراصدة.</li>
+                            <li><strong>حالة الهدف الثابت في الحركة النسبية:</strong> إذا كانت السفينة الراصدة متحركة فعلياً والهدف ثابتاً، فإن الهدف يظهر على الشاشة وكأنه يتحرك بنفس سرعة الراصد وبعكس خط سيره.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س8: اشرح الفرق بين أوضاع توجيه الشاشة الثلاثة: (North-up) و (Heading-up) و (Course-up)؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>وضع الشمال الحقيقي في الأعلى (North-up):</strong> يكون الشمال الحقيقي ثابتاً في أعلى الشاشة، وتظهر الأهداف في مواقعها الجغرافية الحقيقية. يُفضل عند مقارنة صورة الرادار مع الخرائط.</li>
+                            <li><strong>وضع مقدمة السفينة في الأعلى (Heading-up):</strong> تكون مقدمة السفينة دائماً في أعلى الشاشة وتدور الصورة مع دوران السفينة. يُفضل أثناء القيادة المباشرة والمناورة في الموانئ الضيقة.</li>
+                            <li><strong>وضع خط السير في الأعلى (Course-up):</strong> يكون اتجاه خط سير السفينة الفعلي في أعلى الشاشة. يُفضل أثناء الملاحة في البحر عند اتباع مسار معين.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="oral-sec-title">ثالثاً: أسئلة التشغيل العملي ومفاتيح الرادار</h2>
+                <div class="qa-box">
+                    <div class="qa-question">س9: ما هي الإجراءات الواجب اتخاذها بالترتيب قبل وعند تشغيل الرادار؟ وكيف يتم إطفاؤه؟</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li>التأكد من أن هوائي الرادار حر من أي معوقات جانبية ولا يوجد أشخاص بالقرب منه.</li>
+                            <li>التأكد من وصول التغذية الرئيسية إلى الرادار.</li>
+                            <li>تشغيل الرادار ووضعه على وضع الاستعداد (Stand-by).</li>
+                            <li>الانتظار بضع دقائق حتى يصبح جاهزاً للإرسال (Warm-up) ثم ضغط مفتاح الإرسال (Transmit).</li>
+                            <li>توليف ومعايرة صورة الشاشة عبر المفاتيح العيارية للحصول على أفضل صورة.</li>
+                            <li>ضبط مدى العمل بين 6 إلى 12 ميل أو أقل حسب الحاجة.</li>
+                        </ol>
+                        <p><strong>عند الإطفاء:</strong> يجب تحويل جميع المفاتيح إلى الوضعية (0) ثم إطفاء الرادار بطريقة عكسية للتشغيل.</p>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س10: كيف تعرف عملياً أن جهاز الرادار يعمل بشكل جيد ويستقبل الأهداف بشكل مقبول؟</div>
+                    <div class="qa-answer">
+                        الرادار الذي يعمل بشكل جيد هو الذي يستقبل التشويش الصادر عن البحر (Sea) والأمطار (Rain) بشكل جيد؛ فإذا استقبل تشويش البحر والمطر فهذا يعني أنه يستقبل الأهداف المحيطة جيداً.
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س11: ما هي وظيفة المفاتيح والأدوات التالية على شاشة الرادار؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>Gain:</strong> يتحكم بحساسية الرادار وقدرته على استقبال الأهداف، وزيادته تزيد التشويش على الشاشة.</li>
+                            <li><strong>Sea Clutter & Rain Clutter:</strong> معايرة الشاشة بضبط تشويش البحر وتشويش الطقس والأمطار.</li>
+                            <li><strong>EBL (خط الاتجاه الإلكتروني):</strong> خط يمتد من المركز إلى الهدف لتحديد اتجاه الهدف بالنسبة للسفينة.</li>
+                            <li><strong>VRM (مؤشر المسافة المتغير):</strong> دائرة تتسع لتمس الهدف وتحدد المسافة أو بعد الهدف عن السفينة.</li>
+                            <li><strong>Parallel Index (مؤشر الخط المتوازي):</strong> تحديد خطوط موازية مرجعية تساعد في الحفاظ على المسار أو الاقتراب الآمن من الساحل.</li>
+                            <li><strong>Guard Zone (منطقة الحظر):</strong> إنشاء منطقة مراقبة حول السفينة تعطي إنذاراً ضوئياً أو صوتياً إذا دخلها أي جسم.</li>
+                            <li><strong>Pulse Length (طول النبضة):</strong> تُستخدم النبضة الطويلة للمسافات الطويلة، والنبضة القصيرة للمسافات القريبة.</li>
+                            <li><strong>Anti-Interference:</strong> تقليل التشويش الناتج عن أجهزة رادار أخرى شغالة بالقرب من السفينة.</li>
+                            <li><strong>Echo Stretch / Enhance:</strong> تكبير وتضخيم الأهداف على الشاشة لزيادة وضوحها.</li>
+                            <li><strong>Offset / Zoom:</strong> التركيز على جزء معين من الشاشة بعيد عن مركز السفينة لتكبير مناطق معينة.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="oral-sec-title">رابعاً: أسئلة جهاز (ARPA) والتوقيع الراداري</h2>
+                <div class="qa-box">
+                    <div class="qa-question">س12: ما هي الوحدات الرئيسية لجهاز (ARPA)؟ ومن أين يستمد الكمبيوتر بياناته؟</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li><strong>وحدة الرادار:</strong> لضبط الصورة والأهداف بواسطة مفاتيح المعايرة.</li>
+                            <li><strong>مكرر الجايرو:</strong> يمد وحدة الكمبيوتر بخط سير السفينة الراصدة.</li>
+                            <li><strong>عداد السرعة (أو GPS/Log):</strong> يمد السفينة الراصدة بالسرعة.</li>
+                            <li><strong>وحدة الكمبيوتر:</strong> تأخذ المدخلات لإجراء العمليات الحسابية وتقويم حركة الهدف والتنبؤ بمكانه.</li>
+                            <li><strong>وحدة عرض المعلومات:</strong> تعرض المعلومات بيانياً ورقمياً وتعطي تحذيرات صوتية وضوئية.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س13: ما هو الغرض الأساسي من التوقيع الراداري؟</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li>معرفة ما إذا كان هناك خطر تصادم من عدمه والوقت المتوقع لحدوثه.</li>
+                            <li>معرفة التغيير اللازم في خط السير والسرعة لتلافي خطر التصادم والوقت الذي يجب عنده إجراء التغيير.</li>
+                            <li>تحديد الوقت الذي يجب عنده الرجوع إلى خط السير والسرعة الأصليين بعد تلافي خطر التصادم.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س14: ماذا تعني المصطلحات التالية: (CPA)، (TCPA)، (BCR)، (TBCR)؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>CPA (Closest Point of Approach):</strong> أقرب مسافة مرور سيمر بها الهدف عن السفينة الراصدة.</li>
+                            <li><strong>TCPA (Time to Closest Point of Approach):</strong> الوقت اللازم (بالدقائق) لوصول الهدف إلى أقرب مسافة مرور عن السفينة الراصدة.</li>
+                            <li><strong>BCR (Bow Cross Range):</strong> المسافة التي يقطع فيها الهدف مقدمة السفينة الراصدة.</li>
+                            <li><strong>TBCR (Time of Bow Cross Range):</strong> الزمن اللازم لعبور الهدف خط مقدمة ومؤخرة السفينة.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س15: ماذا يعني ظهور إشارة موجبة (+) أو سالبة (-) أمام كل من (BCR) و (TBCR)؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>(+BCR) موجبة:</strong> تعني أن السفينة الهدف ستعبر من أمام مقدمة سفينتك.</li>
+                            <li><strong>(-BCR) سالبة:</strong> تعني أن السفينة الهدف ستعبر من خلف سفينتك.</li>
+                            <li><strong>(+TBCR) موجبة:</strong> تعني أن العبور لم يحدث بعد، ويحتاج للزمن المذكور ليعبر سفينتك.</li>
+                            <li><strong>(-TBCR) سالبة:</strong> تعني أن العبور قد حدث بالفعل ومضى عليه الزمن المذكور.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س16: ما هي "زاوية المواجهة" (Aspect)؟ ومتى تكون حمراء أو خضراء؟ ومتى تشكل خطراً؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>زاوية المواجهة (Aspect):</strong> هي مكان السفينة الراصدة بالنسبة لمقدم الهدف.</li>
+                            <li>تكون <strong>أحمر (Red)</strong> إذا كانت السفينة الراصدة على يسار الهدف، وتكون <strong>أخضر (Green)</strong> إذا كانت على يمين الهدف.</li>
+                            <li>تتطلب الحالة مراقبة حذرة (Watch out) عندما يكون الهدف بزاوية مواجهة حمراء (Red aspect) وموجوداً على الجانب الأيمن للسفينة الراصدة (Starboard side)، بينما تكون آمنة (Safe) إذا كان الهدف بزاوية مواجهة حمراء على الجانب الأيسر للسفينة الراصدة (Port side).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س17: أسئلة استنتاجية سريعة حول التوقيع الراداري وحالات السفن:</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>متى نحكم بوجود حالة تصادم حتمية؟</strong> عندما يمر امتداد خط الحركة النسبية (الضلع OA) بمركز الدائرة، وعندها تكون قيمة (CPA) مساوية للصفر.</li>
+                            <li><strong>ماذا تستنتج إذا كان اتجاه الهدف ومسافته لا يتغيران؟</strong> نستنتج أن الهدف يسير بنفس خط سير السفينة الراصدة وبنفس سرعتها.</li>
+                            <li><strong>كيف تعرف من الرسم أن أقرب مسافة مرور (CPA) قد مرت بالفعل؟</strong> إذا كانت نقطة أقرب مسافة تقع على الضلع (OA) نفسه بين النقطتين O و A، أو إذا كان عمود أقرب مسافة من موقع السفينة الراصدة لا يقابل الضلع (OA).</li>
+                            <li><strong>متى يتغير المسار الظاهري للهدف (RML)؟</strong> لا يتغير إلا إذا تغير خط سير الراصد وسرعته، أو خط سير الهدف وسرعته.</li>
+                            <li><strong>ما هو نظام (VTS) في الموانئ؟</strong> هو نظام خدمة حركة السفن (Vessel Traffic Service) للتحكم بالسفن وتتبعها في الموانئ المزدحمة والممرات والقنوات وتوجيهها بأمان عبر الاتصالات الراديوية (UHF).</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="qa-box">
-                <div class="qa-question">س2: ما هو مبدأ عمل الرادار؟ ولماذا نستخدم الأمواج الكهرومغناطيسية بدلاً من الأمواج الصوتية؟</div>
-                <div class="qa-answer">
-                    <p>يعتمد المبدأ الرئيسي على أن الموجات الكهرومغناطيسية تنعكس عند انتقالها من وسط إلى آخر يختلفان في خصائصهما الكهربائية والمغناطيسية، حيث تنطلق من الهوائي في الفضاء وتنعكس عن الأجسام التي تعترض طريقها، ثم يلتقطها الهوائي ويعالجها لاستخلاص بيانات الهدف وتظهر كنقطة مضيئة على الشاشة.</p>
-                    <p><strong>استُخدمت الأمواج الكهرومغناطيسية بدلاً من الصوتية للأسباب التالية:</strong></p>
-                    <ol>
-                        <li>لها قابلية عالية على الانعكاس.</li>
-                        <li>ذات سرعة انتقال كبيرة جداً مساوية لسرعة الضوء (300,000 كم/ث).</li>
-                        <li>لا تحتاج لوسط مادي للانتقال فيه (تنتقل في الفراغ).</li>
-                        <li>قدرتها على أداء عملها حتى عندما تكون ضعيفة.</li>
-                        <li>غير مسببة للإزعاج كموجات الصوت.</li>
-                        <li>الانتقال لمسافات طويلة دون اضمحلال فضائياً.</li>
-                        <li>قياس المسافات بدقة عالية بسبب ثبات كثافتها.</li>
-                    </ol>
+            <!-- محتوى شفهي مادة التقنيات البحرية (2) - ترم ثاني -->
+            <div id="oral-tech2-content" style="display: none;">
+                <h1 class="oral-main-title">دليل المراجعة المركزة للمقابلة الشفهية والامتحان العملي - مادة التقنيات البحرية (2)</h1>
+
+                <h2 class="oral-sec-title">أولاً: قسم التعاريف والمصطلحات البحرية الأساسية (18 تعريفاً)</h2>
+                <div class="qa-box">
+                    <table class="oral-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 28%;">المصطلح البحري</th>
+                                <th>التعريف النموذجي للحفظ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>1. الرفاص ثابت الخطوة (Fixed Propeller)</strong></td><td>نوع من الرفاصات يتم صبه ككتلة واحدة بحيث تكون ريش الرفاص جزءاً من صرة الرفاص ومثبتة بها على مستوى دوران بشكل حلزوني، وتثبت كل ريشة بزاوية معينة لا يمكن التحكم فيها.</td></tr>
+                            <tr><td><strong>2. الرفاص متغير الخطوة (Pitch Propeller - CPP)</strong></td><td>نوع من الرفاصات تكون ريشة الرفاص فيه منفصلة عن صرة الرفاص ويمكن التحكم في زاوية الريش عن طريق نظام هيدروليكي لإدارة هذه الريش من خلال صرة الرفاص.</td></tr>
+                            <tr><td><strong>3. رفاص يميني الدوران (Right Hand Propeller)</strong></td><td>هو الرفاص الذي يدور مع عقارب الساعة (اتجاه اليمين) عند سير السفينة للأمام، وعند عكس حركة الآلات للخلف يدور عكس عقارب الساعة (عند النظر إليه من مؤخرة السفينة).</td></tr>
+                            <tr><td><strong>4. رفاص يساري الدوران (Left Hand Propeller)</strong></td><td>هو الرفاص الذي يدور عكس عقارب الساعة (اتجاه اليسار) عند سير السفينة للأمام، وعند عكس حركة الآلات للخلف يدور مع عقارب الساعة (عند النظر إليه من مؤخرة السفينة).</td></tr>
+                            <tr><td><strong>5. الدفة المتزنة (Balanced Rudder)</strong></td><td>هي الدفة التي يتم فيها تثبيت لوح الدفة على محور الدفة في الجزء العلوي فقط (لا يصل المحور لأسفل على امتداد اللوح)، ويكون جزء من مساحتها (حوالي 20% إلى 40%) أمام المحور والباقي خلفه.</td></tr>
+                            <tr><td><strong>6. الدفة غير المتزنة (Unbalanced Rudder)</strong></td><td>هي الدفة التي يكون فيها محور الدوران في أقصى نقطة للأمام على امتداد عرض الدفة، ويمتد محور الدوران على طول لوحة الدفة، وهي لا تستخدم على نطاق واسع حالياً.</td></tr>
+                            <tr><td><strong>7. التيار الخلفي (Wake Current)</strong></td><td>هو تيار الماء الذي يندفع لملء الفجوة المتخلفة خلف السفينة نتيجة حركتها في المياه.</td></tr>
+                            <tr><td><strong>8. الانزلاق الطولي (Head Reach)</strong></td><td>هي المسافة التي تقطعها السفينة في المياه بعد إيقاف الآلات وعكس حركتها للخلف.</td></tr>
+                            <tr><td><strong>9. سلم المرشد (Pilot Ladder)</strong></td><td>هو سلم رأسي يوضع على جانب السفينة بغرض صعود وهبوط المرشد من وإلى السفينة.</td></tr>
+                            <tr><td><strong>10. المنصة الميكانيكية (Mechanical Hoist)</strong></td><td>هي عبارة عن عتبة مربعة أو مستطيلة تتحرك في مجريين مثبتين على كل جانب من أجناب السفينة.</td></tr>
+                            <tr><td><strong>11. دائرة الدوران (Turning Circle)</strong></td><td>هي الدائرة التقريبية التي تدور بها السفينة عند تغيير خط سيرها باستخدام دفتها بزاوية ثابتة.</td></tr>
+                            <tr><td><strong>12. التقدم (Advance)</strong></td><td>هي المسافة الأمامية التي تقطعها نقطة ثقل السفينة للأمام عن خط السير الأصلي (لحظة وضع الدفة) وحتى إتمام تغير اتجاه قدره 90 درجة، وتبلغ من 3 إلى 4 أمثال طول السفينة.</td></tr>
+                            <tr><td><strong>13. الانتقال العرضي (Transfer)</strong></td><td>هي المسافة التي تحركت إليها السفينة وتقاس على الخط العرضي من نقطة ثقل السفينة العرضية بعد إتمام ربع دورة (90 درجة) حتى تقاطعه مع خط السير الأصلي.</td></tr>
+                            <tr><td><strong>14. القطر التكتيكي (Tactical Diameter)</strong></td><td>هي المسافة التي تحركتها السفينة في اتجاه عرضي عمودياً على خط سيرها الأصلي وحتى إتمام دورة قدرها 180 درجة، ويبلغ للسفينة سهلة الدوران حوالي 4 أمثال طولها.</td></tr>
+                            <tr><td><strong>15. القطر النهائي (Final Diameter)</strong></td><td>هو قطر سير السفينة بعد أن أصبح مسار دورانها دائرياً تقريباً وثابتاً.</td></tr>
+                            <tr><td><strong>16. زاوية السقوط (Drift Angle)</strong></td><td>هي الزاوية المحصورة بين خط السفينة الطولي ومماس دائرة الدوران.</td></tr>
+                            <tr><td><strong>17. زاوية الدفة (Rudder Angle)</strong></td><td>تعتبر أكبر العوامل المؤثرة على دائرة الدوران، وبزيادة زاوية الدفة تقل دائرة الدوران ويحدث فقد في السرعة.</td></tr>
+                            <tr><td><strong>18. المخطاف (Anchor)</strong></td><td>هو ماسك أرضي يستخدم لإبقاء السفينة في مكانها بمساعدة الجنزير، ويمنع السفينة من الانحراف مع الريح والتيار.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="oral-sec-title">ثانياً: العوامل المؤثرة في مناورة السفينة وأنواع الرفاصات وتأثيراتها</h2>
+                <div class="qa-box">
+                    <div class="qa-question">س1: ما هي العوامل المؤثرة في مناورة السفينة (Factors affecting ship handling)؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>عوامل يمكن التحكم بها (6 عوامل):</strong> (1) قوة الماكينات (Engine power)، (2) نوع الرفاص (Type of propeller)، (3) المخاطيف (Anchors)، (4) الدفة (Rudder)، (5) رفاص المقدمة العرضي (Bow Thrust)، (6) القاطرات (Tugs) طالما أنها تستجيب للأوامر.</li>
+                            <li><strong>عوامل لا يمكن التحكم بها (4 عوامل):</strong> (1) الطقس والرياح (Weather)، (2) المد والجزر والتيار (Tide & Current)، (3) العوامل الجغرافية (Geographic factors) كالمياه الضحلة والثلج، (4) كثافة السفن والحركة الملاحية (Density of ships).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س2: ما هي الأنواع الأساسية للرفاصات؟ وبماذا يتميز الرفاص ثابت الخطوة (Fixed Propeller) وأين يستخدم؟</div>
+                    <div class="qa-answer">
+                        <p>ينقسم الرفاص بشكل شائع إلى رفاص ثابت الخطوة ورفاص متغير الخطوة، إلى جانب الرفاص ذي الحافظة والدفع المائي.</p>
+                        <ul>
+                            <li><strong>التصميم:</strong> يصب ككتلة واحدة على مستوى دوران حلزوني بزاوية ثابتة، وعدد ريشه يتراوح بين 3 إلى 7 ريش.</li>
+                            <li><strong>أماكن استخدامه:</strong> السفن قديمة التصنيع، ناقلات البترول العملاقة (لأن متغير الخطوة لا يصلح معها بسبب حجمها الكبير)، بعض السفن الحديثة لتخفيض التكلفة، أغلب القوارب، رفاصات المقدم والمؤخر العرضية، وسفن الدفع المائي.</li>
+                            <li><strong>شرط عكس الحركة فيه:</strong> يشترط إيقاف الآلات تماماً عن الحركة أولاً، ثم إدارتها في عكس اتجاه الحركة الأولى (ما عدا سفن الدفع المائي فلها نظام خاص).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س3: اشرح الرفاص متغير الخطوة (Pitch Propeller) من حيث الفكرة، الاستخدام، المزايا، العيوب، وطرق التحكم به.</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>فكرته واستخدامه:</strong> الريش منفصلة عن الصرة ويتحكم بزاويتها نظام هيدروليكي داخل الصرة. يستخدم في السفن المتوسطة والصغيرة لإعطاء سرعة استجابة لعكس الحركة دون الحاجة لإيقاف وإعادة تشغيل الماكينات.</li>
+                            <li><strong>مزاياه (4 مزايا):</strong> (1) لا يحتاج إلى تروس عكس الحركة، (2) سرعة المناورة لتغيير زوايا الريش أثناء دوران العمود، (3) وجود معدل مثالي لتغيير زوايا الريش لإنتاج عجلة تسارع قصوى أو فرملة، (4) يعمل بكفاءة عالية في القطر والجر (القاطرات) وفي مراكب الصيد.</li>
+                            <li><strong>عيوبه (3 عيوب):</strong> (1) آلية ومعدات التحكم تمر أسفل عمود الرفاص وداخل الصرة (تعقيد ميكانيكي)، (2) حجم الصرة يكون كبيراً، (3) يستهلك طاقة أعلى.</li>
+                            <li><strong>طرق التحكم به:</strong> عن طريق ضغط الزيت أو مكابس هيدروليكية متصلة بعمود طويل لتحريك الريش.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س4: ما هي مميزات واستخدامات رفاص الدفع الخارجي (Outboard Propeller)؟</div>
+                    <div class="qa-answer">
+                        هو رفاص له وحدة قدرة خارجية منفصلة، يمتاز بصغر الحجم، وسهولة نقله من وحدة عائمة إلى أخرى، ويستخدم بكثرة في اللنشات صغيرة الحجم.
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س5: كيف يتولد الدفع من الرفاص؟ وما الفرق بين مركبتي الدفع الطولية والعرضية؟</div>
+                    <div class="qa-answer">
+                        <p>عند دوران الرفاص يحدث دوامة دائرية ملتوية (الفعل)، ورد الفعل هو اندفاع السفينة. ويتكون الدفع من جزأين:</p>
+                        <ol>
+                            <li><strong>جزء طولي وخلفي قوي (Fore and after thrust):</strong> المسؤول عن حركة السفينة للأمام أو الخلف.</li>
+                            <li><strong>جزء عرضي ضعيف (Transverse thrust):</strong> المسؤول عن الحركة العرضية لمؤخر السفينة عند بدء حركة الرفاص.</li>
+                        </ol>
+                        <p><strong>تعليل حدوث الدفع العرضي:</strong> يحدث بسبب التفريغ خلف ريش الرفاص حيث يكون قوياً في الجزء العلوي وضعيفاً في الأسفل، فتمسك الريش السفلى في الماء أكثر من العليا (بسبب ضغط عمود الماء). في الرفاص يميني الدوران عند السير للأمام يسحب المؤخرة إلى اليمين (فتنحرف المقدمة لليسار)، وعند عكس الآلات للخلف تتجه المؤخرة بشدة إلى اليسار والمقدمة إلى اليمين. وفي اليساري يحدث العكس تماماً.</p>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س6: قارن بين رفاص فويث شنايدر (Voith Schneider) والرفاص الرأسي على شكل (Z-Drive).</div>
+                    <div class="qa-answer">
+                        <table class="oral-table">
+                            <thead>
+                                <tr>
+                                    <th>وجه المقارنة</th>
+                                    <th>رفاص فويث شنايدر (Voith Schneider)</th>
+                                    <th>الرفاص الرأسي على شكل Z (Z-Drive)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>التصميم والفكرة</strong></td><td>قرص أفقي يدور حول محور رأسي وتتدلى منه الريش رأسياً، ويتم التحكم بزاوية كل ريشة على حدة.</td><td>رفاص رأسي يأخذ مسار نقل الحركة فيه شكل حرف Z ويدور حول محوره الرأسي 360 درجة.</td></tr>
+                                <tr><td><strong>آلية الحركة</strong></td><td>عن طريق ذراع توجيه بـ 3 مفاصل: الأوسط للتثبيت، العلوي متصل بمكبس، والسفلي متصل بالريش لتحريكها.</td><td>يدور بالكامل حول محوره 360 درجة، وفيه ناقل حركة (كلتش) للفصل والتعشيق فقط.</td></tr>
+                                <tr><td><strong>المميزات</strong></td><td>لا يحتاج إلى دفة لأن الريش تقوم بالتوجيه والمناورة، ويعطي مناورة جيدة جداً.</td><td>يعطي قوة دفع كبيرة في جميع الاتجاهات، يصلح للمجاري الضيقة والروافع العائمة.</td></tr>
+                                <tr><td><strong>العيوب / المحددات</strong></td><td>كفاءته قليلة بالنسبة لقدرة المحرك، لذا لا يستخدم في السفن التي تبحر لمسافات طويلة.</td><td>يخصص للوحدات التي تتطلب مناورات دقيقة في الأماكن الضيقة والمجاري المائية المحدودة.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س7: ما هي القوى المؤثرة على توجيه سفينة ذات رفاص يميني سائرة للخلف خلال المناورات؟ وكيف نصحح انحرافها؟</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li><strong>القوى العرضية:</strong> تدفع المؤخرة بشدة إلى اليسار فينحرف المقدم بشدة إلى اليمين وتزداد مع زيادة السرعة للخلف.</li>
+                            <li><strong>تيار الرفاص المؤثر على الدفة:</strong> يدفع المؤخر إلى اليمين، إلا أن تأثير المركبة العرضية يظل أقوى منه.</li>
+                            <li><strong>التيار الاحتكاكي:</strong> يتجه نحو ريش الرفاص ويكون ضعيفاً جداً ولا يستطيع مقاومة القوى العرضية.</li>
+                            <li><strong>تأثير الدفة وتصحيح الانحراف:</strong> عند السير للخلف يكون تأثير الدفة شبه مهمل لذلك توضع في المنتصف. ولتصحيح انحراف المقدم لليمين يجب إيقاف الماكينات بعد أن تكتسب السفينة سرعتها للخلف، ثم استخدام الدفة.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h2 class="oral-sec-title">ثالثاً: أنواع الدفات، الدوران في دائرة صغيرة، وتأثير الرياح</h2>
+                <div class="qa-box">
+                    <div class="qa-question">س8: قارن بين أنواع الدفات المتزنة، غير المتزنة، وشبه المتزنة المطورة مع تعليل سبب وضع محور الدفة المتزنة قرب 40% من عرضها.</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li><strong>الدفة المتزنة (Balanced Rudder):</strong> يثبت لوح الدفة على محور في الجزء العلوي فقط، ويقع 20% إلى 40% من مساحتها أمام المحور والباقي خلفه. <em>(تعليل وضع المحور قرب 40%):</em> لأن مركز ثقل ضغط الماء على الدفة يقع قريباً من 40% من عرضها من الأمام، مما يقلل عزم الدوران والطاقة اللازمة لمعدات توجيه الدفة ويقلل استهلاك الوقود.</li>
+                            <li><strong>الدفة غير المتزنة (Unbalanced Rudder):</strong> يقع محور الدوران في أقصى نقطة للأمام ويمتد على طول لوحة الدفة لمنع الإزاحة الرأسية.</li>
+                            <li><strong>الدفة شبه المتزنة المطورة (Semi-Balanced Rudder):</strong> صُممت كحل هندسي لمشكلة بقاء الدفة ثابتة بزاوية دوران وعدم عودتها للمنتصف في حال حدوث عطل في آلية ترس التوجيه أثناء دوران السفينة.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س9: اشرح بالتفصيل خطوات الدوران في دائرة صغيرة في المكان لسفينة ذات رفاص واحد يميني ودفة واحدة بالمنتصف.</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li>يوضع الدومان (الدفة) يمين للآخر، ثم تُشغل الماكينات بأقصى سرعة للأمام.</li>
+                            <li>عند بدء استجابة السفينة للدوران لليمين وقبل اكتسابها سرعة للأمام، يتم إيقاف الماكينات ووضع الدومان بالمنتصف (في السفن الكبيرة) أو يسار للآخر (في السفن الصغيرة).</li>
+                            <li>يتم عكس حركة الآلات للخلف بأقصى سرعة، وكتأثير للرفاص اليميني يتحرك المؤخر لليسار والمقدم لليمين، مما يزيد من دوران السفينة لجهة اليمين مع عدم تحركها للأمام.</li>
+                            <li>قبل أن تكتسب السفينة سرعة للخلف، يتم إيقاف الآلات ووضع الدومان مرة أخرى يمين للآخر ثم تشغيل الآلات بأقصى سرعة للأمام.</li>
+                            <li>تكرر عملية التشغيل للأمام وللخلف بنفس الطريقة حتى يتم دوران السفينة في مكانها تماماً.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س10: كيف يتم تقسيم السفن لتوقع سلوكها تحت تأثير الرياح؟ مع ذكر أمثلة لكل نوع.</div>
+                    <div class="qa-answer">
+                        تقسم السفن حسب موقع الإنشاءات العلوية (Superstructure) إلى ثلاثة أنواع:
+                        <ol>
+                            <li><strong>سفن ذات إنشاءات في المؤخر:</strong> مثل سفن البضائع العامة، ناقلات البترول، سفن الحاويات الصغيرة فارغة، وسفن الأغراض المتنوعة.</li>
+                            <li><strong>سفن ذات إنشاءات في المقدم:</strong> مثل سفن العبارات، المواعين، سفن إمداد الحفارات، والقاطرات.</li>
+                            <li><strong>سفن ذات إنشاءات بطول السفينة:</strong> مثل سفن الركاب التقليدية، سفن نقل السيارات (Ro-Ro)، وسفن الحاويات المشحونة.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h2 class="oral-sec-title">رابعاً: دائرة الدوران والعوامل المؤثرة فيها وفنون القيادة البحرية</h2>
+                <div class="qa-box">
+                    <div class="qa-question">س11: عدد العوامل الستة التي تؤثر في دائرة الدوران (Factors Affecting Turning Circle) واشرح تأثير كل منها.</div>
+                    <div class="qa-answer">
+                        <p><em>ملاحظة أساسية:</em> السفينة ذات الرفاص اليميني تدور لليسار أسرع وفي دائرة أقل مما لو دارت لليمين بسبب الدفع العرضي.</p>
+                        <ol>
+                            <li><strong>شكل البدن وطول السفينة:</strong> السفينة الأطول لها دائرة دوران أكبر، وكلما كانت الدفة قريبة من البدن كانت دائرة الدوران أقل.</li>
+                            <li><strong>الغاطس والميل الطولي (Trim and draft):</strong> يغير موقع محور الدوران (Pivot Point) بشكل مباشر.</li>
+                            <li><strong>قوة الدفع (Propulsion):</strong> تؤثر النسبة بين قوة الدفع والإزاحة على دائرة الدوران، وتأثير الدفة يعتمد على مرور تيار الماء عليها.</li>
+                            <li><strong>توزيع البضاعة (Cargo Distribution):</strong> لا يؤثر في قطر الدوران، ولكن السفينة تتجاوب أسرع إذا كانت الشحنة متركزة في منتصفها مقارنة بتركزها في المقدمة والمؤخرة.</li>
+                            <li><strong>الميل العرضي (List):</strong> السفينة المائلة تدور بسهولة وفي دائرة أصغر نحو الجانب المرتفع. وفي السفينة ذات الرفاصين تكون الماكينة الواقعة في الجانب المائل أكثر فاعلية. ولتصحيح مسار السفينة المائلة تستخدم دفة ناحية الجانب المائل.</li>
+                            <li><strong>عمق المياه (Under keel clearance):</strong> في المياه الضحلة تزداد المقاومة الجانبية ويرجع محور الدوران للخلف فتزداد دائرة الدوران (دائرة الدوران في المياه الضحلة = ضعف دائرة الدوران في المياه العميقة).</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س12: قارن بين خواص السفينة المائلة بالخلف (Trimmed by the stern) والسفينة المائلة بالأمام (Trimmed by the head).</div>
+                    <div class="qa-answer">
+                        <table class="oral-table">
+                            <thead>
+                                <tr>
+                                    <th>وجه المقارنة</th>
+                                    <th>مائلة بالخلف (الغاطس الخلفي أكبر)</th>
+                                    <th>مائلة بالأمام (الغاطس الأمامي أكبر)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>موقع محور الدوران</strong></td><td>يتحرك للخلف عن السفينة مستوية الأرينة (Even Keel).</td><td>يتحرك للأمام عن السفينة مستوية الأرينة (Even Keel).</td></tr>
+                                <tr><td><strong>حجم دائرة الدوران</strong></td><td>دائرة دورانها كبيرة.</td><td>دائرة دورانها صغيرة.</td></tr>
+                                <tr><td><strong>التجاوب مع الآلات</strong></td><td>تتجاوب جيداً مع آلاتها فتعطي أقصى قوة لها.</td><td>لا تتجاوب مع آلاتها في إعطاء أقصى قوة لها.</td></tr>
+                                <tr><td><strong>التوجيه بالدفة</strong></td><td>سهلة التوجيه بالدفة وتتجاوب بسهولة وسرعة.</td><td>لا تتجاوب دفتها بسرعة، وبمجرد أن تبدأ في الدوران يصبح من الصعب إيقافها.</td></tr>
+                                <tr><td><strong>التأثر بالرياح</strong></td><td>من الصعب تدويرها لتواجه الريح.</td><td>سهلة الدوران في اتجاه الريح، وإذا جاءها الريح من الركن الخلفي يصعب السيطرة عليها.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س13: ما هي النقاط السبع التي يجب أخذها في الاعتبار خلال مراحل الإبحار لتحقيق فن القيادة البحرية الجيدة؟</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li><strong>السرعة الثابتة (Steady Speed):</strong> الالتزام بالسرعة المقبولة وتفادي إيقاف وتشغيل الماكينات بشكل متكرر.</li>
+                            <li><strong>التوجيه الدقيق (Accurate steering):</strong> المحافظة على خط سير واضح، وتحويل التوجيه الأوتوماتيكي إلى يدوي عند الاقتراب من الموانئ أو القنوات الضيقة.</li>
+                            <li><strong>الإلمام بقدرات السفينة:</strong> معرفة قدرة السفينة في المناورات ومداولة الآلات من غرفة القيادة.</li>
+                            <li><strong>تدريب العين:</strong> للحكم بدقة على المسافات النسبية والاتجاهات والسرعة ومعدل الدوران.</li>
+                            <li><strong>المراقبة الجيدة للسفن المجاورة:</strong> تحديد خط سيرها وسرعتها وأخذ الاتجاهات المستمرة لها وتسجيلها.</li>
+                            <li><strong>مراعاة حالة الطقس:</strong> ارتفاع الأمواج، اتجاه وقوة الريح والتيار، ومدى الرؤية.</li>
+                            <li><strong>الالتزام بالقواعد الدولية لمنع التصادم (COLREGS):</strong> إلى جانب استخدام الفنون البحرية الجيدة.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h2 class="oral-sec-title">خامساً: المخاطيف وعمليات الإرساء (الأنكورة)</h2>
+                <div class="qa-box">
+                    <div class="qa-question">س14: ما هي أهم النقاط العشر التي تؤخذ في الاعتبار عند الاقتراب من منطقة المخطاف؟ وفي أي الأحوال يستخدم المخطاف؟</div>
+                    <div class="qa-answer">
+                        <p><strong>أولاً - نقاط الاقتراب من المخطاف (10 نقاط):</strong> (1) موقع منطقة المخطاف المخصصة، (2) عمق المنطقة، (3) نوع القاع، (4) حالة الطقس المتوقع، (5) وجود مساحة كافية، (6) المسافة الآمنة لطرقات الدخول والخروج، (7) أحسن وآمن طريق لمنطقة المخطاف، (8) أقرب مسافة شحط، (9) مساحة كافية لدوران السفينة، (10) قرب المخطاف لسفن الإمداد والتموين.</p>
+                        <p><strong>ثانياً - الأحوال التي يستخدم فيها المخطاف (6 استخدامات):</strong> (1) انتظار السفينة داخل وخارج الميناء، (2) كفرملة لإيقاف تقدم السفينة، (3) لإخراج السفينة من الشحط، (4) المساعدة في دوران السفينة، (5) المساعدة في مواجهة الريح إذا تعطلت الماكينات بعرض البحر، (6) البحث عن مخطاف آخر مفقود.</p>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س15: على ماذا يعتمد تحديد عدد الأقفال التي سيتم إلقاؤها؟ وما هي القاعدة الشائعة لذلك؟</div>
+                    <div class="qa-answer">
+                        <p>يعتمد على 6 عوامل: (1) عمق منطقة المخطاف، (2) غاطس السفينة، (3) حالة الطقس، (4) نوع القاع، (5) مدة البقاء على المخطاف، (6) المسافة لأقرب سفينة على المخطاف.</p>
+                        <p><strong>القاعدة الأكثر شيوعاً:</strong> عدد الأقفال = من 3.5 إلى 4 أمثال العمق.</p>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س16: ما هو تأثير عمق المياه على طريقة إلقاء المخطاف؟</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li><strong>من 10 إلى 20 متراً:</strong> يفضل إنزال المخطاف إلى سطح البحر بالونش، ثم تفك التعشيقة ليتم إلقاؤه بشكل حر.</li>
+                            <li><strong>أكثر من 20 متراً وحتى 60 متراً:</strong> يجب إنزاله بالونش حتى يكون على الأكثر على مسافة 15 إلى 20 متراً عن القاع ثم يلقى.</li>
+                            <li><strong>أكبر من 60 متراً:</strong> يتم التطويل عليه وإنزاله للعمق المطلوب بالونش بالكامل مع تفادي إلقائه بشكل حر (لأن إلقاءه من مسافة بعيدة يؤدي لتسارع الجنزير وعدم إمكانية فرملته مما يتلف ونش المخطاف أو يفقد المخطاف وجنزيره).</li>
+                            <li><strong>أكبر من 85 متراً:</strong> يُعد 85 متراً هو أقصى عمق مسموح به من هيئات التصنيف إلا بتجهيزات خاصة.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س17: على ماذا تعتمد قوة إمساك المخطاف (Anchor's holding power)؟ وكيف تتأثر بنوع القاع وزاوية ذراع المخطاف؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>العوامل (4 عوامل):</strong> (1) وزن المخطاف، (2) نوع المخطاف، (3) نوع القاع، (4) وزن الجنزير.</li>
+                            <li><strong>حسب نوع القاع:</strong> في القاع الرملي تبلغ قوة الإمساك من 4 إلى 6 أمثال وزن المخطاف.</li>
+                            <li><strong>تأثير زاوية الذراع مع القاع:</strong> كلما زادت الزاوية تقل قوة الإمساك؛ فإذا كانت الزاوية 5 درجات تقل قوة الإمساك بمقدار 25%، وإذا كانت 15 درجة تقل بمقدار 50%.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س18: اشرح خصائص المخطاف بذراع (Patent Stock Anchor) وما هي عيوبه الأربعة؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>خصائصه وفائدته:</strong> تزن الذراع ربع (1/4) وزن المخطاف، وتصمم مستقيمة إذا زاد وزن المخطاف عن 610 كغ. تعمل الذراع على اتزان المخطاف فتمنعه من الدوران، وإذا انفصل عن القاع يعيد نفسه للإمساك بالقاع مرة أخرى.</li>
+                            <li><strong>عيوبه (4 عيوب):</strong> (1) الجزء العلوي من المحارة يكون بارزاً خارج القاع وقد يلتف الجنزير حوله، (2) في المياه قليلة العمق قد يتأثر قاع السفينة بالمحارة العليا أثناء الجزر، (3) لا يمكن تخزينه داخل فتحة المخطاف (الهاوس بايب) بل يخزن على السطح، (4) يحتاج إلى وقت لتجهيزه قبل الاستخدام.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="oral-sec-title">سادساً: إجراءات النوبة الملاحية، استدعاء الربان، وإرشاد السفن</h2>
+                <div class="qa-box">
+                    <div class="qa-question">س19: ما هي الأعمال التي يجب على الضابط المناوب تنفيذها عند استلام النوبة الملاحية؟ (14 نقطة)</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li>التواجد بغرفة القيادة مبكراً بـ 20 دقيقة قبل بداية النوبة (لتأقلم الرؤية والاطلاع على الوضع).</li>
+                            <li>التوجه لغرفة الخرائط والاطلاع على الخريطة والتأكد من خط السير الحقيقي وموقع السفينة من GPS وجهاز ECDIS.</li>
+                            <li>التأكد من مواقع الفنارات أو العوامات التي ستظهر خلال النوبة من كتاب الفنارات ومن أنوار الملاحة ليلاً.</li>
+                            <li>التأكد من أن جميع الخرائط المستخدمة مصححة طبقاً لآخر مذكرة تصحيح خرائط وصلت للسفينة.</li>
+                            <li>قراءة المعلومات المدونة على الخريطة وخاصة مقياس الأعماق ومعرفة غاطس السفينة للتأكد من السير في أعماق آمنة.</li>
+                            <li>استلام النوبة بمعرفة خط السير على البوصلة وأية درجات انحراف (Leeway) إن وجدت.</li>
+                            <li>معرفة وضع قيادة الدومان (يدوي أو أوتوماتيكي)، والتأكد من كفاءة الدومان الأوتوماتيكي.</li>
+                            <li>معرفة مواقع السفن المحيطة وأخذ معلومات كاملة عنها ورؤيتها بالعين أو على الرادار.</li>
+                            <li>معرفة أسماء الفنارات الظاهرة ورؤيتها بالعين وعلى الخريطة.</li>
+                            <li>معرفة خطأ البوصلة خلال النوبة السابقة.</li>
+                            <li>التأكد من عمل الأجهزة الملاحية وأجهزة السلامة (الرادار، قياس الأعماق، التليفون، جهاز اكتشاف الحريق).</li>
+                            <li>استلام موقع السفينة الفعلي من الضابط المناوب السابق.</li>
+                            <li>التأكد من تواجد أفراد النوبة (الناضورجية / المراقبين) في ميعادهم.</li>
+                            <li>لا يجوز لضابط النوبة السابقة مغادرة غرفة القيادة قبل أن يخطره الضابط الجديد أن كل شيء تحت السيطرة.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س20: عدد الحالات التي يتحتم فيها على الضابط المناوب استدعاء الربان لغرفة القيادة فوراً (12 حالة).</div>
+                    <div class="qa-answer">
+                        <ol>
+                            <li>عند حدوث رؤية محدودة أو توقع حدوث ذلك.</li>
+                            <li>عند كثافة وازدحام الحركة الملاحية وتحركات السفن الأخرى بطريقة تدعو لعدم الاطمئنان.</li>
+                            <li>إذا وجدت صعوبة في المحافظة على خط سير السفينة.</li>
+                            <li>عند تعذر تحديد موقع السفينة في منطقة معينة لعدم رؤية الأرض أو علامة ملاحية أو عدم الحصول على العمق المنتظر في وقته.</li>
+                            <li>عند رؤية الأرض أو علامة ملاحية أو حدوث تغيير في الأعماق دون توقع ذلك.</li>
+                            <li>عند حدوث عطل بالسفينة أو توقف الآلات أو تخفيض السرعة أو خلل في جهاز التوجيه أو أي جهاز ملاحي هام.</li>
+                            <li>عند ملاحظة تغيير ملحوظ في الطقس (انخفاض كبير في قراءة البارومتر، تغير اتجاه وقوة الريح، تغير درجة الحرارة).</li>
+                            <li>في أية مواقف يشعر فيها الضابط المناوب بالشك.</li>
+                            <li>في حالة جر المخطاف أو سوء الأحوال الجوية أثناء تواجد السفينة بالميناء.</li>
+                            <li>تنفيذاً لما جاء بتعليمات الربان الليلية (Night Orders).</li>
+                            <li>في حالة سماع نداء استغاثة.</li>
+                            <li>في جميع حالات الطوارئ.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س21: متى وكيف يتم استخدام سلم الإعاشة مع سلم المرشد؟ وما هو أقصى ارتفاع مسموح للمرشد على سلم المرشد؟</div>
+                    <div class="qa-answer">
+                        <p><strong>قاعدة دولية حاسمة:</strong> لا يُسمح للمرشد بالصعود على سلم المرشد منفرداً لمسافة تزيد عن 9 أمتار رأسياً من سطح البحر (إذا زاد الارتفاع عن 9 أمتار يجب استخدام سلم الإعاشة مع سلم المرشد).</p>
+                        <ol>
+                            <li>يتم إنزال سلم الإعاشة على جانب السفينة بالطريقة التقليدية.</li>
+                            <li>يثبت سلم المرشد على الجانب بحيث تكون العتبة السفلية لسلم الإعاشة ملاصقة لسلم المرشد، وعلى ارتفاع لا يزيد عن 9 أمتار من سطح البحر.</li>
+                            <li>يصعد المرشد على سلم المرشد حتى يصل للعتبة السفلية لسلم الإعاشة، ثم ينتقل منه إلى سلم الإعاشة.</li>
+                            <li>يكمل المرشد صعوده بأمان على سلم الإعاشة حتى سطح السفينة.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <div class="qa-question">س22: ما هي البيانات التي يتم تبادلها بين الربان والمرشد؟ وما هي حدود مسؤولية وصلاحيات كل منهما؟</div>
+                    <div class="qa-answer">
+                        <ul>
+                            <li><strong>ما يقدمه الربان للمرشد (بطاقة المرشد - Pilot Card):</strong> (1) بيانات السفينة وأقصى غاطس ونوع وعدد الرفاصات ورفاص المقدمة وسرعة المناورة، (2) السرعة بالعقدة لكل أمر من تلغراف السفينة، (3) قطر دائرة الدوران في حالات الحمولة المختلفة، (4) أماكن العدادات والصفارة.</li>
+                            <li><strong>ما يقدمه المرشد للربان:</strong> موقع الرصيف، الجانب الذي ستتم المراصفة عليه، مخطط توضيحي للمناورة، هل سيتم استخدام المخاطيف، وعدد القواطر المستخدمة.</li>
+                            <li><strong>الواجبات والصلاحيات القانونية:</strong> يجب أن يكون المخطافان جاهزين دائماً للاستخدام الفوري. ويحق للربان رفض المناورة وطلب تغييرها أو زيادة عدد القواطر، لأن المسؤولية الأولى والأخيرة عن سلامة السفينة تقع على عاتق الربان، والمرشد هو مستشار/مساعد للربان فقط.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="oral-sec-title">سابعاً: بنك أسئلة «علل / لماذا» السريعة للمقابلة الشفهية</h2>
+                <div class="qa-box">
+                    <table class="oral-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 42%;">السؤال الشفهي (علل / لماذا؟)</th>
+                                <th>الإجابة النموذجية المختصرة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>1. لماذا تصنف القاطرات (Tugs) ضمن العوامل التي يمكن التحكم بها في المناورة؟</strong></td><td>لأنها تخضع لأوامر الربان / المرشد وتستجيب لتوجيهاته أثناء المناورة.</td></tr>
+                            <tr><td><strong>2. لماذا لا تُستخدم الرفاصات متغيرة الخطوة في ناقلات البترول العملاقة؟</strong></td><td>بسبب الحجم الهائل للناقلات وضخامة القدرة المطلوبة، لذا يُستخدم معها الرفاص ثابت الخطوة.</td></tr>
+                            <tr><td><strong>3. لماذا ينحرف مؤخر السفينة ذات الرفاص اليميني لليمين عند السير للأمام، ولليسار بشدة عند السير للخلف؟</strong></td><td>بسبب المركبة العرضية للدفع (Transverse thrust) الناتجة عن كون التفريغ خلف الريش قوياً في الأعلى وضعيفاً في الأسفل، فتمسك الريش السفلى بالماء أكثر من العليا، وعند السير للخلف يكون التيار الاحتكاكي ضعيفاً جداً فلا يقاوم القوة العرضية.</td></tr>
+                            <tr><td><strong>4. لماذا توضع الدفة في المنتصف عند بدء سير السفينة للخلف؟</strong></td><td>لأن تأثير الدفة عند السير للخلف يكون شبه مهمل في البداية، ولا يستفاد منها لتصحيح الانحراف إلا بعد أن تكتسب السفينة سرعة للخلف ويتم إيقاف الماكينات.</td></tr>
+                            <tr><td><strong>5. لماذا لا يُستخدم رفاص فويث شنايدر في السفن التي تبحر لمسافات طويلة؟</strong></td><td>لأن كفاءته قليلة مقارنة بقدرة المحرك، فيقتصر استخدامه على الوحدات التي تتطلب مناورة عالية كالقاطرات والعبارات.</td></tr>
+                            <tr><td><strong>6. لماذا يوضع محور الدفة المتزنة بالقرب من 40% من عرض لوح الدفة من الأمام؟</strong></td><td>لأن مركز ثقل ضغط الدفة يقع قرب هذه النقطة، مما يقلل عزم الدوران اللازم لتدوير الدفة، فيوفر الطاقة اللازمة لجهاز التوجيه ويقلل استهلاك الوقود.</td></tr>
+                            <tr><td><strong>7. لماذا تم ابتكار الدفة شبه المتزنة المطورة؟</strong></td><td>لمعالجة مشكلة بقاء الدفة ثابتة بزاوية دوران في حال حدوث عطل في آلية ترس التوجيه أثناء دوران السفينة في الدفات المتزنة وغير المتزنة.</td></tr>
+                            <tr><td><strong>8. لماذا تزداد دائرة الدوران في المياه الضحلة لتصل إلى ضعفها في المياه العميقة؟</strong></td><td>بسبب المقاومة الجانبية الشديدة على الجانب المعاكس للدوران نتيجة ضيق الحيز، وزيادة الضغط على المقدمة مما يرجع محور الدوران للخلف فيقلل ذراع عزم الدوران.</td></tr>
+                            <tr><td><strong>9. لماذا يمنع إلقاء المخطاف بشكل حر إذا زاد عمق المياه عن 60 متراً؟</strong></td><td>لأن إلقاءه من مسافة بعيدة يؤدي لتسارع الجنزير بفعل وزنه والجاذبية الأرضية وعدم إمكانية فرملته، مما يتلف ونش المخطاف أو يؤدي لفقدان المخطاف وجنزيره.</td></tr>
+                            <tr><td><strong>10. لماذا يحق للربان رفض مناورة المرشد أو طلب زيادة القواطر؟</strong></td><td>لأن المسؤولية القانونية الأولى والأخيرة عن سلامة السفينة تقع على عاتق الربان وحده، بينما المرشد يعمل كمستشار ومساعد للربان فقط.</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <div class="qa-box">
-                <div class="qa-question">س3: على ماذا تعتمد الموجة المنعكسة عن الهدف؟ ولماذا يستخدم الرادار أمواجاً عالية التردد (بالغة القصر)؟</div>
-                <div class="qa-answer">
-                    <p>تعتمد الموجة المنعكسة على ثلاثة عوامل:</p>
-                    <ol>
-                        <li><strong>طبيعة المادة:</strong> للمعادن معامل انعكاس عالٍ لذلك يسهل اكتشافها.</li>
-                        <li><strong>شكل سطح جسم الهدف:</strong> الأسطح المستوية والمنتظمة لها قابلية عالية للانعكاس.</li>
-                        <li><strong>طول الموجة التي يعمل عليها الرادار:</strong> إذا كان طول الموجة أكبر من أبعاد الجسم فإن الموجة لا تنعكس، ولذلك يستخدم الرادار أمواجاً بالغة القصر أي عالية التردد (من 1 غيغا إلى 100 غيغا هرتز).</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س4: ما هي الوحدات الأربع الرئيسية المكونة لجهاز الرادار البحري؟ وما وظيفة كل منها؟</div>
-                <div class="qa-answer">
-                    <p>يتكون الرادار من أربع وحدات تعمل في تزامن دقيق:</p>
-                    <ol>
-                        <li><strong>وحدة التكوين والإرسال:</strong> وظيفتها توليد نبضات رادارية ذات طاقة كهرومغناطيسية تتولد ضمن "الماغنترون"، وتتميز بأنها محددة ومتناهية في الصغر، ذات معدل تكرار محدد، وتردد ثابت وعالٍ جداً، وطاقة عالية.</li>
-                        <li><strong>وحدة الهوائي:</strong> يحول الإشارة الكهربائية إلى أمواج كهرومغناطيسية عند الإرسال، ومن كهرومغناطيسية إلى كهربائية عند الاستقبال، ويتحكم به صمام منظم يغلق وحدة الإرسال عند الاستقبال ويغلق وحدة الاستقبال عند الإرسال.</li>
-                        <li><strong>وحدة الاستقبال:</strong> تعمل على تكبير الأصداء الضعيفة العائدة من الأهداف ووضعها في الشكل والقيمة المناسبة لإظهارها على الشاشة.</li>
-                        <li><strong>وحدة عرض المعلومات:</strong> وظيفتها إظهار الأهداف على الشاشة وأخذ البيانات عنها بواسطة المفاتيح والأزرار الجانبية.</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س5: كيف يقوم الرادار بحساب مسافة الهدف وتحديد موقعه؟</div>
-                <div class="qa-answer">
-                    يحتاج الرادار لتحديد موقع الهدف إلى: زاوية السمت، وزاوية الارتفاع، والمسافة من الرادار إلى الهدف. ويتم تحديد المسافة عن طريق قياس الوقت الذي تستغرقه النبضات ذهاباً وإياباً من الرادار إلى الهدف.
-                </div>
-            </div>
-
-            <h2 class="oral-sec-title">ثانياً: أسئلة المقارنات</h2>
-
-            <div class="qa-box">
-                <div class="qa-question">س6: قارن بين رادار (X-band) ورادار (S-band) من حيث طول الموجة، الاستخدام، والقدرة على كشف الأهداف؟</div>
-                <div class="qa-answer">
-                    <ul>
-                        <li><strong>رادار X-band:</strong> طول موجته 3 سم (تردده حوالي 10 غيغاهرتز) وهوائيه صغير. يستخدم في الطقس الجيد، ويعمل بنبضات قصيرة ضعيفة المقاومة للطقس السيئ. له إمكانية عالية لاكتشاف الأهداف الصغيرة والقريبة، وإمكانية ضعيفة لاكتشاف الأهداف البعيدة، لذلك يستخدم في الملاحة الساحلية والقنوات ودخول المرافئ.</li>
-                        <li><strong>رادار S-band:</strong> طول موجته 10 سم (تردده حوالي 3 غيغاهرتز) وهوائيه كبير. يستخدم في الطقس السيئ، ويعمل بنبضات طويلة مقاومة للطقس السيئ. له إمكانية عالية لاكتشاف الأهداف البعيدة، وإمكانية ضعيفة لاكتشاف الأهداف الصغيرة والقريبة، لذلك يستخدم في البحر المفتوح.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س7: ما الفرق بين وضع الحركة الحقيقية (True Motion) ووضع الحركة النسبية (Relative Motion)؟ وكيف يظهر الهدف الثابت في كلا الوضعين؟</div>
-                <div class="qa-answer">
-                    <ul>
-                        <li><strong>الحركة الحقيقية (True Motion):</strong> تتحرك السفينة الراصدة عبر الشاشة، وتتحرك جميع الأهداف المتحركة بسرعتها وخط سيرها الحقيقيين، بينما تبقى الأهداف الثابتة (مثل الكتل الأرضية) في مكان ثابت على الشاشة.</li>
-                        <li><strong>الحركة النسبية (Relative Motion):</strong> تكون السفينة الراصدة ثابتة في مركز الشاشة، وتبدو جميع الأهداف الأخرى (الثابتة والمتحركة) وكأنها تتحرك حول السفينة الراصدة.</li>
-                        <li><strong>حالة الهدف الثابت في الحركة النسبية:</strong> إذا كانت السفينة الراصدة متحركة فعلياً والهدف ثابتاً، فإن الهدف يظهر على الشاشة وكأنه يتحرك بنفس سرعة الراصد وبعكس خط سيره.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س8: اشرح الفرق بين أوضاع توجيه الشاشة الثلاثة: (North-up) و (Heading-up) و (Course-up)؟</div>
-                <div class="qa-answer">
-                    <ul>
-                        <li><strong>وضع الشمال الحقيقي في الأعلى (North-up):</strong> يكون الشمال الحقيقي ثابتاً في أعلى الشاشة والجنوب في الأسفل، وتظهر الأهداف في مواقعها الجغرافية الحقيقية. يُفضل استخدامه في التخطيط والتحليل وعند مقارنة صورة الرادار مع الخرائط الورقية أو الإلكترونية، لكن يصعب تفسيره بسرعة أثناء المناورة وتغيير خط السير.</li>
-                        <li><strong>وضع مقدمة السفينة في الأعلى (Heading-up):</strong> تكون مقدمة السفينة دائماً في أعلى الشاشة وتدور الصورة مع دوران السفينة. يُفضل استخدامه أثناء القيادة المباشرة والمناورة في الموانئ الضيقة أو الاقتراب من رصيف لأن الصورة تتطابق مع ما يراه الضابط أمامه.</li>
-                        <li><strong>وضع خط السير في الأعلى (Course-up):</strong> يكون اتجاه خط سير السفينة الفعلي (فوق الأرض COG) في أعلى الشاشة وتظهر السفينة في المركز. يُفضل استخدامه أثناء الملاحة في البحر عند اتباع مسار معين لتسهيل فهم مواقع الأهداف والعوائق بالنسبة للمسار الفعلي.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h2 class="oral-sec-title">ثالثاً: أسئلة التشغيل العملي ومفاتيح الرادار</h2>
-
-            <div class="qa-box">
-                <div class="qa-question">س9: ما هي الإجراءات الواجب اتخاذها بالترتيب قبل وعند تشغيل الرادار؟ وكيف يتم إطفاؤه؟</div>
-                <div class="qa-answer">
-                    <ol>
-                        <li>التأكد من أن هوائي الرادار حر من أي معوقات جانبية ولا يوجد أشخاص بالقرب منه (وفي حال عمل أشخاص قربه يجب كتابة تنبيه لعدم تشغيله).</li>
-                        <li>التأكد من وصول التغذية الرئيسية إلى الرادار.</li>
-                        <li>تشغيل الرادار ووضعه على وضع الاستعداد (Stand-by)، حيث يكون الجهاز جاهزاً لكن الهوائي لا يدور.</li>
-                        <li>الانتظار بضع دقائق حتى يصبح جاهزاً للإرسال (Warm-up) ثم ضغط مفتاح الإرسال (Transmit).</li>
-                        <li>توليف ومعايرة صورة الشاشة عبر المفاتيح العيارية للحصول على أفضل صورة.</li>
-                        <li>ضبط مدى العمل بين 6 إلى 12 ميل أو أقل حسب الحاجة.</li>
-                    </ol>
-                    <p><strong>عند الإطفاء:</strong> يجب تحويل جميع المفاتيح إلى الوضعية (0) ثم إطفاء الرادار بطريقة عكسية للتشغيل.</p>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س10: كيف تعرف عملياً أن جهاز الرادار يعمل بشكل جيد ويستقبل الأهداف بشكل مقبول؟</div>
-                <div class="qa-answer">
-                    الرادار الذي يعمل بشكل جيد هو الذي يستقبل التشويش الصادر عن البحر (Sea) والأمطار (Rain) بشكل جيد؛ فإذا استقبل تشويش البحر والمطر فهذا يعني أنه يستقبل الأهداف المحيطة جيداً.
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س11: ما هي وظيفة المفاتيح والأدوات التالية على شاشة الرادار؟</div>
-                <div class="qa-answer">
-                    <ul>
-                        <li><strong>Gain:</strong> يتحكم بحساسية الرادار وقدرته على استقبال الأهداف، وزيادته تزيد التشويش على الشاشة.</li>
-                        <li><strong>Sea Clutter & Rain Clutter:</strong> معايرة الشاشة بضبط تشويش البحر وتشويش الطقس والأمطار.</li>
-                        <li><strong>EBL (خط الاتجاه الإلكتروني):</strong> خط يمتد من المركز إلى الهدف لتحديد اتجاه الهدف بالنسبة للسفينة.</li>
-                        <li><strong>VRM (مؤشر المسافة المتغير):</strong> دائرة تتسع لتمس الهدف وتحدد المسافة أو بعد الهدف عن السفينة.</li>
-                        <li><strong>Parallel Index (مؤشر الخط المتوازي):</strong> تحديد خطوط موازية مرجعية تساعد في الحفاظ على المسار أو الاقتراب الآمن من الساحل أو الممرات المائية.</li>
-                        <li><strong>Guard Zone (منطقة الحظر):</strong> إنشاء منطقة مراقبة حول السفينة تعطي إنذاراً ضوئياً أو صوتياً إذا دخلها أي جسم.</li>
-                        <li><strong>Pulse Length (طول النبضة):</strong> تحديد نبضة الرادار، حيث تُستخدم النبضة الطويلة للمسافات الطويلة، والنبضة القصيرة للمسافات القريبة.</li>
-                        <li><strong>Anti-Interference:</strong> تقليل التشويش الناتج عن أجهزة رادار أخرى شغالة بالقرب من السفينة.</li>
-                        <li><strong>Echo Stretch / Enhance:</strong> تكبير وتضخيم الأهداف على الشاشة لزيادة وضوحها.</li>
-                        <li><strong>Offset / Zoom:</strong> التركيز على جزء معين من الشاشة بعيد عن مركز السفينة لتكبير مناطق معينة مثل ممر ملاحي أو قناة.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h2 class="oral-sec-title">رابعاً: أسئلة جهاز (ARPA) والتوقيع الراداري</h2>
-
-            <div class="qa-box">
-                <div class="qa-question">س12: ما هي الوحدات الرئيسية لجهاز (ARPA)؟ ومن أين يستمد الكمبيوتر بياناته؟</div>
-                <div class="qa-answer">
-                    <ol>
-                        <li><strong>وحدة الرادار:</strong> لضبط الصورة والأهداف بواسطة مفاتيح المعايرة.</li>
-                        <li><strong>مكرر الجايرو:</strong> يمد وحدة الكمبيوتر بخط سير السفينة الراصدة.</li>
-                        <li><strong>عداد السرعة (أو GPS/Log):</strong> يمد السفينة الراصدة بالسرعة.</li>
-                        <li><strong>وحدة الكمبيوتر:</strong> تأخذ المدخلات من الرادار ومكرر الجايرو وعداد السرعة لإجراء العمليات الحسابية وإعطاء البيانات المطلوبة وتقويم حركة الهدف والتنبؤ بمكانه.</li>
-                        <li><strong>وحدة عرض المعلومات:</strong> تعرض المعلومات بيانياً ورقمياً وتعطي تحذيرات صوتية وضوئية للضابط في برج القيادة.</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س13: ما هو الغرض الأساسي من التوقيع الراداري؟</div>
-                <div class="qa-answer">
-                    <ol>
-                        <li>معرفة ما إذا كان هناك خطر تصادم من عدمه والوقت المتوقع لحدوثه.</li>
-                        <li>معرفة التغيير اللازم في خط السير والسرعة لتلافي خطر التصادم والوقت الذي يجب عنده إجراء التغيير.</li>
-                        <li>تحديد الوقت الذي يجب عنده الرجوع إلى خط السير والسرعة الأصليين بعد تلافي خطر التصادم.</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س14: ماذا تعني المصطلحات التالية: (CPA)، (TCPA)، (BCR)، (TBCR)؟</div>
-                <div class="qa-answer">
-                    <ul>
-                        <li><strong>CPA (Closest Point of Approach):</strong> أقرب مسافة مرور سيمر بها الهدف عن السفينة الراصدة.</li>
-                        <li><strong>TCPA (Time to Closest Point of Approach):</strong> الوقت اللازم (بالدقائق) لوصول الهدف إلى أقرب مسافة مرور عن السفينة الراصدة من لحظة رصده.</li>
-                        <li><strong>BCR (Bow Cross Range):</strong> المسافة التي يقطع فيها الهدف مقدمة السفينة الراصدة.</li>
-                        <li><strong>TBCR (Time of Bow Cross Range):</strong> الزمن اللازم لعبور الهدف خط مقدمة ومؤخرة السفينة.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س15: ماذا يعني ظهور إشارة موجبة (+) أو سالبة (-) أمام كل من (BCR) و (TBCR)؟</div>
-                <div class="qa-answer">
-                    <ul>
-                        <li><strong>(+BCR) موجبة:</strong> تعني أن السفينة الهدف ستعبر من أمام مقدمة سفينتك.</li>
-                        <li><strong>(-BCR) سالبة:</strong> تعني أن السفينة الهدف ستعبر من خلف سفينتك.</li>
-                        <li><strong>(+TBCR) موجبة:</strong> تعني أن العبور لم يحدث بعد، ويحتاج للزمن المذكور ليعبر سفينتك.</li>
-                        <li><strong>(-TBCR) سالبة:</strong> تعني أن العبور قد حدث بالفعل ومضى عليه الزمن المذكور.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س16: ما هي "زاوية المواجهة" (Aspect)؟ ومتى تكون حمراء أو خضراء؟ ومتى تشكل خطراً؟</div>
-                <div class="qa-answer">
-                    <ul>
-                        <li><strong>زاوية المواجهة (Aspect):</strong> هي مكان السفينة الراصدة بالنسبة لمقدم الهدف.</li>
-                        <li>تكون <strong>أحمر (Red)</strong> إذا كانت السفينة الراصدة على يسار السفينة المرصودة (الهدف)، وتكون <strong>أخضر (Green)</strong> إذا كانت على يمين السفينة المرصودة (حسب لون النور الجانبي للهدف).</li>
-                        <li>تتطلب الحالة مراقبة حذرة (Watch out) عندما يكون الهدف بزاوية مواجهة حمراء (Red aspect) وموجوداً على الجانب الأيمن للسفينة الراصدة (Starboard side)، بينما تكون آمنة (Safe) إذا كان الهدف بزاوية مواجهة حمراء على الجانب الأيسر للسفينة الراصدة (Port side).</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="qa-box">
-                <div class="qa-question">س17: أسئلة استنتاجية سريعة حول التوقيع الراداري وحالات السفن:</div>
-                <div class="qa-answer">
-                    <ul>
-                        <li><strong>متى نحكم بوجود حالة تصادم حتمية؟</strong> عندما يمر امتداد خط الحركة النسبية (الضلع OA) بمركز الدائرة، وعندها تكون قيمة (CPA) مساوية للصفر.</li>
-                        <li><strong>ماذا تستنتج إذا كان اتجاه الهدف ومسافته لا يتغيران؟</strong> نستنتج أن الهدف يسير بنفس خط سير السفينة الراصدة وبنفس سرعتها.</li>
-                        <li><strong>كيف تعرف من الرسم أن أقرب مسافة مرور (CPA) قد مرت بالفعل؟</strong> إذا كانت نقطة أقرب مسافة تقع على الضلع (OA) نفسه بين النقطتين O و A، أو إذا كان عمود أقرب مسافة من موقع السفينة الراصدة لا يقابل الضلع (OA).</li>
-                        <li><strong>متى يتغير المسار الظاهري للهدف (RML)؟</strong> لا يتغير إلا إذا تغير خط سير الراصد وسرعته، أو خط سير الهدف وسرعته.</li>
-                        <li><strong>ما هو نظام (VTS) في الموانئ؟</strong> هو نظام خدمة حركة السفن (Vessel Traffic Service) للتحكم بالسفن وتتبعها في الموانئ المزدحمة والممرات والقنوات وتوجيهها بأمان عبر الاتصالات الراديوية (UHF).</li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -634,7 +1077,7 @@
 
     <script>
         // ====================================================
-        // القسم الأول: أسئلة القانون البحري والاتفاقيات (70 سؤال)
+        // 1. أسئلة القانون البحري والاتفاقيات - ترم رابع (70 سؤال)
         // ====================================================
         const lawQuizData = [
             { q: "ما هي أنواع القانون البحري؟", opt1: "القانون البحري المدني، التجاري الدولي", opt2: "القانون البحري الإداري، المدني، البيئي", opt3: "القانون البحري الدولي العام، الإداري، الجنائي", opt4: "القانون البحري الخاص، العام، الجنائي", correct: "4", cat: "law" },
@@ -715,7 +1158,7 @@
         ];
 
         // ====================================================
-        // القسم الثاني: أسئلة تأمين النوبة الملاحية (66 سؤال)
+        // 2. أسئلة تأمين النوبة الملاحية - ترم رابع (66 سؤال)
         // ====================================================
         const watchQuizData = [
             { q: "What does the term 'masthead light' mean?", opt1: "Any white light placed on the mast of a vessel at a height prescribed by the register standards.", opt2: "Any white all round light.", opt3: "Any white light placed over the fore and aft centreline of the vessel showing an unbroken light over an arc of the horizon of 225°...", opt4: "A yellow light showing an unbroken light over an arc of 135°.", correct: "3", cat: "w_r21" },
@@ -792,7 +1235,7 @@
         ];
 
         // ====================================================
-        // القسم الثالث: أسئلة تداول البضائع (60 سؤال)
+        // 3. أسئلة تداول البضائع - ترم رابع (60 سؤال)
         // ====================================================
         const cargoQuizData = [
             { q: "يقصد بالمصطلح light displacement:", opt1: "وزن حديد السفينة + معدات الشحن والماكينات والمخاطيف", opt2: "الإزاحة الكلية + البضائع", opt3: "وزن ما تحمله السفينة من بضائع ووقود ومياه", opt4: "وزن السفينة بكل ما فيها من بضائع ومؤن حتى غاطس التحميل المسموح فيه", correct: "1", cat: "c_terms" },
@@ -862,10 +1305,9 @@
         ];
 
         // ====================================================
-        // القسم الرابع: أسئلة الرادار البحري و ARPA (40 سؤال)
+        // 4. أسئلة الرادار البحري و ARPA - ترم رابع (40 سؤال)
         // ====================================================
         const radarQuizData = [
-            // الفرع 1: المفاهيم الأساسية ومبدأ العمل (r_basics)
             { q: "ماذا يعني اختصار كلمة (RADAR)؟", opt1: "Radio Detection and Ranging", opt2: "Radar Direction and Range", opt3: "Radio Distance and Reflection", opt4: "Rapid Detection and Ranging", correct: "1", cat: "r_basics" },
             { q: "ماذا يعني اختصار كلمة (ARPA)؟", opt1: "Automatic Radio Positioning Aid", opt2: "Automatic Radar Plotting Aid", opt3: "Advanced Radar Plotting Apparatus", opt4: "Automatic Range Plotting Aid", correct: "2", cat: "r_basics" },
             { q: "كم تبلغ سرعة انتقال الأمواج الكهرومغناطيسية المستخدمة في الرادار؟", opt1: "340 متر/ثانية", opt2: "150,000 كم/ثانية", opt3: "300,000 كم/ثانية (سرعة الضوء)", opt4: "100,000 كم/ثانية", correct: "3", cat: "r_basics" },
@@ -877,7 +1319,6 @@
             { q: "ما هي الوحدة المسؤولة عن تكبير الأصداء الضعيفة العائدة من الأهداف لإظهارها على الشاشة؟", opt1: "وحدة الاستقبال", opt2: "وحدة التكوين والإرسال", opt3: "وحدة الهوائي", opt4: "وحدة الجايرو", correct: "1", cat: "r_basics" },
             { q: "كيف يقوم الرادار بتحديد مسافة الهدف حسابياً؟", opt1: "عن طريق قياس قوة معدن الهدف", opt2: "عن طريق قياس الوقت الذي تستغرقه النبضات ذهاباً وإياباً من الرادار إلى الهدف", opt3: "عن طريق زاوية الارتفاع فقط", opt4: "عن طريق سرعة دوران الهوائي", correct: "2", cat: "r_basics" },
 
-            // الفرع 2: المقارنات وأوضاع الشاشة (r_comp)
             { q: "كم يبلغ طول موجة رادار (X-band) وتردده التقريبي؟", opt1: "طول الموجة 10 سم والتردد 3 غيغاهرتز", opt2: "طول الموجة 3 سم والتردد حوالي 10 غيغاهرتز", opt3: "طول الموجة 30 سم والتردد 1 غيغاهرتز", opt4: "طول الموجة 1 سم والتردد 50 غيغاهرتز", correct: "2", cat: "r_comp" },
             { q: "كم يبلغ طول موجة رادار (S-band) وتردده التقريبي؟", opt1: "طول الموجة 10 سم والتردد حوالي 3 غيغاهرتز", opt2: "طول الموجة 3 سم والتردد 10 غيغاهرتز", opt3: "طول الموجة 5 سم والتردد 6 غيغاهرتز", opt4: "طول الموجة 20 سم والتردد 15 غيغاهرتز", correct: "1", cat: "r_comp" },
             { q: "أي رادار يُفضل استخدامه في الملاحة الساحلية والقنوات ودخول المرافئ لقدرته العالية على كشف الأهداف الصغيرة والقريبة؟", opt1: "رادار S-band", opt2: "رادار X-band", opt3: "الرادار الصوتي", opt4: "جهاز الايكوساوندر", correct: "2", cat: "r_comp" },
@@ -888,7 +1329,6 @@
             { q: "أي من أوضاع توجيه الشاشة يُفضل استخدامه عند مقارنة صورة الرادار مع الخرائط الورقية أو الإلكترونية؟", opt1: "وضع مقدمة السفينة في الأعلى (Heading-up)", opt2: "وضع الشمال الحقيقي في الأعلى (North-up)", opt3: "وضع خط السير في الأعلى (Course-up)", opt4: "وضع الحركة النسبية غير المثبت", correct: "2", cat: "r_comp" },
             { q: "أي وضع لتوجيه الشاشة تكون فيه مقدمة السفينة دائماً في الأعلى ويُفضل أثناء المناورة في الموانئ الضيقة؟", opt1: "North-up", opt2: "Heading-up", opt3: "Course-up", opt4: "True-up", correct: "2", cat: "r_comp" },
 
-            // الفرع 3: التشغيل العملي ومفاتيح الرادار (r_ops)
             { q: "ما هو الإجراء الأول الواجب التأكد منه قبل تشغيل جهاز الرادار؟", opt1: "ضبط مفتاح المطر", opt2: "التأكد من أن الهوائي حر من أي معوقات جانبية ولا يوجد أشخاص بالقرب منه", opt3: "الضغط الفوري على مفتاح الإرسال Transmit", opt4: "تغيير طول النبضة", correct: "2", cat: "r_ops" },
             { q: "ما هي حالة الرادار عند وضعه على وضعية الاستعداد (Stand-by)؟", opt1: "يكون الجهاز مطفأ بالكامل", opt2: "يدور الهوائي ويرسل نبضات بأقصى طاقة", opt3: "يكون الجهاز جاهزاً وساخناً ولكن الهوائي لا يدور", opt4: "يمسح الأهداف البعيدة فقط", correct: "3", cat: "r_ops" },
             { q: "كيف تعرف عملياً أن جهاز الرادار يعمل بشكل جيد ويستقبل الأهداف بشكل مقبول؟", opt1: "إذا كانت الشاشة خالية تماماً من أي نقاط", opt2: "إذا كان يستقبل التشويش الصادر عن البحر (Sea) والأمطار (Rain) بشكل جيد", opt3: "إذا كانت دائرة المسافة VRM لا تتحرك", opt4: "إذا كان يعمل بدون تغذية كهربائية", correct: "2", cat: "r_ops" },
@@ -900,7 +1340,6 @@
             { q: "كيف يتم استخدام مفتاح طول النبضة (Pulse Length) في الرادار؟", opt1: "النبضة الطويلة للمسافات الطويلة، والنبضة القصيرة للمسافات القريبة", opt2: "النبضة القصيرة للمسافات الطويلة دائماً", opt3: "لتغيير لون الشاشة فقط", opt4: "لإطفاء الجهاز تدريجياً", correct: "1", cat: "r_ops" },
             { q: "ما هي وظيفة أداة (Anti-Interference) في الرادار؟", opt1: "تكبير حجم السفينة الراصدة", opt2: "تقليل التشويش الناتج عن أجهزة رادار أخرى شغالة بالقرب من السفينة", opt3: "تحديد سرعة الرياح", opt4: "تشغيل صافرة الإنذار", correct: "2", cat: "r_ops" },
 
-            // الفرع 4: جهاز ARPA والتوقيع الراداري (r_arpa)
             { q: "من أين تستمد وحدة الكمبيوتر في جهاز (ARPA) بيانات خط السير والسرعة للسفينة الراصدة؟", opt1: "من الهوائي فقط", opt2: "خط السير من مكرر الجايرو، والسرعة من عداد السرعة (Log / GPS)", opt3: "من جهاز قياس الأعماق", opt4: "من مفتاح Gain", correct: "2", cat: "r_arpa" },
             { q: "ماذا يعني المصطلح (CPA) في جهاز ARPA؟", opt1: "الوقت اللازم للوصول لأقرب نقطة", opt2: "أقرب مسافة مرور سيمر بها الهدف عن السفينة الراصدة (Closest Point of Approach)", opt3: "مسافة قطع مقدمة السفينة", opt4: "سرعة الهدف الحقيقية", correct: "2", cat: "r_arpa" },
             { q: "ماذا يعني المصطلح (TCPA) في جهاز ARPA؟", opt1: "الوقت اللازم (بالدقائق) لوصول الهدف إلى أقرب مسافة مرور عن السفينة الراصدة", opt2: "المسافة بالميل البحري لأقرب نقطة", opt3: "زمن تشغيل الرادار", opt4: "زاوية مواجهة الهدف", correct: "1", cat: "r_arpa" },
@@ -914,14 +1353,75 @@
             { q: "ما هو نظام (VTS) في الموانئ؟", opt1: "نظام خدمة حركة السفن (Vessel Traffic Service) للتحكم بالسفن وتتبعها وتوجيهها بأمان عبر اتصالات UHF", opt2: "نظام إطفاء الحرائق التلقائي", opt3: "نظام قياس ملوحة المياه", opt4: "نظام التوجيه الآلي للدفة", correct: "1", cat: "r_arpa" }
         ];
 
-        const allQuizData = [...lawQuizData, ...watchQuizData, ...cargoQuizData, ...radarQuizData];
+        // ====================================================
+        // 5. أسئلة مادة التقنيات البحرية (2) - ترم ثاني (45 سؤال)
+        // ====================================================
+        const tech2QuizData = [
+            // الفرع 1: التعاريف والمصطلحات الأساسية (t2_defs)
+            { q: "ما هو الرفاص الذي يتم صبه ككتلة واحدة وتثبت كل ريشة فيه بزاوية معينة لا يمكن التحكم فيها؟", opt1: "الرفاص متغير الخطوة (CPP)", opt2: "الرفاص ثابت الخطوة (Fixed Propeller)", opt3: "رفاص فويث شنايدر", opt4: "الرفاص الرأسي Z-Drive", correct: "2", cat: "t2_defs" },
+            { q: "ما هو الرفاص الذي يدور مع عقارب الساعة (باتجاه اليمين) عند سير السفينة للأمام عند النظر إليه من مؤخرة السفينة؟", opt1: "رفاص يساري الدوران (Left Hand Propeller)", opt2: "رفاص يميني الدوران (Right Hand Propeller)", opt3: "رفاص الدفع الخارجي", opt4: "رفاص المقدمة العرضي", correct: "2", cat: "t2_defs" },
+            { q: "كم تبلغ نسبة المساحة الواقعة أمام محور الدوران في الدفة المتزنة (Balanced Rudder)؟", opt1: "حوالي 20% إلى 40% من مساحتها والباقي خلفه", opt2: "100% خلف المحور", opt3: "80% أمام المحور", opt4: "5% فقط أمام المحور", correct: "1", cat: "t2_defs" },
+            { q: "ماذا نسمي تيار الماء الذي يندفع لملء الفجوة المتخلفة خلف السفينة نتيجة حركتها في المياه؟", opt1: "الانزلاق الطولي (Head Reach)", opt2: "التيار الخلفي (Wake Current)", opt3: "زاوية السقوط (Drift Angle)", opt4: "الانتقال العرضي (Transfer)", correct: "2", cat: "t2_defs" },
+            { q: "ما هو المصطلح الذي يعبر عن المسافة التي تقطعها السفينة في المياه بعد إيقاف الآلات وعكس حركتها للخلف؟", opt1: "التقدم (Advance)", opt2: "الانزلاق الطولي (Head Reach)", opt3: "القطر التكتيكي (Tactical Diameter)", opt4: "التيار الخلفي (Wake Current)", correct: "2", cat: "t2_defs" },
+            { q: "ما هي المسافة الأمامية (Advance) التي تقطعها نقطة ثقل السفينة للأمام عن خط السير الأصلي حتى إتمام تغير اتجاه قدره 90 درجة؟", opt1: "من 3 إلى 4 أمثال طول السفينة", opt2: "ضعف عرض السفينة فقط", opt3: "10 أمثال طول السفينة", opt4: "نصف طول السفينة", correct: "1", cat: "t2_defs" },
+            { q: "ما هو المصطلح الذي يصف المسافة التي تحركتها السفينة في اتجاه عرضي عمودياً على خط سيرها الأصلي حتى إتمام دورة قدرها 180 درجة؟", opt1: "التقدم (Advance)", opt2: "الانتقال العرضي (Transfer)", opt3: "القطر التكتيكي (Tactical Diameter) ويبلغ حوالي 4 أمثال طولها", opt4: "زاوية السقوط (Drift Angle)", correct: "3", cat: "t2_defs" },
+            { q: "ما هي الزاوية المحصورة بين خط السفينة الطولي ومماس دائرة الدوران؟", opt1: "زاوية الدفة (Rudder Angle)", opt2: "زاوية السقوط (Drift Angle)", opt3: "زاوية الانهمار", opt4: "زاوية المواجهة", correct: "2", cat: "t2_defs" },
+            { q: "ما هو تأثير زيادة زاوية الدفة (Rudder Angle) على دائرة الدوران وسرعة السفينة؟", opt1: "تزداد دائرة الدوران وتزداد السرعة", opt2: "تقل دائرة الدوران ويحدث فقد في السرعة", opt3: "تزداد دائرة الدوران ويحدث فقد في السرعة", opt4: "لا تؤثر على دائرة الدوران", correct: "2", cat: "t2_defs" },
 
-        // تعريف هيكلة الأفرع لكل مادة من المواد الأربع
+            // الفرع 2: مناورة السفينة والرفاصات (t2_props)
+            { q: "أي من العوامل التالية يُصنف ضمن العوامل التي (يمكن التحكم بها) في مناورة السفينة؟", opt1: "المد والجزر والتيار", opt2: "العوامل الجغرافية كالمياه الضحلة", opt3: "القاطرات (Tugs) ورفاص المقدمة العرضي (Bow Thrust)", opt4: "كثافة السفن والحركة الملاحية", correct: "3", cat: "t2_props" },
+            { q: "لماذا لا يُستخدم الرفاص متغير الخطوة (CPP) في ناقلات البترول العملاقة ويُستخدم بدلاً منه الرفاص ثابت الخطوة؟", opt1: "لأن الرفاص ثابت الخطوة أسرع في عكس الحركة", opt2: "بسبب الحجم الهائل للناقلات وضخامة القدرة المطلوبة", opt3: "لأن ناقلات البترول لا تحتاج للسير للخلف", opt4: "لأن عدد ريشه أقل من ريشتين", correct: "2", cat: "t2_props" },
+            { q: "ما هو الشرط الأساسي عند عكس حركة السفينة المزودة برفاص ثابت الخطوة (Fixed Propeller)؟", opt1: "تغيير زاوية الريش هيدروليكياً دون إيقاف الآلات", opt2: "إيقاف الآلات تماماً عن الحركة أولاً ثم إدارتها في عكس اتجاه الحركة الأولى", opt3: "تدوير الرفاص حول محوره الرأسي 360 درجة", opt4: "فصل الكلتش فقط مع بقاء الدوران بنفس الاتجاه", correct: "2", cat: "t2_props" },
+            { q: "من مزايا الرفاص متغير الخطوة (Pitch Propeller) جميع ما يلي ما عدا:", opt1: "لا يحتاج إلى تروس عكس الحركة", opt2: "سرعة المناورة لتغيير زوايا الريش أثناء دوران العمود", opt3: "يعمل بكفاءة عالية في القاطرات ومراكب الصيد", opt4: "صغر حجم الصرة وانخفاض استهلاكه للطاقة", correct: "4", cat: "t2_props" },
+            { q: "كيف تؤثر المركبة العرضية للدفع (Transverse thrust) على سفينة ذات رفاص يميني الدوران عند السير للأمام؟", opt1: "تسحب المؤخرة إلى اليمين فتنحرف المقدمة لليسار", opt2: "تسحب المؤخرة إلى اليسار فتنحرف المقدمة لليمين", opt3: "ترفع المقدمة للأعلى دون انحراف", opt4: "لا يحدث أي تأثير عرضي", correct: "1", cat: "t2_props" },
+            { q: "ماذا يحدث لسفينة ذات رفاص يميني الدوران عند عكس حركة الآلات للسير للخلف؟", opt1: "تتجه المؤخرة بشدة إلى اليمين والمقدمة إلى اليسار", opt2: "تتجه المؤخرة بشدة إلى اليسار فينحرف المقدم بشدة إلى اليمين", opt3: "تسير في خط مستقيم تماماً", opt4: "يتعادل ضغط الماء على الريش تماماً", correct: "2", cat: "t2_props" },
+            { q: "ما هو السبب الفيزيائي لحدوث الدفع العرضي (Transverse thrust) في الرفاص؟", opt1: "لأن الريش العليا تمسك بالماء أكثر من السفلى", opt2: "لأن التفريغ خلف الريش يكون قوياً في الجزء العلوي وضعيفاً في الأسفل فتمسك الريش السفلى بالماء أكثر بسبب ضغط عمود الماء", opt3: "بسبب طول عمود الرفاص", opt4: "بسبب وجود الدفة أمام الرفاص", correct: "2", cat: "t2_props" },
+            { q: "بماذا يتميز رفاص فويث شنايدر (Voith Schneider) ولماذا لا يُستخدم في السفن التي تبحر لمسافات طويلة؟", opt1: "لا يحتاج إلى دفة لأن الريش تقوم بالتوجيه والمناورة، ولكن كفاءته قليلة بالنسبة لقدرة المحرك", opt2: "يأخذ مسار الحركة شكل حرف Z وكفاءته عالية جداً للمسافات الطويلة", opt3: "يصب ككتلة واحدة ولا يمكن تحريك ريشه", opt4: "يستخدم فقط في ناقلات النفط العملاقة", correct: "1", cat: "t2_props" },
+            { q: "كيف نصحح انحراف المقدم لليمين في سفينة ذات رفاص يميني سائرة للخلف؟", opt1: "وضع الدفة أقصى اليمين مع استمرار عمل الماكينات بأقصى سرعة للخلف", opt2: "توضع الدفة بالمنتصف أولاً، وبعد أن تكتسب السفينة سرعتها للخلف يتم إيقاف الماكينات ثم استخدام الدفة", opt3: "إلقاء المخطاف الخلفي فوراً", opt4: "لا يمكن تصحيح الانحراف مطلقاً", correct: "2", cat: "t2_props" },
+
+            // الفرع 3: الدفات والدوران الضيق وتأثير الرياح (t2_rudders)
+            { q: "لماذا يوضع محور الدفة المتزنة بالقرب من 40% من عرض لوح الدفة من نهايته الأمامية؟", opt1: "لزيادة وزن الدفة في المؤخرة", opt2: "لأن مركز ثقل ضغط الماء يقع قرب 40% من الأمام، مما يقلل عزم الدوران والطاقة اللازمة للتوجيه ويقلل استهلاك الوقود", opt3: "لمنع دوران السفينة بسرعة", opt4: "لتسهيل فك الدفة أثناء الإبحار", correct: "2", cat: "t2_rudders" },
+            { q: "لماذا تم تصميم وابتكار الدفة شبه المتزنة المطورة (Semi-Balanced Rudder)؟", opt1: "لمعالجة مشكلة بقاء الدفة ثابتة بزاوية دوران وعدم عودتها للمنتصف في حال حدوث عطل في آلية ترس التوجيه", opt2: "لأنها لا تحتاج إلى محور دوران", opt3: "لتثبيتها في مقدمة السفينة", opt4: "لتقليل سرعة السفينة في البحر المفتوح", correct: "1", cat: "t2_rudders" },
+            { q: "عند الدوران في دائرة صغيرة في المكان لسفينة ذات رفاص يميني (من وضع التوقف)، ما هي الخطوة الأولى؟", opt1: "وضع الدومان يسار للآخر وتشغيل الماكينات للخلف", opt2: "وضع الدومان (الدفة) يمين للآخر، ثم تشغيل الماكينات بأقصى سرعة للأمام", opt3: "وضع الدومان بالمنتصف وتشغيل الماكينات للخلف", opt4: "إلقاء المخطاف الأيسر", correct: "2", cat: "t2_rudders" },
+            { q: "أثناء مناورة الدوران في دائرة صغيرة لسفينة ذات رفاص يميني، أين يوضع الدومان عند إيقاف الماكينات وعكسها للخلف؟", opt1: "يوضع بالمنتصف (في السفن الكبيرة) أو يسار للآخر (في السفن الصغيرة)", opt2: "يبقى يمين للآخر دائماً في جميع السفن", opt3: "يفصل جهاز التوجيه تماماً", opt4: "يوضع بزاوية 10 درجات يمين", correct: "1", cat: "t2_rudders" },
+            { q: "أي من السفن التالية تُصنف ضمن السفن ذات الإنشاءات العلوية (بطول السفينة) عند دراسة تأثير الرياح؟", opt1: "ناقلات البترول وسفن البضائع العامة", opt2: "سفن العبارات والقاطرات وسفن إمداد الحفارات", opt3: "سفن الركاب التقليدية، سفن نقل السيارات (Ro-Ro)، وسفن الحاويات المشحونة", opt4: "سفن الحاويات الصغيرة فارغة", correct: "3", cat: "t2_rudders" },
+            { q: "أي من السفن التالية تُصنف ضمن السفن ذات الإنشاءات العلوية في المقدم؟", opt1: "ناقلات البترول", opt2: "سفن العبارات، المواعين، سفن إمداد الحفارات، والقاطرات", opt3: "سفن الركاب التقليدية", opt4: "سفن نقل السيارات Ro-Ro", correct: "2", cat: "t2_rudders" },
+
+            // الفرع 4: دائرة الدوران والميل وفنون القيادة (t2_turning)
+            { q: "كيف يؤثر طول السفينة وقرب الدفة من البدن على دائرة الدوران؟", opt1: "السفينة الأطول لها دائرة دوران أكبر، وكلما كانت الدفة قريبة من البدن كانت دائرة الدوران أقل", opt2: "السفينة الأطول لها دائرة دوران أصغر", opt3: "ابتعاد الدفة عن البدن يقلل دائرة الدوران", opt4: "طول السفينة لا يؤثر إطلاقاً", correct: "1", cat: "t2_turning" },
+            { q: "ما هو تأثير توزيع البضاعة (Cargo Distribution) على دائرة دوران السفينة وتجاوبها؟", opt1: "يضاعف قطر دائرة الدوران ثلاث مرات", opt2: "لا يؤثر في قطر الدوران، ولكن السفينة تتجاوب أسرع إذا كانت الشحنة متركزة في منتصفها مقارنة بتركزها في المقدمة والمؤخرة", opt3: "تتجاوب السفينة أسرع إذا تركزت الشحنة في الأطراف", opt4: "يمنع السفينة من الدوران", correct: "2", cat: "t2_turning" },
+            { q: "كيف تتصرف السفينة التي تعاني من ميل عرضي (List) أثناء الدوران؟", opt1: "تدور بسهولة نحو الجانب المرتفع، وتكون دائرة دورانها نحو الجانب المرتفع أصغر من دورانها نحو الجانب المائل", opt2: "تكون دائرة دورانها نحو الجانب المائل أصغر", opt3: "لتصحيح مسارها تستخدم دفة ناحية الجانب المرتفع", opt4: "تتوقف الماكينة الواقعة في الجانب المائل عن العمل", correct: "1", cat: "t2_turning" },
+            { q: "في السفينة ذات الرفاصين التي تعاني من ميل عرضي (List)، أي ماكينة تكون أكثر فاعلية؟ وكيف نصحح مسار السفينة؟", opt1: "الماكينة في الجانب المرتفع أكثر فاعلية، وتستخدم دفة ناحية الجانب المرتفع", opt2: "الماكينة الواقعة في الجانب المائل أكثر فاعلية، ولتصحيح مسار السفينة تستخدم دفة ناحية الجانب المائل", opt3: "الماكينتان لهما نفس الفاعلية ولا تحتاج لدفة", opt4: "يتم إيقاف الماكينة السفلية", correct: "2", cat: "t2_turning" },
+            { q: "كم تبلغ دائرة الدوران في المياه الضحلة مقارنة بالمياه العميقة؟ ولماذا؟", opt1: "نصف دائرة الدوران في المياه العميقة", opt2: "تساوي ضعف دائرة الدوران في المياه العميقة؛ بسبب المقاومة الجانبية وزيادة الضغط على المقدمة فيرجع محور الدوران للخلف ويقل ذراع العزم", opt3: "تبقى مساوية تماماً للمياه العميقة", opt4: "تقل بنسبة 75%", correct: "2", cat: "t2_turning" },
+            { q: "ما هي خواص السفينة المائلة بالخلف (Trimmed by the stern - الغاطس الخلفي أكبر من الأمامي)؟", opt1: "يتحرك محور الدوران للأمام ودائرة دورانها صغيرة", opt2: "يتحرك محور الدوران للخلف، دائرة دورانها كبيرة، تتجاوب جيداً مع آلاتها ودفتها، ومن الصعب تدويرها لتواجه الريح", opt3: "لا تتجاوب مع آلاتها ودفتها بطيئة جداً", opt4: "سهلة الدوران في اتجاه الريح", correct: "2", cat: "t2_turning" },
+            { q: "ما هي خواص السفينة المائلة بالأمام (Trimmed by the head - الغاطس الأمامي أكبر من الخلفي)؟", opt1: "يتحرك محور الدوران للأمام، دائرة دورانها صغيرة، لا تتجاوب دفتها بسرعة وبمجرد بدء الدوران يصعب إيقافها، وسهلة الدوران باتجاه الريح", opt2: "يتحرك محور الدوران للخلف ودائرة دورانها كبيرة جداً", opt3: "تعطي آلاتها أقصى قوة ممكنة بسهولة", opt4: "يسهل السيطرة عليها إذا جاءها الريح من الركن الخلفي", correct: "1", cat: "t2_turning" },
+            { q: "حسب قواعد فن القيادة البحرية الجيدة، متى يجب تحويل التوجيه الأوتوماتيكي إلى توجيه يدوي؟", opt1: "في منتصف المحيط فقط", opt2: "عند الاقتراب من الموانئ أو السير في الأنهار والقنوات الضيقة", opt3: "عند استلام النوبة الليلية فقط", opt4: "لا يحول إلى يدوي إلا عند تعطل الماكينات", correct: "2", cat: "t2_turning" },
+
+            // الفرع 5: المخاطيف والنوبة الملاحية والإرشاد (t2_anchors)
+            { q: "ما هي القاعدة الأكثر شيوعاً لتحديد عدد الأقفال التي سيتم إلقاؤها عند الإرساء بالمخطاف؟", opt1: "عدد الأقفال = من 3.5 إلى 4 أمثال العمق", opt2: "عدد الأقفال = ضعف غاطس السفينة", opt3: "عدد الأقفال = 10 أقفال ثابتة في كل الأعماق", opt4: "عدد الأقفال = نصف العمق بالمتر", correct: "1", cat: "t2_anchors" },
+            { q: "كيف يتم إنزال وإلقاء المخطاف إذا كان عمق المياه بين 20 متراً و60 متراً؟", opt1: "يلقى بشكل حر من فتحة المخطاف مباشرة", opt2: "يجب إنزاله بالونش حتى يكون على الأكثر على مسافة 15 إلى 20 متراً عن القاع ثم يلقى", opt3: "يمنع استخدام المخطاف في هذا العمق", opt4: "ينزل إلى سطح البحر فقط ثم يلقى حراً", correct: "2", cat: "t2_anchors" },
+            { q: "لماذا يمنع إلقاء المخطاف بشكل حر في الأعماق الأكبر من 60 متراً؟", opt1: "لأن الماء يكون بارداً جداً", opt2: "لأن إلقاءه من مسافة بعيدة يؤدي لتسارع الجنزير وعدم إمكانية فرملته بفعل وزنه والجاذبية، مما يتلف ونش المخطاف أو يفقد المخطاف وجنزيره", opt3: "لأن المخطاف سيطفو على السطح", opt4: "لأن الأقفال تنفصل عند عمق 50 متراً", correct: "2", cat: "t2_anchors" },
+            { q: "ما هو أقصى عمق مسموح به لإلقاء المخطاف من قبل هيئات التصنيف (إلا بتجهيزات خاصة)؟", opt1: "40 متراً", opt2: "60 متراً", opt3: "85 متراً", opt4: "200 متر", correct: "3", cat: "t2_anchors" },
+            { q: "كم تبلغ قوة إمساك المخطاف في القاع الرملي؟ وكيف تتأثر إذا زادت زاوية ذراع المخطاف مع القاع؟", opt1: "في الرملي من 4 إلى 6 أمثال وزن المخطاف؛ وإذا كانت الزاوية 5° تقل القوة 25%، وعند 15° تقل بمقدار 50%", opt2: "في الرملي تساوي وزن المخطاف فقط، وتزداد القوة بزيادة الزاوية", opt3: "في الرملي 10 أمثال وزنه ولا تتأثر بزاوية الذراع", opt4: "تقل القوة 90% عند زاوية 5 درجات", correct: "1", cat: "t2_anchors" },
+            { q: "كم تزن الذراع في المخطاف بذراع (Patent Stock Anchor) ومتى تصمم مستقيمة؟", opt1: "تزن نصف وزن المخطاف وتصمم منحنية دائماً", opt2: "تزن ربع (1/4) وزن المخطاف، وتصمم مستقيمة إذا زاد وزن المخطاف عن 610 كغ", opt3: "تزن 10% من وزن المخطاف", opt4: "تزن ضعف وزن المخطاف", correct: "2", cat: "t2_anchors" },
+            { q: "أي مما يلي يُعد من عيوب المخطاف بذراع (Patent Stock Anchor)؟", opt1: "لا يعيد نفسه للإمساك بالقاع إذا انفصل عنه", opt2: "لا يمكن تخزينه داخل فتحة المخطاف (الهاوس بايب) بل يخزن على السطح، وبروز المحارة العليا قد يلتف حوله الجنزير أو يؤثر على قاع السفينة في الجزر", opt3: "يدور حول نفسه باستمرار تحت الجهد", opt4: "لا يصلح للقاع الرملي", correct: "2", cat: "t2_anchors" },
+            { q: "قبل كم دقيقة يجب على الضابط المناوب التواجد في غرفة القيادة قبل بداية النوبة الملاحية؟ ولماذا؟", opt1: "قبل 5 دقائق فقط لتوقيع الدفتر", opt2: "مبكراً بـ 20 دقيقة قبل بداية النوبة لتأقلم الرؤية والاطلاع على الوضع", opt3: "قبل ساعة كاملة", opt4: "في نفس دقيقة بدء النوبة", correct: "2", cat: "t2_anchors" },
+            { q: "متى يجوز لضابط النوبة السابقة مغادرة غرفة القيادة عند تسليم النوبة؟", opt1: "فور انتهاء وقت نوبته على الساعة", opt2: "لا يجوز له المغادرة قبل أن يخطره الضابط الجديد أن كل شيء تحت السيطرة", opt3: "بمجرد دخول الناضورجي لغرفة القيادة", opt4: "بعد كتابة خطأ البوصلة مباشرة", correct: "2", cat: "t2_anchors" },
+            { q: "في أي من الحالات التالية يتحتم على الضابط المناوب استدعاء الربان لغرفة القيادة فوراً؟", opt1: "عند حدوث رؤية محدودة، أو صعوبة المحافظة على خط السير، أو جر المخطاف، أو تغير ملحوظ في الطقس والبارومتر", opt2: "عند ثبات الطقس ووضوح الرؤية", opt3: "عند مرور سفينة على بعد 15 ميلاً بزاوية آمنة", opt4: "عند تصحيح الخرائط الورقية", correct: "1", cat: "t2_anchors" },
+            { q: "ما هو أقصى ارتفاع رأسي من سطح البحر يُسمح للمرشد بصعوده على سلم المرشد منفرداً (وبعده يجب استخدام سلم الإعاشة معه)؟", opt1: "5 أمتار", opt2: "9 أمتار", opt3: "15 متراً", opt4: "20 متراً", correct: "2", cat: "t2_anchors" },
+            { q: "عند استخدام سلم الإعاشة مع سلم المرشد، كيف يتم تثبيت السلمين معاً؟", opt1: "تكون العتبة السفلية لسلم الإعاشة ملاصقة لسلم المرشد وعلى ارتفاع لا يزيد عن 9 أمتار من سطح البحر", opt2: "يوضع سلم المرشد في المقدمة وسلم الإعاشة في المؤخرة", opt3: "تكون العتبة السفلية لسلم الإعاشة مغمورة تحت الماء", opt4: "يربط سلم المرشد أسفل سلم الإعاشة بدون تثبيت بجانب السفينة", correct: "1", cat: "t2_anchors" },
+            { q: "ما هي حدود المسؤولية القانونية بين الربان والمرشد أثناء مناورة الدخول أو الخروج من الميناء؟", opt1: "تنتقل المسؤولية الكاملة للمرشد بمجرد صعوده للسفينة", opt2: "يحق للربان رفض المناورة أو طلب زيادة القواطر، لأن المسؤولية الأولى والأخيرة عن سلامة السفينة تقع على عاتق الربان والمرشد مستشار/مساعد له فقط", opt3: "لا يحق للربان التدخل في أوامر المرشد نهائياً", opt4: "تقع المسؤولية على قبطان القاطرة", correct: "2", cat: "t2_anchors" }
+        ];
+
+        const allQuizData = [...lawQuizData, ...watchQuizData, ...cargoQuizData, ...radarQuizData, ...tech2QuizData];
+
+        // تعريف هيكلة الأفرع لكل مادة من المواد الخمس
         const subjectConfigs = {
             law: {
-                title: "⚖️ قسم القانون البحري والاتفاقيات",
+                title: "⚖️ قسم القانون البحري والاتفاقيات (ترم رابع)",
                 color: "var(--accent-blue)",
                 defaultCat: "all-law",
+                hasOral: false,
                 branches: [
                     { id: "law", name: "القانون البحري (28 سؤال)" },
                     { id: "isps", name: "مدونة ISPS (17 سؤال)" },
@@ -933,9 +1433,10 @@
                 ]
             },
             watch: {
-                title: "🧭 قسم تأمين النوبة الملاحية (COLREGS)",
+                title: "🧭 قسم تأمين النوبة الملاحية - COLREGS (ترم رابع)",
                 color: "var(--accent-orange)",
                 defaultCat: "all-watch",
+                hasOral: false,
                 branches: [
                     { id: "w_r21", name: "التعاريف - Rule 21 (6 أسئلة)" },
                     { id: "w_r22", name: "مدى الرؤية - Rule 22 (16 سؤال)" },
@@ -947,9 +1448,10 @@
                 ]
             },
             cargo: {
-                title: "📦 قسم تداول واستيفاء البضائع",
+                title: "📦 قسم تداول واستيفاء البضائع (ترم رابع)",
                 color: "var(--accent-purple)",
                 defaultCat: "all-cargo",
+                hasOral: false,
                 branches: [
                     { id: "c_terms", name: "مصطلحات الشحن وخطوط التحميل (17 سؤال)" },
                     { id: "c_vent", name: "التهوية والرطوبة ونقطة الندى (6 أسئلة)" },
@@ -960,9 +1462,11 @@
                 ]
             },
             radar: {
-                title: "📡 قسم الرادار البحري و ARPA",
+                title: "📡 قسم الرادار البحري و ARPA (ترم رابع)",
                 color: "var(--accent-cyan)",
                 defaultCat: "all-radar",
+                hasOral: true,
+                oralBtnText: "📖 تصفح ملخص المقابلة الشفهية - الرادار و ARPA (17 سؤال وجواب)",
                 branches: [
                     { id: "r_basics", name: "المفاهيم الأساسية ومبدأ العمل (10 أسئلة)" },
                     { id: "r_comp", name: "المقارنات وأوضاع الشاشة (9 أسئلة)" },
@@ -970,9 +1474,25 @@
                     { id: "r_arpa", name: "جهاز ARPA والتوقيع الراداري (11 سؤال)" },
                     { id: "all-radar", name: "شامل أتمتة الرادار البحري و ARPA (40 سؤال)", full: true }
                 ]
+            },
+            tech2: {
+                title: "⚙️ قسم مادة التقنيات البحرية 2 (ترم ثاني)",
+                color: "var(--accent-emerald)",
+                defaultCat: "all-tech2",
+                hasOral: true,
+                oralBtnText: "📖 تصفح دليل المقابلة الشفهية والعملي الشامل - التقنيات 2 (7 أقسام كاملة)",
+                branches: [
+                    { id: "t2_defs", name: "التعاريف والمصطلحات الأساسية (9 أسئلة)" },
+                    { id: "t2_props", name: "مناورة السفينة وأنواع الرفاصات (9 أسئلة)" },
+                    { id: "t2_rudders", name: "الدفات والدوران الضيق والرياح (6 أسئلة)" },
+                    { id: "t2_turning", name: "دائرة الدوران والميل وفنون القيادة (8 أسئلة)" },
+                    { id: "t2_anchors", name: "المخاطيف والنوبة الملاحية والإرشاد (13 سؤال)" },
+                    { id: "all-tech2", name: "شامل أتمتة التقنيات البحرية 2 (45 سؤال)", full: true }
+                ]
             }
         };
 
+        let currentTerm = 'term4';
         let currentSubject = 'law';
         let selectedCategory = 'all-law';
         let currentQuizData = [];
@@ -984,7 +1504,8 @@
         let timeRemaining = 0;
 
         const screens = {
-            home: document.getElementById('home-screen'),
+            terms: document.getElementById('terms-screen'),
+            subjects: document.getElementById('subjects-screen'),
             branches: document.getElementById('branches-screen'),
             quiz: document.getElementById('quiz-screen'),
             result: document.getElementById('result-screen'),
@@ -997,6 +1518,28 @@
         const barCorrect = document.getElementById('bar-correct');
         const barWrong = document.getElementById('bar-wrong');
 
+        // فتح شاشة مواد الترم المختار (ترم ثاني / ترم رابع)
+        window.openTerm = function(termKey) {
+            currentTerm = termKey;
+            const titleEl = document.getElementById('term-subjects-title');
+            const t4Grid = document.getElementById('term4-subjects');
+            const t2Grid = document.getElementById('term2-subjects');
+
+            if (termKey === 'term4') {
+                titleEl.innerText = "⚓ مواد الفصل الدراسي الرابع (ترم رابع)";
+                titleEl.style.color = "var(--accent-blue)";
+                t4Grid.style.display = "grid";
+                t2Grid.style.display = "none";
+            } else {
+                titleEl.innerText = "🚢 مواد الفصل الدراسي الثاني (ترم ثاني)";
+                titleEl.style.color = "var(--accent-emerald)";
+                t4Grid.style.display = "none";
+                t2Grid.style.display = "grid";
+            }
+
+            switchScreen('subjects');
+        };
+
         // فتح شاشة الأفرع الخاصة بالمادة المختارة
         window.openSubject = function(subjKey) {
             currentSubject = subjKey;
@@ -1007,9 +1550,14 @@
             titleEl.innerText = config.title;
             titleEl.style.color = config.color;
 
-            // إظهار زر ملخص الأسئلة الشفهية في قسم الرادار فقط
             const oralBtn = document.getElementById('oral-guide-btn');
-            oralBtn.style.display = (subjKey === 'radar') ? 'flex' : 'none';
+            if (config.hasOral) {
+                oralBtn.style.display = 'flex';
+                oralBtn.innerText = config.oralBtnText;
+                oralBtn.style.borderColor = config.color;
+            } else {
+                oralBtn.style.display = 'none';
+            }
 
             const container = document.getElementById('branches-container');
             container.innerHTML = '';
@@ -1038,7 +1586,21 @@
             });
 
             switchScreen('branches');
-            window.scrollTo(0, 0);
+        };
+
+        // فتح شاشة الدليل الشفهي حسب المادة الحالية
+        window.openOralGuide = function() {
+            const radarOral = document.getElementById('oral-radar-content');
+            const tech2Oral = document.getElementById('oral-tech2-content');
+
+            if (currentSubject === 'radar') {
+                radarOral.style.display = 'block';
+                tech2Oral.style.display = 'none';
+            } else if (currentSubject === 'tech2') {
+                radarOral.style.display = 'none';
+                tech2Oral.style.display = 'block';
+            }
+            switchScreen('oral');
         };
 
         window.startAssessment = function() {
@@ -1050,6 +1612,8 @@
                 currentQuizData = [...cargoQuizData];
             } else if (selectedCategory === 'all-radar') {
                 currentQuizData = [...radarQuizData];
+            } else if (selectedCategory === 'all-tech2') {
+                currentQuizData = [...tech2QuizData];
             } else {
                 currentQuizData = allQuizData.filter(q => q.cat === selectedCategory);
             }
@@ -1199,8 +1763,7 @@
 
         window.resetQuiz = function() {
             if (timerInterval) clearInterval(timerInterval);
-            switchScreen('home');
-            window.scrollTo(0, 0);
+            switchScreen('terms');
         };
 
         window.switchScreen = function(screenName) {
